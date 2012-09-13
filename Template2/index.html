@@ -1,6 +1,6 @@
 <html>
     <head>
-        <script src="/d3.v2.js" type="text/javascript"></script>
+        <script src="../d3.v2.js" type="text/javascript"></script>
         <style type="text/css">
             .country {
                 fill:#e3e3e3;
@@ -28,7 +28,7 @@
                 .projection(xy);
 
             //now we download the country boundaries
-            d3.json("/data/world-countries.json", function(geojson) {
+            d3.json("../data/world-countries.json", function(geojson) {
                 var countries = d3.select("#countries");
                 //create a path for each country
                 countries.selectAll("path")
@@ -43,7 +43,7 @@
 
 
                 //load a remote CSV file
-                d3.csv("/data/costofliving.csv", function(cities) {
+                d3.csv("../data/costofliving.csv", function(cities) {
 
                     //Let's convert the data to numbers that should be numbers
                     cities.forEach(function(o) {
