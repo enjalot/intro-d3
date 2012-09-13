@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <script src="/d3.v2.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <svg></svg>
+        <script type="text/javascript">
+            //load a remote CSV file
+            d3.csv("/data/costofliving.csv", function(data) {
+                //Our CSV file is turned into an array, let's see what it looks like
+                console.log("hi data", data);
+
+                //What fields do we have?
+                console.log("sample", data[0]);
+
+                //What's your favorite city?
+                for(var i = 0; i < data.length; i++) {
+                    if(data[i].city === "San Francisco") {
+                        console.log("that's my city!", data[i]);
+                        console.log("the consumer price compared to NYC in", data[i].city, "is", data[i].price);
+                    }
+                }
+
+                //Let's convert the data to numbers that should be numbers
+                data.forEach(function(o) {
+                  o.price = parseFloat(o.price);
+                  o.rent = parseFloat(o.rent);
+                  o.groceries = parseFloat(o.groceries);
+
+                  o.lat = parseFloat(o.lat);
+                  o.lon = parseFloat(o.lon);
+                });
+                
+                //What is the most expensive rent?
+                var max_rent = d3.max(data, function(d) {
+                    return d.rent;
+                });
+                console.log("most expensive rent", max_rent);
+
+                //What is the cheapest groceries can get?
+                var min_groceries = d3.min(data, function(d) {
+                    return d.groceries;
+                });
+                console.log("cheapest groceries", min_groceries);
+
+                //console.log("hi data", JSON.stringify(data));
+                
+        })
+        </script>
+    </body>
+</html>
