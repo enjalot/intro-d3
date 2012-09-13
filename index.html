@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+    <link href='style.css' rel='stylesheet' type='text/css'>
+
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,300,600,900' rel='stylesheet' type='text/css'>  </head>
+    
+</head>
+<body>
+<div id="content">
+    <div id="intro" class="section">
+        <span class="title">Introduction to d3.js</span>
+        <br>
+        <br>
+        
+        Today's Goals:<br>
+        <a href="Template1/finished.html">Scatter Plot</a><br>
+        <a href="Template2/finished.html">World Map</a>
+        <br><br>
+        Bonus:<br>
+        <a href="http://enjalot.com/tributary/3714774/">Combo</a>
+
+    </div>
+
+    <div id="setup" class="section">
+        Download the code: 
+        <br>
+        <a href="https://github.com/enjalot/intro-d3">https://github.com/enjalot/intro-d3</a>
+        <br>
+        <br>
+        Start the python server: 
+        <br> 
+        <p class="code">python -m SimpleHTTPServer 8888</p>
+        <br>
+        Understand the data:<br>
+        <a href="http://www.numbeo.com/cost-of-living/rankings.jsp">Cost of Living Indices</a>
+        <br>
+        <a href="http://www.numbeo.com/cost-of-living/cpi_explained.jsp">Explanation of Index</a>
+    </div>
+
+    <div id="scatter" class="section">
+        <span class="title">Scatter Plot</span>
+        <br>
+        <br>
+        <span class="subtitle">Get & Play with Data</span>
+        <p class="code">
+            javascript console and arrays <br>
+            <a href="https://github.com/mbostock/d3/wiki/CSV">d3.csv</a> <br>
+            <a href="https://github.com/mbostock/d3/wiki/Arrays#wiki-d3_min">d3.min</a> / <a href="https://github.com/mbostock/d3/wiki/Arrays#wiki-d3_max">d3.max</a> <br>
+        </p>
+        <a href="Template1/index.html" class="example" target="_blank">Go!</a>
+
+        <br><br>
+        <span class="subtitle">Draw Circles</span>
+        <iframe src="http://enjalot.com/tributary/3716670/" width=760 height=400 frameBorder=0></iframe>
+        <a href="http://enjalot.com/tributary/3716670/" class="example" target="_blank">Example</a>
+
+        <br><br>
+        <span class="subtitle">Draw Circles with Data</span>
+        <iframe src="http://enjalot.com/tributary/3716378/" width=760 height=400 frameBorder=0></iframe>
+        <a href="http://enjalot.com/tributary/3716378/" class="example" target="_blank">Example</a>
+
+        <br><br>
+        <span class="subtitle">Scales</span> <a href="https://github.com/mbostock/d3/wiki/Scales" target="_blank">d3 docs</a>
+        <iframe src="http://enjalot.com/tributary/3716793/" width=760 height=400 frameBorder=0></iframe>
+        <a href="http://enjalot.com/tributary/3716793/" class="example" target="_blank">Example</a>
+
+        <br><br>
+        <span class="subtitle">Axes</span> <a href="https://github.com/mbostock/d3/wiki/SVG-Axes" target="_blank">d3 docs</a>
+        <iframe src="http://enjalot.com/tributary/3716816/" width=760 height=400 frameBorder=0></iframe>
+        <a href="http://enjalot.com/tributary/3716816/" class="example" target="_blank">Example</a>
+
+        <br><br>
+        <span class="subtitle">Titles / Labels</span>
+        <iframe src="http://enjalot.com/tributary/3716875/" width=760 height=400 frameBorder=0></iframe>
+        <a href="http://enjalot.com/tributary/3716875/" class="example" target="_blank">Example</a>
+
+
+
+
+    </div>
+
+    <div id="map" class="section">
+        <span class="title">World Map</span>
+    </div>
+
+    <div id="transitions" class="section">
+        <span class="title">Transitions</span>
+
+        <br><br>
+        <span class="subtitle">One Dimension</span>
+
+        <br><br>
+        <span class="subtitle">Transition Circles</span>
+
+        <br><br>
+        <span class="subtitle">Transition Scatter Plot</span>
+
+    </div>
+
+
+
+</div>
+
+<script src="/d3.v2.js" type="text/javascript"></script>
+
+<script>
+    var colors = d3.scale.category20();
+    d3.selectAll(".section")
+    .style("background-color", function(d,i) {
+        var c = d3.rgb(colors(i));
+        var col = "rgba(" + [c.r, c.g, c.b, 0.2] + ")";
+        console.log("col", col,i)
+        return col;
+    })
+
+</script>
+
+</body>
+</html>

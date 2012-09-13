@@ -1,0 +1,145 @@
+<html>
+    <head>
+        <script src="/d3.v2.js" type="text/javascript"></script>
+        <style type="text/css">
+            .country {
+                fill:#e3e3e3;
+                stroke:#ffffff;
+                stroke-width:1px;
+            }
+        </style>
+        <title>
+            Cost of Living World Map
+        </title>
+    </head>
+    <body>
+        <svg>
+          <g id="chart">
+            <g id="bg">
+            </g>
+            <g id="countries">
+            </g>
+            <g id="points">
+            </g>
+          </g>
+        </svg>
+        <script type="text/javascript">
+            //Let's make a map
+            //https://github.com/mbostock/d3/wiki/Geo-Projections
+            //first we need a projection
+            var xy = d3.geo.mercator()
+                .scale(600)
+                .translate([300, 300])
+            //then we need a path function
+            var geopath = d3.geo.path()
+                .projection(xy);
+
+            var cw = 600;
+            var ch = 429;
+            var chart = d3.select("#chart")
+                .attr("transform", "translate(" + [100, 100] + ")");
+
+            //setup a background circle
+            chart.select("#bg")
+              .append("circle") 
+              .attr({
+                cx: cw/2,
+                cy: ch/2,
+                r: 227,
+                fill: "#DDD9C5",
+                "stroke-width": 0
+              })
+
+            //now we download the country boundaries
+            d3.json("/data/world-countries.json", function(countries) {
+                var countriesGroup = chart.select("#countries");
+                //create a path for each country
+                countriesGroup.selectAll("path")
+                    .data(countries.features)
+                    .enter()
+                        .append("path")
+                        .attr("d", geopath)
+                        .attr("id", function(d) {
+                            return d.properties.name;
+                            })
+                        .classed("country", true)
+                        .style({
+                            fill:"#F7924F",
+                            stroke:"#FFFFFF",
+                            "stroke-width": 0
+                        })
+                  
+
+                countriesGroup.select("#Antarctica").remove();
+
+                //load a remote CSV file
+                d3.csv("/data/costofliving.csv", function(col) {
+
+                    //Let's convert the data to numbers that should be numbers
+                    col.forEach(function(o) {
+                      o.price = parseFloat(o.price);
+                      o.rent = parseFloat(o.rent);
+                      o.groceries = parseFloat(o.groceries);
+                      o.lat = parseFloat(o.lat);
+                      o.lon = parseFloat(o.lon);
+                    });
+
+                    var price_min = 0;
+                    var price_max = d3.max(col, function(d) {return d.price});
+
+                    var price_scale = d3.scale.sqrt()
+                        .domain([price_min, price_max])
+                        .range([1, 5]);
+
+                    var price_color_scale = d3.scale.linear()
+                        .domain([price_min, price_max])
+                        .range(["#6EA9B8", "#55010B"])
+                        .interpolate(d3.interpolateHcl)
+                        //.interpolate(d3.interpolateLab)
+                         
+                    var points = d3.select("#points")
+                        .selectAll("circle")
+                        .data(col)
+                    points
+                        .enter()
+                        .append("circle")
+                    points
+                        .attr("transform", function(d) {
+                            var p = xy([d.lon, d.lat]);
+                            return "translate(" + p + ")";
+                        })
+                        .attr({
+                              "r": function(d) {
+                                //return 5;
+                                return price_scale(d.price);
+                                //return rent_scale(d.rent);
+                              },
+                              //"fill": "#015BAD",
+                              fill: function(d) {
+                                return price_color_scale(d.price);
+                              },
+                              stroke: function(d) {
+                                return price_color_scale(d.price);
+                              },
+                              "fill-opacity": 0.60403,
+                              "stroke-opacity": 0.2,
+                              "stroke-width": 1
+                        })
+                        .on("mouseover", function(d) {
+                            console.log(d, d.city);
+                        })
+                        .append("title")
+                          .text(function(d) {
+                            return d.city;
+                          })
+
+
+
+
+
+                    
+                })
+        })
+        </script>
+    </body>
+</html>
