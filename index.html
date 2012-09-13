@@ -101,6 +101,21 @@
 
     <div id="map" class="section">
         <span class="title">World Map</span>
+
+        <br><br>
+        <span class="subtitle">Projections</span>
+        <iframe src="http://enjalot.com/tributary/3717149/" width=760 height=400 frameBorder=0></iframe>
+        <a href="http://enjalot.com/tributary/3717149/" class="example" target="_blank">Example</a>
+
+        <br><br>
+        <span class="subtitle">Plotting Data</span>
+        <iframe src="http://enjalot.com/tributary/3714670/" width=760 height=400 frameBorder=0></iframe>
+        <a href="http://enjalot.com/tributary/3714670/" class="example" target="_blank">Example</a>
+
+
+
+
+
     </div>
 
     <div id="transitions" class="section">
@@ -115,8 +130,20 @@
         <br><br>
         <span class="subtitle">Transition Scatter Plot</span>
 
+        <br><br>
+        <span class="subtitle">Scatter Plot to Map and Back</span>
+
+
+
     </div>
 
+    <div id="bonus" class="section">
+        <span class="title">Data Viz Bonus</span>
+
+        <iframe src="http://enjalot.com/tributary/3714311/" width=760 height=750 frameBorder=0></iframe>
+        <a href="http://enjalot.com/tributary/3714311/" class="example" target="_blank">Example</a>
+        
+    </div>
 
 
 </div>
@@ -129,7 +156,7 @@
     .style("background-color", function(d,i) {
         var c = d3.rgb(colors(i));
         var col = "rgba(" + [c.r, c.g, c.b, 0.2] + ")";
-        console.log("col", col,i)
+        //console.log("col", col,i)
         return col;
     })
 
