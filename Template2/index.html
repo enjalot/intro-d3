@@ -18,28 +18,10 @@
         </svg>
         <script type="text/javascript">
             //Let's make a map
-            //https://github.com/mbostock/d3/wiki/Geo-Projections
-            //first we need a projection
-            var xy = d3.geo.mercator()
-                .scale(900)
-                .translate([500, 500])
-            //then we need a path function
-            var path = d3.geo.path()
-                .projection(xy);
 
             //now we download the country boundaries
             d3.json("../data/world-countries.json", function(geojson) {
-                var countries = d3.select("#countries");
-                //create a path for each country
-                countries.selectAll("path")
-                    .data(geojson.features)
-                    .enter()
-                        .append("svg:path")
-                        .attr("d", path)
-                        .attr("id", function(d) {
-                            return d.properties.name;
-                            })
-                        .classed("country", true);
+
 
 
                 //load a remote CSV file
@@ -54,24 +36,6 @@
                       o.lon = parseFloat(o.lon);
                     });
      
-                    var points = d3.select("#points")
-                        .selectAll("circle")
-                        .data(cities)
-                    points
-                        .enter()
-                        .append("circle")
-                    points
-                        .attr("transform", function(d) {
-                            var p = xy([d.lon, d.lat]);
-                            return "translate(" + p + ")";
-                        })
-                        .attr("r", 5)
-                        .on("mouseover", function(d) {
-                            console.log(d, d.city);
-                        })
-
-
-
 
 
                     
