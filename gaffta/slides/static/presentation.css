@@ -1,0 +1,55 @@
+/* presentation styling */
+svg {
+    width: 100%;
+    height: 100%;
+}
+canvas {
+    width: 100%;
+    height: 100%;
+}
+iframe {
+    width: 100%;
+    height: 100%;
+    overflow:hidden;
+}
+
+a,span {
+  font-family: Ubuntu !important;
+}
+
+
+.toc {
+  font-size: 0.7em !important;
+}
+
+.code {
+    font-family: Courier New !important;
+    background-color: #efefef;
+    padding: 5px;
+    font-size: .7em !important;
+}
+
+.la {
+  text-align: left;
+}
+
+
+.subtitle {
+  font-size: 0.8em !important;
+  color: #464646;
+}
+section {
+  font-size: 0.8em !important;
+}
+
+
+.desc {
+    float:left;
+    clear:left;
+}
+
+.ui-widget {
+    font-size: 12px !important;
+}
+
+

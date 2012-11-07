@@ -1,0 +1,23 @@
+var numbers = [ 12, 32, 93, 24 ];
+
+var svg = d3.select("svg");
+
+var yscale = d3.scale.linear()
+    .domain([0, 100])
+    .range([0, 200]);
+
+var color_scale = d3.scale.ordinal()
+    .domain(d3.range(numbers.length))
+    .range(["#ff0000", "#00ff00", "#0000ff"])
+
+svg.selectAll("rect")
+  .data(numbers)
+  .enter()
+  .append("rect")
+  .attr({
+    x: function(d,i) { return 50 + i * 50 },
+    y: 150,
+    width: 40,
+    height: function(d,i) { return yscale(d); },
+    fill: function(d,i) { return color_scale(i) }
+  })

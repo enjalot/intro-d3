@@ -1,0 +1,10 @@
+<text x=10 y=200>
+  SVG!
+</text>
+  
+<circle transform=scale(0.5) cx=113 cy=100 r=100 fill=#0000FF>
+</circle>
+
+<rect transform=translate(304,100)rotate(45) width=100 height=100 fill=#FF0000></rect>
+</rect>
+

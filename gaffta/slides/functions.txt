@@ -1,0 +1,21 @@
+var things = [ {type:"apple", number:5}, {type:"orange", number:2}];
+
+function getType(fruit) {
+  //console.log(fruit.type);
+  return fruit.type;
+}
+
+for(var i = 0; i < things.length; i++) {
+  //console.log(things[i].type);
+  var type = getType(things[i]);
+  //console.log( "type:", type );
+}
+
+things.forEach(function(fruit) {
+  //console.log(fruit);
+}
+
+things.forEach(getType);
+
+var max = d3.max(things, function(d) { return d.number })
+//console.log("max:", max)

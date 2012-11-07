@@ -1,0 +1,14 @@
+#display {
+  float:left;
+  width: 50%;
+  /*height: 100%;*/
+  height: 400px;
+
+}
+
+#editor {
+  float:left;
+  width: 50%;
+  /*height: 100%;*/
+  height: 400px;
+}

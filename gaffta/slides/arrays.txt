@@ -1,0 +1,10 @@
+var numbers = [ 1, 2, 3, 4 ];
+
+var colors = [ "red", "blue", "green" ];
+
+var things = [ {type:"apple", number:5}, {type:"orange", number:2}];
+
+//console.log("number:", numbers[0]);
+//console.log("color:", colors[0]);
+//console.log("thing:", things[0]);
+

@@ -1,0 +1,406 @@
+{
+    "completed_in": 0.035,
+    "max_id": 265903556069060600,
+    "max_id_str": "265903556069060609",
+    "next_page": "?page=2&max_id=265903556069060609&q=%23election2012&geocode=37.774785%2C-122.420311%2C2mi",
+    "page": 1,
+    "query": "%23election2012",
+    "refresh_url": "?since_id=265903556069060609&q=%23election2012&geocode=37.774785%2C-122.420311%2C2mi",
+    "results": [
+        {
+            "created_at": "Tue, 06 Nov 2012 19:48:42 +0000",
+            "from_user": "mllevsf",
+            "from_user_id": 603106182,
+            "from_user_id_str": "603106182",
+            "from_user_name": "Victoria Hoang",
+            "geo": {
+                "coordinates": [
+                    37.793947,
+                    -122.404058
+                ],
+                "type": "Point"
+            },
+            "id": 265903556069060600,
+            "id_str": "265903556069060609",
+            "iso_language_code": "en",
+            "metadata": {
+                "result_type": "recent"
+            },
+            "profile_image_url": "http://a0.twimg.com/profile_images/2290679260/image_normal.jpg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/2290679260/image_normal.jpg",
+            "source": "&lt;a href=&quot;http://twitter.com/download/iphone&quot;&gt;Twitter for iPhone&lt;/a&gt;",
+            "text": "@mllevsf #vote #electionday2012 #ivoted #election2012",
+            "to_user": "mllevsf",
+            "to_user_id": 603106182,
+            "to_user_id_str": "603106182",
+            "to_user_name": "Victoria Hoang",
+            "in_reply_to_status_id": 265903267681284100,
+            "in_reply_to_status_id_str": "265903267681284096"
+        },
+        {
+            "created_at": "Tue, 06 Nov 2012 19:26:26 +0000",
+            "from_user": "factory1",
+            "from_user_id": 16842103,
+            "from_user_id_str": "16842103",
+            "from_user_name": "factory 1 design",
+            "geo": {
+                "coordinates": [
+                    37.769313,
+                    -122.42156
+                ],
+                "type": "Point"
+            },
+            "id": 265897953200316400,
+            "id_str": "265897953200316416",
+            "iso_language_code": "en",
+            "metadata": {
+                "result_type": "recent"
+            },
+            "profile_image_url": "http://a0.twimg.com/profile_images/1701099598/f1LOGO_10_normal.jpg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1701099598/f1LOGO_10_normal.jpg",
+            "source": "&lt;a href=&quot;http://instagr.am&quot;&gt;Instagram&lt;/a&gt;",
+            "text": "#sunny day. off to #vote! #election2012 #voting @ factory 1 design http://t.co/tNPcXQeq",
+            "to_user": null,
+            "to_user_id": 0,
+            "to_user_id_str": "0",
+            "to_user_name": null
+        },
+        {
+            "created_at": "Tue, 06 Nov 2012 18:53:06 +0000",
+            "from_user": "sjtaurus24",
+            "from_user_id": 244727843,
+            "from_user_id_str": "244727843",
+            "from_user_name": "Cari Gulland",
+            "geo": null,
+            "location": "",
+            "id": 265889564223238140,
+            "id_str": "265889564223238144",
+            "iso_language_code": "en",
+            "metadata": {
+                "result_type": "recent"
+            },
+            "profile_image_url": "http://a0.twimg.com/profile_images/2486094766/QWmPf8AP_normal",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/2486094766/QWmPf8AP_normal",
+            "source": "&lt;a href=&quot;http://twitter.com/download/android&quot;&gt;Twitter for Android&lt;/a&gt;",
+            "text": "RT @ATTSeagull: Telling ya. GO VOTE. We suggest #PoseyRomo2012! #Election2012",
+            "to_user": null,
+            "to_user_id": 0,
+            "to_user_id_str": "0",
+            "to_user_name": null
+        },
+        {
+            "created_at": "Tue, 06 Nov 2012 18:41:18 +0000",
+            "from_user": "simmplyayel",
+            "from_user_id": 59339470,
+            "from_user_id_str": "59339470",
+            "from_user_name": "Arielle Cabiltes",
+            "geo": null,
+            "location": "Las Vegas",
+            "id": 265886591921319940,
+            "id_str": "265886591921319936",
+            "iso_language_code": "en",
+            "metadata": {
+                "result_type": "recent"
+            },
+            "profile_image_url": "http://a0.twimg.com/profile_images/2777030319/5c01343375b7018e3c06a64b2e17e6ce_normal.jpeg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/2777030319/5c01343375b7018e3c06a64b2e17e6ce_normal.jpeg",
+            "source": "&lt;a href=&quot;http://twitter.com/download/iphone&quot;&gt;Twitter for iPhone&lt;/a&gt;",
+            "text": "RT @ATTSeagull: Telling ya. GO VOTE. We suggest #PoseyRomo2012! #Election2012",
+            "to_user": null,
+            "to_user_id": 0,
+            "to_user_id_str": "0",
+            "to_user_name": null
+        },
+        {
+            "created_at": "Tue, 06 Nov 2012 18:18:04 +0000",
+            "from_user": "jared_mcginley",
+            "from_user_id": 431343987,
+            "from_user_id_str": "431343987",
+            "from_user_name": "Jared McGinley",
+            "geo": {
+                "coordinates": [
+                    37.789495,
+                    -122.412783
+                ],
+                "type": "Point"
+            },
+            "id": 265880747427123200,
+            "id_str": "265880747427123201",
+            "iso_language_code": "en",
+            "metadata": {
+                "result_type": "recent"
+            },
+            "profile_image_url": "http://a0.twimg.com/profile_images/2438384780/image_normal.jpg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/2438384780/image_normal.jpg",
+            "source": "&lt;a href=&quot;http://instagr.am&quot;&gt;Instagram&lt;/a&gt;",
+            "text": "By show of hands #vote #presidential #election2012 #sf #sanfrancisco #califo @ 2012 US Presidential Election http://t.co/ZwZIIn7J",
+            "to_user": null,
+            "to_user_id": 0,
+            "to_user_id_str": "0",
+            "to_user_name": null
+        },
+        {
+            "created_at": "Tue, 06 Nov 2012 18:12:22 +0000",
+            "from_user": "parisoma",
+            "from_user_id": 14556090,
+            "from_user_id_str": "14556090",
+            "from_user_name": "PARISOMA",
+            "geo": null,
+            "location": "169 11th Street - SF",
+            "id": 265879311091920900,
+            "id_str": "265879311091920896",
+            "iso_language_code": "en",
+            "metadata": {
+                "result_type": "recent"
+            },
+            "profile_image_url": "http://a0.twimg.com/profile_images/2464072356/eft0qsa9shr5xn97wrqq_normal.png",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/2464072356/eft0qsa9shr5xn97wrqq_normal.png",
+            "source": "&lt;a href=&quot;http://twitter.com/download/android&quot;&gt;Twitter for Android&lt;/a&gt;",
+            "text": "Voted Yet? \"RT @FastCoDesign\"..a simple smear of ink can be enough to have a vote thrown out altogether\" http://t.co/5xlqH9eG #Election2012\"",
+            "to_user": null,
+            "to_user_id": 0,
+            "to_user_id_str": "0",
+            "to_user_name": null
+        },
+        {
+            "created_at": "Tue, 06 Nov 2012 17:51:55 +0000",
+            "from_user": "B_Martens",
+            "from_user_id": 117901613,
+            "from_user_id_str": "117901613",
+            "from_user_name": "Brad Martens",
+            "geo": {
+                "coordinates": [
+                    37.778975,
+                    -122.390732
+                ],
+                "type": "Point"
+            },
+            "id": 265874163191906300,
+            "id_str": "265874163191906304",
+            "iso_language_code": "en",
+            "metadata": {
+                "result_type": "recent"
+            },
+            "profile_image_url": "http://a0.twimg.com/profile_images/2753694821/0a7286820ff404793ec061d0e236ac77_normal.jpeg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/2753694821/0a7286820ff404793ec061d0e236ac77_normal.jpeg",
+            "source": "&lt;a href=&quot;http://twitter.com/download/iphone&quot;&gt;Twitter for iPhone&lt;/a&gt;",
+            "text": "Now that I've submitted my ballot... I can share it with the world... #SFGiants #MVPosey #Election2012 http://t.co/a1m2NCPr",
+            "to_user": null,
+            "to_user_id": 0,
+            "to_user_id_str": "0",
+            "to_user_name": null
+        },
+        {
+            "created_at": "Tue, 06 Nov 2012 17:46:46 +0000",
+            "from_user": "TazPatel",
+            "from_user_id": 19682465,
+            "from_user_id_str": "19682465",
+            "from_user_name": "Taz Patel",
+            "geo": {
+                "coordinates": [
+                    37.796834,
+                    -122.422784
+                ],
+                "type": "Point"
+            },
+            "id": 265872869500809200,
+            "id_str": "265872869500809217",
+            "iso_language_code": "en",
+            "metadata": {
+                "result_type": "recent"
+            },
+            "profile_image_url": "http://a0.twimg.com/profile_images/1427746344/profilesmile_normal.jpg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1427746344/profilesmile_normal.jpg",
+            "source": "&lt;a href=&quot;http://twitter.com/download/iphone&quot;&gt;Twitter for iPhone&lt;/a&gt;",
+            "text": "My parents, born in India, US Citizens, &amp; registered voters are going to the Polls today! That means YOU should too #election2012 #gotmfv",
+            "to_user": null,
+            "to_user_id": 0,
+            "to_user_id_str": "0",
+            "to_user_name": null
+        },
+        {
+            "created_at": "Tue, 06 Nov 2012 17:40:57 +0000",
+            "from_user": "lety",
+            "from_user_id": 92395446,
+            "from_user_id_str": "92395446",
+            "from_user_name": "LP",
+            "geo": {
+                "coordinates": [
+                    37.787982,
+                    -122.399321
+                ],
+                "type": "Point"
+            },
+            "id": 265871406074589200,
+            "id_str": "265871406074589184",
+            "iso_language_code": "en",
+            "metadata": {
+                "result_type": "recent"
+            },
+            "profile_image_url": "http://a0.twimg.com/profile_images/2634656525/5cbfb0ed5d847dd6ae6f0e9b4d7cd807_normal.jpeg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/2634656525/5cbfb0ed5d847dd6ae6f0e9b4d7cd807_normal.jpeg",
+            "source": "&lt;a href=&quot;http://twitter.com/download/iphone&quot;&gt;Twitter for iPhone&lt;/a&gt;",
+            "text": "Civic duty, y'all #Election2012  #Obama2012 http://t.co/hizxiOrI",
+            "to_user": null,
+            "to_user_id": 0,
+            "to_user_id_str": "0",
+            "to_user_name": null
+        },
+        {
+            "created_at": "Tue, 06 Nov 2012 17:39:41 +0000",
+            "from_user": "AdrienneElzbth",
+            "from_user_id": 246534425,
+            "from_user_id_str": "246534425",
+            "from_user_name": "Adrienne Olds",
+            "geo": {
+                "coordinates": [
+                    37.75576,
+                    -122.421218
+                ],
+                "type": "Point"
+            },
+            "id": 265871085923348480,
+            "id_str": "265871085923348480",
+            "iso_language_code": "en",
+            "metadata": {
+                "result_type": "recent"
+            },
+            "profile_image_url": "http://a0.twimg.com/profile_images/2678070639/8fa76076d8ca3e9254ba84f2c633f443_normal.png",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/2678070639/8fa76076d8ca3e9254ba84f2c633f443_normal.png",
+            "source": "&lt;a href=&quot;http://foursquare.com&quot;&gt;foursquare&lt;/a&gt;",
+            "text": "#ivoted - love that I got to #vote in a theatre. Yeah!! #election2012 (@ The Marsh) http://t.co/w8U2GEub",
+            "to_user": null,
+            "to_user_id": 0,
+            "to_user_id_str": "0",
+            "to_user_name": null
+        },
+        {
+            "created_at": "Tue, 06 Nov 2012 17:37:16 +0000",
+            "from_user": "tloh",
+            "from_user_id": 15181839,
+            "from_user_id_str": "15181839",
+            "from_user_name": "Tanya Loh",
+            "geo": {
+                "coordinates": [
+                    37.758,
+                    -122.412387
+                ],
+                "type": "Point"
+            },
+            "id": 265870476511965200,
+            "id_str": "265870476511965185",
+            "iso_language_code": "en",
+            "metadata": {
+                "result_type": "recent"
+            },
+            "profile_image_url": "http://a0.twimg.com/profile_images/1149181921/60496_432079763692_680503692_5326756_1855223_n_normal.jpg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1149181921/60496_432079763692_680503692_5326756_1855223_n_normal.jpg",
+            "source": "&lt;a href=&quot;http://twitter.com/download/iphone&quot;&gt;Twitter for iPhone&lt;/a&gt;",
+            "text": "This voting thing is really exciting. Get your sticker today! #election2012 http://t.co/0qSDHiIF",
+            "to_user": null,
+            "to_user_id": 0,
+            "to_user_id_str": "0",
+            "to_user_name": null
+        },
+        {
+            "created_at": "Tue, 06 Nov 2012 17:15:23 +0000",
+            "from_user": "Seemaloni",
+            "from_user_id": 18947528,
+            "from_user_id_str": "18947528",
+            "from_user_name": "Seema M",
+            "geo": {
+                "coordinates": [
+                    37.778328,
+                    -122.397694
+                ],
+                "type": "Point"
+            },
+            "id": 265864973215993860,
+            "id_str": "265864973215993856",
+            "iso_language_code": "en",
+            "metadata": {
+                "result_type": "recent"
+            },
+            "profile_image_url": "http://a0.twimg.com/profile_images/1695263499/IMG_4186___normal.jpg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1695263499/IMG_4186___normal.jpg",
+            "source": "&lt;a href=&quot;http://twitter.com/download/iphone&quot;&gt;Twitter for iPhone&lt;/a&gt;",
+            "text": "Today is making me nervous. If you are lucky enough to be able to #Vote, please do it! #election2012",
+            "to_user": null,
+            "to_user_id": 0,
+            "to_user_id_str": "0",
+            "to_user_name": null
+        },
+        {
+            "created_at": "Tue, 06 Nov 2012 17:05:49 +0000",
+            "from_user": "MLuceyMihelich",
+            "from_user_id": 565144900,
+            "from_user_id_str": "565144900",
+            "from_user_name": "Maureen Mihelich ",
+            "geo": null,
+            "location": "",
+            "id": 265862564896964600,
+            "id_str": "265862564896964608",
+            "iso_language_code": "en",
+            "metadata": {
+                "result_type": "recent"
+            },
+            "profile_image_url": "http://a0.twimg.com/profile_images/2759224983/3b2f00cee4958cbd9dc728be77bd480c_normal.jpeg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/2759224983/3b2f00cee4958cbd9dc728be77bd480c_normal.jpeg",
+            "source": "&lt;a href=&quot;http://twitter.com/download/iphone&quot;&gt;Twitter for iPhone&lt;/a&gt;",
+            "text": "RT @ATTSeagull: Telling ya. GO VOTE. We suggest #PoseyRomo2012! #Election2012",
+            "to_user": null,
+            "to_user_id": 0,
+            "to_user_id_str": "0",
+            "to_user_name": null
+        },
+        {
+            "created_at": "Tue, 06 Nov 2012 16:56:03 +0000",
+            "from_user": "TimothyKeller1",
+            "from_user_id": 401032896,
+            "from_user_id_str": "401032896",
+            "from_user_name": "Timothy Keller",
+            "geo": null,
+            "location": "San Francisco",
+            "id": 265860108293128200,
+            "id_str": "265860108293128192",
+            "iso_language_code": "en",
+            "metadata": {
+                "result_type": "recent"
+            },
+            "profile_image_url": "http://a0.twimg.com/profile_images/2505782964/IbvWaAuW_normal",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/2505782964/IbvWaAuW_normal",
+            "source": "&lt;a href=&quot;http://twitter.com/download/android&quot;&gt;Twitter for Android&lt;/a&gt;",
+            "text": "RT @ATTSeagull: Telling ya. GO VOTE. We suggest #PoseyRomo2012! #Election2012",
+            "to_user": null,
+            "to_user_id": 0,
+            "to_user_id_str": "0",
+            "to_user_name": null
+        },
+        {
+            "created_at": "Tue, 06 Nov 2012 16:51:14 +0000",
+            "from_user": "brina_giants",
+            "from_user_id": 255899205,
+            "from_user_id_str": "255899205",
+            "from_user_name": "Sabrina H",
+            "geo": null,
+            "location": "Fresno",
+            "id": 265858895174578180,
+            "id_str": "265858895174578176",
+            "iso_language_code": "en",
+            "metadata": {
+                "result_type": "recent"
+            },
+            "profile_image_url": "http://a0.twimg.com/profile_images/2783549451/2d8eb3ab6bf8068f229c91765d99a2bf_normal.jpeg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/2783549451/2d8eb3ab6bf8068f229c91765d99a2bf_normal.jpeg",
+            "source": "&lt;a href=&quot;http://twitter.com/download/android&quot;&gt;Twitter for Android&lt;/a&gt;",
+            "text": "RT @ATTSeagull: Telling ya. GO VOTE. We suggest #PoseyRomo2012! #Election2012",
+            "to_user": null,
+            "to_user_id": 0,
+            "to_user_id_str": "0",
+            "to_user_name": null
+        }
+    ],
+    "results_per_page": 15,
+    "since_id": 0,
+    "since_id_str": "0"
+}

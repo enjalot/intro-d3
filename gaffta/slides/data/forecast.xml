@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+		<rss version="2.0" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
+			<channel>
+		
+<title>Yahoo! Weather - Sunnyvale, CA</title>
+<link>http://us.rd.yahoo.com/dailynews/rss/weather/Sunnyvale__CA/*http://weather.yahoo.com/forecast/USCA1116_f.html</link>
+<description>Yahoo! Weather for Sunnyvale, CA</description>
+<language>en-us</language>
+<lastBuildDate>Tue, 06 Nov 2012 10:55 am PST</lastBuildDate>
+<ttl>60</ttl>
+<yweather:location city="Sunnyvale" region="CA"   country="United States"/>
+<yweather:units temperature="F" distance="mi" pressure="in" speed="mph"/>
+<yweather:wind chill="71"   direction="350"   speed="5" />
+<yweather:atmosphere humidity="53"  visibility="10"  pressure="30.07"  rising="2" />
+<yweather:astronomy sunrise="6:39 am"   sunset="5:04 pm"/>
+<image>
+<title>Yahoo! Weather</title>
+<width>142</width>
+<height>18</height>
+<link>http://weather.yahoo.com</link>
+<url>http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif</url>
+</image>
+<item>
+<title>Conditions for Sunnyvale, CA at 10:55 am PST</title>
+<geo:lat>37.37</geo:lat>
+<geo:long>-122.04</geo:long>
+<link>http://us.rd.yahoo.com/dailynews/rss/weather/Sunnyvale__CA/*http://weather.yahoo.com/forecast/USCA1116_f.html</link>
+<pubDate>Tue, 06 Nov 2012 10:55 am PST</pubDate>
+<yweather:condition  text="Fair"  code="34"  temp="71"  date="Tue, 06 Nov 2012 10:55 am PST" />
+<description><![CDATA[
+<img src="http://l.yimg.com/a/i/us/we/52/34.gif"/><br />
+<b>Current Conditions:</b><br />
+Fair, 71 F<BR />
+<BR /><b>Forecast:</b><BR />
+Tue - Sunny. High: 78 Low: 52<br />
+Wed - Sunny. High: 68 Low: 50<br />
+<br />
+<a href="http://us.rd.yahoo.com/dailynews/rss/weather/Sunnyvale__CA/*http://weather.yahoo.com/forecast/USCA1116_f.html">Full Forecast at Yahoo! Weather</a><BR/><BR/>
+(provided by <a href="http://www.weather.com" >The Weather Channel</a>)<br/>
+]]></description>
+<yweather:forecast day="Tue" date="6 Nov 2012" low="52" high="78" text="Sunny" code="32" />
+<yweather:forecast day="Wed" date="7 Nov 2012" low="50" high="68" text="Sunny" code="32" />
+<guid isPermaLink="false">USCA1116_2012_11_07_7_00_PST</guid>
+</item>
+</channel>
+</rss>
+
+<!-- api2.weather.sp2.yahoo.com Tue Nov  6 19:45:42 PST 2012 -->

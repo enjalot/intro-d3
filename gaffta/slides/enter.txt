@@ -1,0 +1,26 @@
+var numbers = [ 1, 2, 3, 4 ];
+var colors = [ "red", "blue", "green" ];
+
+var svg = d3.select("svg");
+
+svg.selectAll("text")
+  .data(numbers)
+  .enter()
+  .append("text")
+  .text(function(d) { return d })
+  .attr({
+    x: function(d,i) { return 50 + i * 50; },
+    y: 100
+  })
+  
+svg.selectAll("rect")
+  .data(colors)
+  .enter()
+  .append("rect")
+  .attr({
+    x: function(d,i) { return 50 + i * 50 },
+    y: 150,
+    width: 40,
+    height: 40,
+    fill: function(d,i) { return d }
+  })

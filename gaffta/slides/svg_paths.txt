@@ -1,0 +1,4 @@
+<text x=20 y=100>Paths</text>
+<path d=M100,174L120,170L230,261L100,100 fill=none stroke=#ff0000></path>
+<path d=M200,274A70,70,0,1,0,216,170L130,44 fill=none stroke=#0000ff></path>  
+

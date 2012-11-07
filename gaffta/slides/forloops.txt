@@ -1,0 +1,17 @@
+var numbers = [ 1, 2, 3, 4 ];
+
+var colors = [ "red", "blue", "green" ];
+
+var things = [ {type:"apple", number:5}, {type:"orange", number:2}];
+
+
+for(var i = 0; i < 10; i++ ){
+  //console.log(i);
+}
+for(var i = 0; i < colors.length; i++) {
+  //console.log(colors[i]);
+}
+for(var i = 0; i < things.length; i++) {
+  //console.log(things[i].type);
+  //count the number of total fruits:
+}
