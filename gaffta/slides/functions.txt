@@ -13,7 +13,7 @@ for(var i = 0; i < things.length; i++) {
 
 things.forEach(function(fruit) {
   //console.log(fruit);
-}
+});
 
 things.forEach(getType);
 
