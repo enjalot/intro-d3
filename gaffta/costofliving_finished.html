@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)http://enjalot.github.com/intro-d3/gaffta/costofliving.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <script src="d3.v2.min.js"></script>
+
+    </head>
+
+<body>
+
+  <svg>
+  </svg>
+
+  <script>
+
+    function getData(costofliving) {
+      console.log("data:", costofliving);
+
+      costofliving.forEach(function(d) {
+        d.price = parseFloat(d.price);
+        d.rent = parseFloat(d.rent);
+      })
+
+      var svg = d3.select("svg");
+      var chartHeight = 200;
+
+      //Price bars
+      var maxPrice = d3.max(costofliving, function(d) {
+        return d.price;
+      });
+      
+      var yscalePrice = d3.scale.linear()
+        .domain([0, maxPrice])
+        .range([0, chartHeight]);
+      
+      var rects = svg.selectAll("rect")
+        .data(costofliving)
+        .enter()
+        .append("rect");
+
+      rects.attr("width", 2)
+      .attr("height", function(d,i) {
+        return yscalePrice(d.price);
+      })
+      .attr("transform", function(d,i) {
+        var x = 100 + i * 3;
+        var y = 10 + chartHeight - yscalePrice(d.price);
+        return "translate(" + [x,y] + ")";
+      });
+
+
+      //Rent bars
+      var maxRent = d3.max(costofliving, function(d) {
+        return d.rent;
+      })
+
+      var yscaleRent = d3.scale.linear()
+        .domain([0, maxRent])
+        .range([0, chartHeight]);
+
+      var rectsRent = svg.selectAll("rect.rent")
+        .data(costofliving)
+        .enter()
+        .append("rect");
+
+      rectsRent.attr("width", 2)
+      .attr("height", function(d,i) {
+        return yscaleRent(d.rent);
+      })
+      .attr("transform", function(d,i) {
+        var x = 100 + i * 3;
+        var y = 320 + chartHeight - yscaleRent(d.rent);
+        return "translate(" + [x,y] + ")";
+      });
+
+
+
+    }
+
+    var url = "slides/data/costofliving.csv";
+    d3.csv(url, getData);
+
+  </script>
+
+
+
+
+</body></html>

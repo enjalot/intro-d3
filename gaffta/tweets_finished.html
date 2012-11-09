@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://enjalot.github.com/intro-d3/gaffta/tweets.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <script src="./tweets_files/d3.v2.min.js"></script>
+
+<style>
+
+.tweet span {
+  color: blue;
+  margin: 20px;
+}
+
+</style>
+
+    </head>
+
+<body>
+
+<div id="myspecialdiv"></div>
+
+  <script>
+  	function jsonCallback(twitter_response) {
+      console.log(twitter_response.results);
+
+      var display = d3.select("#myspecialdiv");
+
+      //display.append("div")
+      //.attr("id", "mydiv");
+
+      var tweets = display.selectAll("div.tweet")
+      	.data(twitter_response.results)
+     	.enter()
+      	.append("div");
+
+     tweets.classed("tweet", true);
+     
+     tweets.append("img")
+     	.attr("src", function(d,i) {
+     		//console.log(d);
+     		return d.profile_image_url;
+     	})
+     	.attr("width", 72)
+     	.attr("height", 72)
+     	.style("border", "3px solid red");
+    
+     tweets.append("span")
+     	.text(function(d,i) {
+     		return d.text;
+     	})
+
+    }
+
+    var url = "slides/data/tweets.json";
+    d3.json(url, jsonCallback);
+
+
+  </script>
+
+
+
+
+</body></html>
