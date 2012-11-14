@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="d3.v2.min.js"></script>
+
+    <style>
+      svg {
+        width: 700px;
+        height: 400px;
+      }
+    </style>
+
+
+    </head>
+
+<body>
+
+  <div id=controls>
+    <select id="selector">
+      <option value="pics">pics</option>
+      <option value="programming">programming</option>
+      <option value="gifs">gifs</option>
+      <option value="d3js">d3js</option>
+    </select>
+  </div>
+
+  <svg id=chart>
+  </svg>
+
+  <div id=info>
+  </div>
+
+  <script>
+    //easily get json data for any reddit url
+    function getData(endpoint, callback) {
+      //reddit's api is nice so we can use JSONP
+      var url = "http://www.reddit.com/r/" + endpoint + ".json?jsonp=?";
+      $.getJSON(url, function(data) {
+        callback(data);
+      })
+    }
+
+    var svg = d3.select("#chart");
+    var cx = 10;
+    var cy = 10;
+    var chartHeight = 300;
+
+    //create or update the chart
+    function makeChart(results) {
+      var links = results.data.children;
+
+      var max = d3.max(links, function(d) { return d.data.score });
+      var yscale = d3.scale.linear()
+        .domain([0, max])
+        .range([0, chartHeight])
+
+      var bars = svg.selectAll("rect")
+        .data(links);
+
+      bars.enter()
+      .append("rect")
+      .attr("width", 10)
+      .attr("height", 0)
+      .attr("transform", function(d,i) {
+        //set an initial transform
+        var x = cx + i * 20;
+        var y = cy + chartHeight;
+        return "translate(" + [x,y] +")";
+      })
+
+      bars.transition()
+        .duration(1500)
+        .attr("height", function(d) { return yscale(d.data.score) })
+        .attr("transform", function(d,i) {
+          var x = cx + i * 20;
+          var y = cy + chartHeight - yscale(d.data.score);
+          return "translate(" + [x,y] +")";
+        })
+
+      bars.exit().remove();
+
+      bars.on("mouseover", function(d) {
+        d3.select(this).style("fill", "#3434fe")
+      })
+      bars.on("mouseout", function(d) {
+        d3.select(this).style("fill", "#000000")
+      })
+      bars.on("click", function(d) {
+        console.log("click!", d)
+        makePreview(d);
+      })
+
+    }
+
+    function makePreview(data) {
+      var info = d3.selectAll("#info").selectAll("div.info")
+        .data([data]);
+      var enter = info.enter()
+        .append("div")
+        .classed("info", true);
+      console.log("enter", enter)
+
+      enter
+        .append("img");
+      enter
+        .append("span");
+
+      info.select("span").text(function(d) { return d.data.title })
+      info.select("img").attr("src", function(d) { 
+        if(d.data.thumbnail)
+          return d.data.thumbnail 
+        return "http://blogs-images.forbes.com/gregvoakes/files/2012/06/reddit-logo.jpeg"
+      })
+      .attr("width", 60)
+      .attr("height", 60)
+    }
+
+    //initial load
+    getData("pics", makeChart);
+
+    var selector = d3.select("#selector");
+    selector.on("change", function() {
+      var index = selector.node().selectedIndex;
+      var value = selector.node()[index].value;
+      console.log("choosing:", value)
+      getData(value, makeChart);
+    })
+
+  </script>
+
+</body>
+</html>
+

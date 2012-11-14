@@ -19,60 +19,45 @@
       costofliving.forEach(function(d) {
         d.price = parseFloat(d.price);
         d.rent = parseFloat(d.rent);
-      })
+      });
 
       var svg = d3.select("svg");
       var chartHeight = 200;
 
-      //Price bars
-      var maxPrice = d3.max(costofliving, function(d) {
-        return d.price;
-      });
-      
-      var yscalePrice = d3.scale.linear()
-        .domain([0, maxPrice])
-        .range([0, chartHeight]);
-      
-      var rects = svg.selectAll("rect")
-        .data(costofliving)
-        .enter()
-        .append("rect");
+      function makeBars(data, type, options) {
+        console.log("type:", type);
+        var cx = options.x || 0;
+        var cy = options.y || 0;
+        var chartHeight = options.chartHeight || 200;
 
-      rects.attr("width", 2)
-      .attr("height", function(d,i) {
-        return yscalePrice(d.price);
-      })
-      .attr("transform", function(d,i) {
-        var x = 100 + i * 3;
-        var y = 10 + chartHeight - yscalePrice(d.price);
-        return "translate(" + [x,y] + ")";
-      });
+        var max = d3.max(data, function(d) {
+          return d[type];
+        });
+        
+        var yscale = d3.scale.linear()
+          .domain([0, max])
+          .range([0, chartHeight]);
+        
+        var rects = svg.selectAll("rect." + type)
+          .data(data)
+          .enter()
+          .append("rect")
+          .classed(type, true);
 
-
-      //Rent bars
-      var maxRent = d3.max(costofliving, function(d) {
-        return d.rent;
-      })
-
-      var yscaleRent = d3.scale.linear()
-        .domain([0, maxRent])
-        .range([0, chartHeight]);
-
-      var rectsRent = svg.selectAll("rect.rent")
-        .data(costofliving)
-        .enter()
-        .append("rect");
-
-      rectsRent.attr("width", 2)
-      .attr("height", function(d,i) {
-        return yscaleRent(d.rent);
-      })
-      .attr("transform", function(d,i) {
-        var x = 100 + i * 3;
-        var y = 320 + chartHeight - yscaleRent(d.rent);
-        return "translate(" + [x,y] + ")";
-      });
-
+        rects.attr("width", 2)
+        .attr("height", function(d,i) {
+          return yscale(d[type]);
+        })
+        .attr("transform", function(d,i) {
+          var x = cx + i * 3;
+          var y = cy + chartHeight - yscale(d[type]);
+          return "translate(" + [x,y] + ")";
+        });
+      }
+      makeBars(costofliving, "price", {x: 10, y: 0});
+      makeBars(costofliving, "rent", {x: 10, y: 300})
+      //makeBars(costofliving, "price", {x:10 y:0});
+      //makeBars(costofliving, "rent", {x: 10, y: 300});
 
 
     }

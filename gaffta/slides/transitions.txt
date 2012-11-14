@@ -1,0 +1,57 @@
+var svg = d3.select("svg");
+
+var data1 = [
+  {id: "weezy", value: 100},
+  {id: "yeezy", value: 40},
+  {id: "jeezy", value: 60}
+];
+
+var data2 = [
+  {id: "jeezy", value: 42},
+  {id: "weezy", value: 171},
+  {id: "yeezy", value: 129}
+];
+
+var bars = svg.selectAll("rect")
+    .data(data1)
+    .enter()
+    .append("rect")
+    .attr({
+      width: 30,
+      height: function(d,i) {
+        return d.value;
+      },
+      transform: function(d,i) {
+      	var x = i * 40 + 100;
+        var y = 100;
+        return "translate(" + [x, y] + ")";
+      }
+    })
+    .classed("bars", true)
+    
+
+var button = svg.append("rect")
+    .attr({
+      width: 104,
+      height: 30,
+      x: 101,
+      y: 38,
+      fill: "#e3e3e3",
+      stroke: "#000"
+    })
+    .on("click", function() {
+      svg.selectAll("rect.bars")
+        .data(data2, function(d) { return d.id })
+        .transition()
+        //.delay(1000)
+        .duration(1499)
+        //.ease("linear")
+        //.ease("cubic")
+        .ease("bounce")
+        .attr({
+          height: function(d,i) {
+          return d.value;
+          }
+        })
+    })
+

@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="d3.v2.min.js"></script>
+    <style>
+      svg {
+        width: 700px;
+        height: 400px;
+      }
+    </style>
+
+    </head>
+
+<body>
+
+  <div id=controls>
+    <select id="selector">
+      <option value="pics">pics</option>
+      <option value="programming">programming</option>
+      <option value="gifs">gifs</option>
+    </select>
+  </div>
+
+  <svg id=chart>
+  </svg>
+
+  <div id=info>
+  </div>
+
+  <script>
+    //easily get json data for any reddit url
+    function getData(endpoint, callback) {
+      //reddit's api is nice so we can use JSONP
+      var url = "http://www.reddit.com/r/" + endpoint + ".json?jsonp=?";
+      $.getJSON(url, function(data) {
+        callback(data);
+      })
+    }
+
+    //example usage
+    getData("pics", function(data) {
+      console.log(data);
+    })
+  </script>
+
+</body>
+</html>
+
