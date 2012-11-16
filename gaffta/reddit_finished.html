@@ -4,20 +4,23 @@
     <meta charset='utf-8' />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="d3.v2.min.js"></script>
-
     <style>
       svg {
         width: 700px;
         height: 400px;
       }
-    </style>
 
+      .selected {
+        stroke: red;
+        stroke-width: 3;
+      }
+    </style>
 
     </head>
 
 <body>
-
-  <div id=controls>
+  <!-- user inputs -->
+  <div id="controls">
     <select id="selector">
       <option value="pics">pics</option>
       <option value="programming">programming</option>
@@ -26,107 +29,112 @@
     </select>
   </div>
 
-  <svg id=chart>
+  <!-- visualization -->
+  <svg id="chart" class="chart1">
   </svg>
 
-  <div id=info>
+  
+  <div id="info">
   </div>
 
   <script>
     //easily get json data for any reddit url
     function getData(endpoint, callback) {
-      //reddit's api is nice so we can use JSONP
+      //reddits api is nice so we can use JSONP
       var url = "http://www.reddit.com/r/" + endpoint + ".json?jsonp=?";
-      $.getJSON(url, function(data) {
-        callback(data);
+      $.getJSON(url, function(results) {
+        callback(results);
       })
     }
 
-    var svg = d3.select("#chart");
-    var cx = 10;
-    var cy = 10;
+    var cx = 100;
+    var cy = 100;
     var chartHeight = 300;
 
-    //create or update the chart
-    function makeChart(results) {
-      var links = results.data.children;
 
-      var max = d3.max(links, function(d) { return d.data.score });
+    function makeChart(disdata) {
+      console.log("make chart", disdata);
+      var datdata = disdata.data.children;
+
+      var min = 0;//d3.min(datdata, function(d) { return d.data.score });
+      var max = d3.max(datdata, function(d) { return d.data.score });
+      //console.log("min, max", min, max);
+
       var yscale = d3.scale.linear()
-        .domain([0, max])
-        .range([0, chartHeight])
+        .domain([min, max])
+        .range([0, chartHeight]);
 
-      var bars = svg.selectAll("rect")
-        .data(links);
+      var svg = d3.select(".chart1");
 
-      bars.enter()
-      .append("rect")
-      .attr("width", 10)
-      .attr("height", 0)
-      .attr("transform", function(d,i) {
-        //set an initial transform
-        var x = cx + i * 20;
-        var y = cy + chartHeight;
-        return "translate(" + [x,y] +")";
-      })
+      var rects = svg.selectAll("rect")
+        .data(datdata);
 
-      bars.transition()
-        .duration(1500)
-        .attr("height", function(d) { return yscale(d.data.score) })
+      rects.enter()
+        .append("rect")
+        .attr("fill", "#00ff00")
         .attr("transform", function(d,i) {
-          var x = cx + i * 20;
-          var y = cy + chartHeight - yscale(d.data.score);
-          return "translate(" + [x,y] +")";
+          var x = cx + i * 30;
+          var y = cy + chartHeight;
+          return "translate(" + [x,y] + ")";
+        });
+
+      rects.exit()
+        .transition()
+        .duration(1500)
+        .attr("height", 0)
+        .attr("transform", function(d,i) {
+          var x = cx + i * 30;
+          var y = cy + chartHeight;
+          return "translate(" + [x,y] + ")";
         })
+        .attr("fill", "#ff0000")
+        .remove()
 
-      bars.exit().remove();
+      rects.attr("width", 20)
 
-      bars.on("mouseover", function(d) {
-        d3.select(this).style("fill", "#3434fe")
-      })
-      bars.on("mouseout", function(d) {
-        d3.select(this).style("fill", "#000000")
-      })
-      bars.on("click", function(d) {
-        console.log("click!", d)
-        makePreview(d);
-      })
+      rects.transition()
+        .duration(1500)
+        .attr("transform", function(d,i) {
+          var x = cx + i * 30;
+          var y = cy + chartHeight - yscale(d.data.score);
+          return "translate(" + [x,y] + ")";
+        })
+        .attr("height", function(d) {
+          return yscale(d.data.score);
+        })
+        .attr("fill", "#0000ff")
 
+
+      rects.on("click", function(d) {
+        makeInfo(d);
+      })
+      .on("mouseover", function(d) {
+        d3.select(this).classed("selected", true)
+      })
+      .on("mouseout", function(d) {
+        d3.select(this).classed("selected", false)
+      })
     }
 
-    function makePreview(data) {
-      var info = d3.selectAll("#info").selectAll("div.info")
-        .data([data]);
-      var enter = info.enter()
-        .append("div")
-        .classed("info", true);
-      console.log("enter", enter)
+    function makeInfo(data) {
+      //console.log("make info:", data);
+      var info = d3.select("#info").html("");
 
-      enter
-        .append("img");
-      enter
-        .append("span");
-
-      info.select("span").text(function(d) { return d.data.title })
-      info.select("img").attr("src", function(d) { 
-        if(d.data.thumbnail)
-          return d.data.thumbnail 
-        return "http://blogs-images.forbes.com/gregvoakes/files/2012/06/reddit-logo.jpeg"
-      })
-      .attr("width", 60)
-      .attr("height", 60)
+      info.append("span").text(data.data.title);
+      info.append("img").attr("src", data.data.thumbnail)
     }
 
-    //initial load
-    getData("pics", makeChart);
+    //example usage
+    getData("pics", makeChart)
 
-    var selector = d3.select("#selector");
-    selector.on("change", function() {
-      var index = selector.node().selectedIndex;
-      var value = selector.node()[index].value;
-      console.log("choosing:", value)
-      getData(value, makeChart);
-    })
+    var selector = d3.select("#selector")
+      .on("change", function() {
+        var index = selector.node().selectedIndex;
+        var value = selector.node()[index].value;
+        
+        getData(value, makeChart);
+      })
+
 
   </script>
 
