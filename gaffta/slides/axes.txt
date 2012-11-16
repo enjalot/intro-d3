@@ -1,0 +1,58 @@
+var svg = d3.select("svg");
+
+var cx = 40;
+var cy = 40;
+var cw = 200;
+var ch = 200;
+
+var xscale = d3.scale.linear()
+    .domain([0, 1])
+    .range([0, cw]);
+
+var yscale = d3.scale.linear()
+    .domain([0, 1])
+    .range([0, ch]);
+
+
+var xg = svg.append("g")
+    .attr("transform", "translate(" + [cx,cy+ch] + ")");
+
+var xAxis = d3.svg.axis()
+    .scale(xscale)
+    .orient("bottom")
+    .ticks(4)
+
+xAxis(xg);
+
+var yg = svg.append("g")
+        .attr("transform", "translate(" + [cx,cy] + ")");;
+var yAxis = d3.svg.axis()
+    .scale(yscale)
+    .orient("left")
+    .tickValues([0, 0.5, 1])
+
+yAxis(yg);
+
+//This should be done in CSS (given below)
+yg.selectAll("path")
+  .style("fill", "none")
+  .style("stroke", "#000000")
+yg.selectAll("line")
+  .style("stroke", "#000000")
+  
+xg.selectAll("path")
+  .style("fill", "none")
+  .style("stroke", "#000000")
+xg.selectAll("line")
+  .style("stroke", "#000000")
+
+/*
+.domain {
+  fill: none;
+  stroke: #000000;
+}
+
+.tick {
+  stroke: #000000;
+}
+*/

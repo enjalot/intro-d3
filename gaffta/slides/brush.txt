@@ -1,0 +1,49 @@
+var svg = d3.select("svg");
+
+var xscale = d3.scale.linear()
+    .domain([0, 1])
+    .range([0, 300]);
+
+var yscale = d3.scale.linear()
+    .domain([0, 1])
+    .range([0, 300]);
+
+var brush = d3.svg.brush()
+    .x(xscale)
+    .y(yscale);
+
+
+var slider = svg.append("g")
+    .attr("transform", "translate(" + [0, 0] + ")");
+
+brush.extent([0.4, 0.6]);
+brush(slider);
+
+slider.selectAll("rect.background")
+  .attr("height", 300);
+
+//the following should be done in CSS (given below)
+slider.selectAll(".background")
+  .style("visibility", "visible")
+slider.selectAll(".extent")
+  .style("visibility", "visible")
+  .style("fill", "#C200A3")
+slider.selectAll(".resize rect")
+  .style("visibility", "visible")
+  .style("fill", "#00E753")
+/*
+.background {
+  visibility: visible !important;
+}
+
+.extent { 
+  visibility: visible !important;
+  fill: #C200A3;
+}
+
+.resize rect {
+  visibility: visible !important;
+  fill: #00E753;
+}
+*/
+
