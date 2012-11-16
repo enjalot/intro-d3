@@ -7,12 +7,21 @@
     <style>
       svg {
         width: 700px;
-        height: 400px;
+        height: 450px;
       }
 
       .selected {
         stroke: red;
         stroke-width: 3;
+      }
+
+      .domain {
+        fill: none;
+        stroke: #000000;
+      }
+
+      .tick {
+        stroke: #000000;
       }
     </style>
 
@@ -31,6 +40,7 @@
 
   <!-- visualization -->
   <svg id="chart" class="chart1">
+    <g id="yaxis"></g>
   </svg>
 
   
@@ -50,6 +60,7 @@
     var cx = 100;
     var cy = 100;
     var chartHeight = 300;
+    var barWidth = 20;
 
 
     function makeChart(disdata) {
@@ -66,19 +77,37 @@
 
       var svg = d3.select(".chart1");
 
-      var rects = svg.selectAll("rect")
+      var bars = svg.selectAll("g.bar")
         .data(datdata);
 
-      rects.enter()
-        .append("rect")
-        .attr("fill", "#00ff00")
+      var barEnter = bars.enter()
+        .append("g")
+        .classed("bar", true)
         .attr("transform", function(d,i) {
           var x = cx + i * 30;
           var y = cy + chartHeight;
           return "translate(" + [x,y] + ")";
         });
 
-      rects.exit()
+      barEnter.append("rect")
+        .attr("fill", "#00ff00")
+        .attr("height", 0);
+      barEnter.append("text");
+
+      var rects = bars.select("rect");
+      var texts = bars.select("text");
+
+
+      texts.text(function(d) { return d.data.score; })
+        .attr({
+          "text-anchor": "middle",
+          "alignment-baseline": "middle",
+          x: barWidth/2,
+          y: -10
+        })
+        .style("visibility", "hidden");
+
+      bars.exit()
         .transition()
         .duration(1500)
         .attr("height", 0)
@@ -90,30 +119,53 @@
         .attr("fill", "#ff0000")
         .remove()
 
-      rects.attr("width", 20)
+      bars.select("rect")
+        .attr("width", barWidth)
 
-      rects.transition()
+      bars.transition()
         .duration(1500)
         .attr("transform", function(d,i) {
           var x = cx + i * 30;
           var y = cy + chartHeight - yscale(d.data.score);
           return "translate(" + [x,y] + ")";
         })
+      
+      rects.transition()
+        .duration(1500)
         .attr("height", function(d) {
           return yscale(d.data.score);
         })
         .attr("fill", "#0000ff")
 
 
-      rects.on("click", function(d) {
+      bars.on("click", function(d) {
         makeInfo(d);
       })
       .on("mouseover", function(d) {
-        d3.select(this).classed("selected", true)
+        d3.select(this).classed("selected", true);
+        d3.select(this).select("text")
+          .style("visibility", "visible")
       })
       .on("mouseout", function(d) {
-        d3.select(this).classed("selected", false)
+        d3.select(this).classed("selected", false);
+        d3.select(this).select("text")
+          .style("visibility", "hidden")
       })
+
+      var yscaleAxis = d3.scale.linear()
+        .domain(yscale.domain())
+        .range([chartHeight, 0]);
+
+      var yAxis = d3.svg.axis()
+        .scale(yscaleAxis)
+        .orient("left")
+
+      var yaxisg = d3.select("#yaxis")
+        .attr("transform", "translate(" + [cx - 10, cy] + ")");
+      yAxis(yaxisg);
+
+
+
     }
 
     function makeInfo(data) {
