@@ -34,6 +34,7 @@
   }
 
   .sidebyside svg {
+    border: 1px solid #cfcfcf;
   }
   @media only screen and (min-width: 1075px) {
       .sidebyside {
@@ -291,9 +292,17 @@
       })
     }())
     </script>
-
-
   </div>
 
+  <script>
+    d3.select(document.body).on("click", function() {
+      if(!d3.select(d3.event.target).classed("range")) {
+        setTimeout(function() {
+          d3.selectAll(".inlet_slider").style("visibility", "hidden");
+          d3.selectAll(".ColorPicker").style("display", "none");
+        }, 10);
+      }
+    })
+  </script>
 </body>
 </html>
