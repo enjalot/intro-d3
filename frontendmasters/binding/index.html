@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Ubuntu' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../lib/codemirror.css">
+  <link rel="stylesheet" href="../lib/inlet.css">
+  <script src="../lib/codemirror.js"></script>
+  <script src="../lib/javascript.js"></script>
+  <script src="../lib/d3.min.js"></script>
+  <script src="../lib/sticker.js"></script>
+  <script src="../lib/inlet.min.js"></script>
+</head>
+<style>
+  li {
+    font-family: Ubuntu;
+    font-size: 16px;
+    list-style: none;
+  }
+  .header {
+    display: inline-block;
+  }
+  .header a{
+    float:left;
+    margin: 2px;
+  }
+  .header ul {
+    float:left;
+    margin-top: 50px;
+  }
+  h1 {
+    font-family: Ubuntu;
+    font-size: 72px;
+    float:left;
+  }
+  h2 {
+    font-family: Ubuntu;
+    font-size: 24px;
+    width: 100%;
+    padding: 5px;
+    background-color: #dfefef;
+  }
+  p {
+    font-family: Lato;
+    font-size: 14px;
+  }
+  .editor {
+  }
+  .editor .CodeMirror {
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    overflow-x: scroll;
+  }
+  aside {
+    font-size: small;
+    position: relative;
+    margin: 10px;
+    padding: 5px;
+    background-color: #fffeee;
+    width: 180px;
+    font-family: Lato;
+  }
+
+  .cm-s-default .cm-number { color: #25B0B0; }
+
+  .sidebyside {
+    display: block;
+  }
+  .sidebyside .left {
+  }
+  .sidebyside .right {
+  }
+
+  .sidebyside svg {
+    border: 1px solid #cfcfcf;
+  }
+  @media only screen and (min-width: 1075px) {
+      .sidebyside {
+          width: 950px;
+          margin-bottom: 56px;
+      }
+      .sidebyside .left, .sidebyside .right {
+          vertical-align: top;
+          margin: 0;
+          display: inline-block;
+          width: 440px;
+      }
+      .sidebyside .left {
+          margin-right: 50px;
+      }
+      aside {
+        position: absolute;
+        right: 10px;
+      }
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+  <a href="../">Main Menu</a>
+  <h1>Binding API</h1>
+  <ul>
+    <li>
+      <a href="#append">append</a>
+    </li>
+    <li>
+      <a href="#select">select</a>
+    </li>
+    <li>
+      <a href="#selectAll">selectAll</a>
+    </li>
+    <li>
+      <a href="#enter">enter</a>
+    </li>
+    <li>
+      <a href="#exit">exit</a>
+    </li>
+    <li>
+      <a href="#transition">transition</a>
+    </li>
+    <li>
+      <a href="#resources">Resources</a>
+    </li>
+
+  </ul>
+  </div>
+
+  <div name="append" id="append">
+    <h2>append</h2>
+    <div class="sidebyside">
+      <div class="left">
+        <div class="editor"></div>
+        <p>
+          You can append elements to the DOM by name.
+        </p>
+      </div>
+      <div class="right">
+        <svg width="100%" height=200>
+        </svg>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#append").select(".editor");
+      var svg = d3.select("#append svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = "var svg = d3.select('#append svg')\nsvg.append('circle')\n  .attr({cx: 100, cy: 100, r: 40, fill:'#25B0B0'})\nsvg.append('circle')\n  .attr({cx: 350, cy: 100, r: 40, fill:'#25B0B0'})";
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+  <div name="select" id="select">
+    <h2>select</h2>
+    <aside>Right click on this sections header and choose <b>Inspect Element</b></aside>
+    <div class="sidebyside">
+      <div class="left">
+        <div class="editor"></div>
+        <p>
+          You can select elements using the usual <a target=_blank href="http://www.w3.org/TR/CSS2/selector.html">CSS selectors</a>.
+        </p>
+      </div>
+      <div class="right">
+        <svg width="100%" height=200>
+        </svg>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#select").select(".editor");
+      var svg = d3.select("#select svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = "d3.select('#select').select('h2')\n  .style('background-color', '#DFEFEF')\n\nd3.select('#select svg')\n  .append('rect')\n  .attr({\n    x: 100, y: 50,\n    width: 250, height: 100, fill:'#25B0B0'\n  })";
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+  <div name="selectAll" id="selectAll">
+    <h2>selectAll</h2>
+    <aside>try changing the color of all the headers</aside>
+    <div class="sidebyside">
+      <div class="left">
+        <div class="editor"></div>
+        <p>
+        </p>
+      </div>
+      <div class="right">
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#selectAll").select(".editor");
+      var svg = d3.select("#selectall svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = "d3.selectAll('h2')\n  .style('background-color', '#DFEFEF')";
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+
+  </div>
+
+  <div name="enter" id="enter">
+    <h2>enter</h2>
+    <aside>try changing the color of all the headers</aside>
+    <div class="sidebyside">
+      <div class="left">
+        <div class="editor"></div>
+        <p>
+        </p>
+      </div>
+      <div class="right">
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#enter").select(".editor");
+      var svg = d3.select("#enter svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = "var data = [5, 10, 20, 25]\nvar divs = d3.select('#enter .right').selectAll('div.item')\n  .data(data);\n\ndivs.enter()\n  .append('div').classed('item', true)\n\ndivs.style({\n  width:'20px',\n  height:'20px',\n  margin:'15px',\n  float:'left',\n  'background-color':'#25B0B0'\n})";
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+  <div name="exit" id="exit">
+    <h2>exit</h2>
+  </div>
+  <div name="transition" id="transition">
+    <h2>transition</h2>
+  </div>
+
+
+  <script>
+    function matches(node, selector) {
+      var _ref;
+      if (node.matches) {
+        return node.matches(selector);
+      }
+      return ((_ref = node.parentNode) != null ? _ref.querySelector(selector) : void 0) === node;
+    };
+
+    function containingParent(node, selector) {
+      while (node) {
+        if (matches(node, selector)) {
+          return node;
+        }
+        node = node.parentNode;
+      }
+    };
+
+    d3.select(document.body).on("click", function() {
+      var target = d3.select(d3.event.target);
+      var contains = containingParent(target.node(), ".editor");
+      var contains2 = containingParent(target.node(), ".ColorPicker");
+      console.log(target.node())
+      console.log("contains2", contains2, contains)
+      if(!target.classed("range") && !contains && !contains2) {
+        d3.selectAll(".inlet_slider").style("visibility", "hidden");
+        d3.selectAll(".ColorPicker").style("display", "none");
+      }
+    })
+    d3.selectAll("svg").attr("title", "Right click and Inspect me");
+  </script>
+  <div name="resources" id="resources">
+    <h2>Resources</h2>
+    <p>
+      <ul>
+        <li><a target=_blank href="http://www.w3.org/TR/CSS2/selector.html">CSS selectors</a>
+      </ul>
+    </p>
+  </div>
+
+  <a href="#">Top</a>
+</body>
+</html>
