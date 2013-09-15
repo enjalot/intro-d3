@@ -48,6 +48,15 @@
     height: 100%;
     overflow-x: scroll;
   }
+  aside {
+    font-size: small;
+    position: relative;
+    margin: 10px;
+    padding: 5px;
+    background-color: #fffeee;
+    width: 180px;
+    font-family: Lato;
+  }
 
   .sidebyside {
     display: block;
@@ -56,7 +65,6 @@
   }
   .sidebyside .right {
   }
-
   .sidebyside svg {
     border: 1px solid #cfcfcf;
   }
@@ -73,6 +81,10 @@
       }
       .sidebyside .left {
           margin-right: 50px;
+      }
+      aside {
+        position: absolute;
+        right: 10px;
       }
   }
 </style>
@@ -97,11 +109,16 @@
     <li>
       <a href="#style">Style</a>
     </li>
+    <li>
+      <a href="#resources">Resources</a>
+    </li>
+
   </ul>
   </div>
 
   <div name="circle" id="circle">
     <h2>circle</h2>
+    <aside>Click on any of the numbers in the code to change them</aside>
     <div class="sidebyside">
       <div class="left">
         <div class="editor"></div>
@@ -145,6 +162,7 @@
   <div name="rect" id="rect">
     <h2>rect</h2>
     <div class="sidebyside">
+      <aside>Right click on the rectangle and choose <b>Inspect Element</b></aside>
       <div class="left">
         <div class="editor"></div>
         <p>
@@ -200,7 +218,9 @@
             L131,66
             L259,115
             L339,50
-            L400,98"
+            L400,98
+            M350,150
+            L100,150"
           fill=none
           stroke=#25B0B0></path>
         </svg>
@@ -219,7 +239,7 @@
 
       var cm = CodeMirror(editor.node(), options);
       Inlet(cm)
-      var text = "<path d='\n  M50,100\n  L131,66\n  L259,115\n  L339,50\n  L400,98'\n  fill=none\n  stroke='#25B0B0'></path>"
+      var text = "<path d='\n  M50,100\n  L131,66\n  L259,115\n  L339,50\n  L400,98\n  M350,150\n  L100,150'\n  fill=none\n  stroke='#25B0B0'></path>"
       cm.setValue(text);
       cm.on("change", function() {
         var value = cm.getValue();
@@ -278,6 +298,7 @@
   </div>
   <div name="style" id="style">
     <h2>style vs attribute</h2>
+    <aside>Click on any of the hex strings in the code to change them</aside>
     <div class="sidebyside">
       <div class="left">
         <div class="editor"></div>
@@ -346,7 +367,19 @@
         d3.selectAll(".ColorPicker").style("display", "none");
       }
     })
+    d3.selectAll("svg").attr("title", "Right click and Inspect me");
   </script>
+  <div name="resources" id="resources">
+    <h2>Resources</h2>
+    <p>
+      <ul>
+        <li><a href="http://www.w3.org/TR/SVG/expanded-toc.html">SVG Reference</a>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element">MDN SVG Elements</a>
+        <li><a href="http://www.w3.org/TR/SVG/paths.html">Path Reference</a>
+        <li><a href="http://alignedleft.com/tutorials/d3/fundamentals">Scott Murray's tutorial</a>
+      </ul>
+    </p>
+  </div>
 
   <a href="#">Top</a>
 </body>
