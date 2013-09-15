@@ -14,6 +14,23 @@
   li {
     font-family: Ubuntu;
     font-size: 16px;
+    list-style: none;
+  }
+  .header {
+    display: inline-block;
+  }
+  .header a{
+    float:left;
+    margin: 2px;
+  }
+  .header ul {
+    float:left;
+    margin-top: 50px;
+  }
+  h1 {
+    font-family: Ubuntu;
+    font-size: 72px;
+    float:left;
   }
   h2 {
     font-family: Ubuntu;
@@ -61,7 +78,9 @@
 </style>
 </head>
 <body>
-  <a href="../">Menu</a>
+  <div class="header">
+  <a href="../">Main Menu</a>
+  <h1>SVG</h1>
   <ul>
     <li>
       <a href="#circle">Circle</a>
@@ -78,8 +97,8 @@
     <li>
       <a href="#style">Style</a>
     </li>
-
   </ul>
+  </div>
 
   <div name="circle" id="circle">
     <h2>circle</h2>
@@ -328,5 +347,7 @@
       }
     })
   </script>
+
+  <a href="#">Top</a>
 </body>
 </html>
