@@ -12,6 +12,9 @@
   <script src="../lib/inlet.min.js"></script>
 </head>
 <style>
+  body {
+    font-family: Lato;
+  }
   li {
     font-family: Ubuntu;
     font-size: 16px;
@@ -75,7 +78,7 @@
   .sidebyside svg {
     border: 1px solid #cfcfcf;
   }
-  @media only screen and (min-width: 1075px) {
+  @media only screen and (min-width: 1155px) {
       .sidebyside {
           width: 950px;
           margin-bottom: 56px;
@@ -151,7 +154,7 @@
       var svg = d3.select("#append svg");
       var cm = CodeMirror(editor.node(), options);
       Inlet(cm)
-      var text = "var svg = d3.select('#append svg')\nsvg.append('circle')\n  .attr({cx: 100, cy: 100, r: 40, fill:'#25B0B0'})\nsvg.append('circle')\n  .attr({cx: 350, cy: 100, r: 40, fill:'#25B0B0'})";
+      var text = "var svg = d3.select('#append svg')\n\nsvg.append('circle')\n  .attr({cx: 100, cy: 100, r: 40, fill:'#25B0B0'})\n\nsvg.append('circle')\n  .attr({cx: 350, cy: 100, r: 40, fill:'#25B0B0'})";
       cm.on("change", function() {
         svg.selectAll("*").remove()
         var value = cm.getValue();
@@ -248,7 +251,7 @@
 
   <div name="enter" id="enter">
     <h2>enter</h2>
-    <aside>try changing the color of all the headers</aside>
+    <aside>don't be afraid to play with the data</aside>
     <div class="sidebyside">
       <div class="left">
         <div class="editor"></div>
@@ -269,9 +272,9 @@
       var svg = d3.select("#enter svg");
       var cm = CodeMirror(editor.node(), options);
       Inlet(cm)
-      var text = "var data = [5, 10, 20, 25]\nvar divs = d3.select('#enter .right').selectAll('div.item')\n  .data(data);\n\ndivs.enter()\n  .append('div').classed('item', true)\n\ndivs.style({\n  width:'20px',\n  height:'20px',\n  margin:'15px',\n  float:'left',\n  'background-color':'#25B0B0'\n})";
+      var text = "var data = [50, 100, 150, 200]\nvar divs = d3.select('#enter .right')\n  .selectAll('div.item')\n  .data(data);\n\ndivs.enter()\n  .append('div').classed('item', true)\n\ndivs.style({\n  width:'20px',\n  height:function(d) { return d + 'px' },\n  margin:'15px',\n  float:'left',\n  'background-color':'#25B0B0'\n})";
       cm.on("change", function() {
-        svg.selectAll("*").remove()
+        d3.select("#enter .right").selectAll("*").remove()
         var value = cm.getValue();
         try {
           eval(value);
@@ -286,11 +289,115 @@
 
   <div name="exit" id="exit">
     <h2>exit</h2>
+    <div class="sidebyside">
+      <div class="left">
+        <div class="editor"></div>
+        <p>
+        </p>
+      </div>
+      <div class="right">
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#exit").select(".editor");
+      var svg = d3.select("#exit svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = "var data = [50, 100, 150, 200]\nvar divs = d3.select('#exit .right')\n  .selectAll('div.item')\n  .data(data);\ndivs.enter()\n  .append('div').classed('item', true)\ndivs.style({\n  width:'20px',\n  height:function(d) { return d + 'px' },\n  margin:'15px',\n  float:'left',\n  'background-color':'#25B0B0'\n})\n\ndata = [50, 100]\ndivs = d3.select('#exit .right')\n  .selectAll('div.item')\n  .data(data);\ndivs.exit().style({'background-color':'#B42424'})";
+      cm.on("change", function() {
+        d3.select("#exit .right").selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+
   </div>
   <div name="transition" id="transition">
     <h2>transition</h2>
+    <aside>change anything in the code to see it update</aside>
+    <div class="sidebyside">
+      <div class="left">
+        <div class="editor"></div>
+        <p>
+        </p>
+      </div>
+      <div class="right">
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#transition").select(".editor");
+      var svg = d3.select("#transition svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = "var data = [50, 100, 150, 200]\nvar divs = d3.select('#transition .right')\n  .selectAll('div.item')\n  .data(data);\ndivs.enter()\n  .append('div').classed('item', true)\ndivs.style({\n  width:'20px',\n  height:function(d) { return d + 'px' },\n  margin:'15px',\n  float:'left',\n  'background-color':'#25B0B0'\n})\n\ndata = [100, 200, 20, 100]\ndivs = d3.select('#transition .right')\n  .selectAll('div.item')\n  .data(data)\ndivs.transition().delay(50).duration(1000)\n  .style({\n  'height': function(d) { return d + 'px' },\n  'background-color':'#42efef'\n})";
+      cm.on("change", function() {
+        d3.select("#transition .right").selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
   </div>
-
+  <div name="events" id="events">
+    <h2>DOM events</h2>
+    <aside>click on the bars to trigger <b>click</b> events</aside>
+    <div class="sidebyside">
+      <div class="left">
+        <div class="editor"></div>
+        <p>
+        </p>
+      </div>
+      <div class="right">
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#events").select(".editor");
+      var svg = d3.select("#events svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = "var data = [50, 100, 150, 200]\nvar divs = d3.select('#events .right')\n  .selectAll('div.item')\n  .data(data);\ndivs.enter()\n  .append('div').classed('item', true)\ndivs.style({\n  width:'20px',\n  height:function(d) { return d + 'px' },\n  margin:'15px',\n  float:'left',\n  'background-color':'#25B0B0'\n}).on('click', function(d,i) {\n  d3.select(this)\n    .style('background-color','#42efef')\n    .style('padding-left','10px')\n    .text(i)\n});";
+      cm.on("change", function() {
+        d3.select("#events .right").selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
 
   <script>
     function matches(node, selector) {
@@ -313,16 +420,16 @@
     d3.select(document.body).on("click", function() {
       var target = d3.select(d3.event.target);
       var contains = containingParent(target.node(), ".editor");
-      var contains2 = containingParent(target.node(), ".ColorPicker");
-      console.log(target.node())
-      console.log("contains2", contains2, contains)
-      if(!target.classed("range") && !contains && !contains2) {
+      //TODO: figure out why this doesn't work
+      //var contains2 = containingParent(target.node(), ".ColorPicker");
+      if(!target.classed("range") && !contains) {
         d3.selectAll(".inlet_slider").style("visibility", "hidden");
         d3.selectAll(".ColorPicker").style("display", "none");
       }
     })
     d3.selectAll("svg").attr("title", "Right click and Inspect me");
   </script>
+
   <div name="resources" id="resources">
     <h2>Resources</h2>
     <p>
