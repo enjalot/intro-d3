@@ -296,11 +296,10 @@
 
   <script>
     d3.select(document.body).on("click", function() {
-      if(!d3.select(d3.event.target).classed("range")) {
-        setTimeout(function() {
-          d3.selectAll(".inlet_slider").style("visibility", "hidden");
-          d3.selectAll(".ColorPicker").style("display", "none");
-        }, 10);
+      var target = d3.select(d3.event.target);
+      if(!target.classed("range") && target.node().nodeName != "PRE") {
+        d3.selectAll(".inlet_slider").style("visibility", "hidden");
+        d3.selectAll(".ColorPicker").style("display", "none");
       }
     })
   </script>
