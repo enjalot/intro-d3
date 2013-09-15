@@ -295,9 +295,27 @@
   </div>
 
   <script>
+    var matches = function(node, selector) {
+      var _ref;
+      if (node.matches) {
+        return node.matches(selector);
+      }
+      return ((_ref = node.parentNode) != null ? _ref.querySelector(selector) : void 0) === node;
+    };
+
+    var containingParent = function(node, selector) {
+      while (node) {
+        if (matches(node, selector)) {
+          return node;
+        }
+        node = node.parentNode;
+      }
+    };
+
     d3.select(document.body).on("click", function() {
       var target = d3.select(d3.event.target);
-      if(!target.classed("range") && target.node().nodeName != "PRE") {
+      var contains = containingParent(target.node(), ".editor");
+      if(!target.classed("range") && !contains) {
         d3.selectAll(".inlet_slider").style("visibility", "hidden");
         d3.selectAll(".ColorPicker").style("display", "none");
       }
