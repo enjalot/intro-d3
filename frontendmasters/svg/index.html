@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Ubuntu' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../lib/codemirror.css">
+  <link rel="stylesheet" href="../lib/inlet.css">
+  <script src="../lib/codemirror.js"></script>
+  <script src="../lib/d3.min.js"></script>
+  <script src="../lib/sticker.js"></script>
+  <script src="../lib/inlet.min.js"></script>
+</head>
+<style>
+  li {
+    font-family: Ubuntu;
+    font-size: 16px;
+  }
+  p {
+    font-family: Lato;
+    font-size: 14px;
+  }
+  .editor .CodeMirror {
+    width: 100%;
+    height: 100%;
+    overflow-x: scroll;
+  }
+
+  .sidebyside {
+    border: 1px solid orange;
+    display: block;
+    margin-top: 28px;
+  }
+  .sidebyside .left {
+    border: 1px solid blue;
+  }
+  .sidebyside .right {
+    border: 1px solid green;
+  }
+
+  .sidebyside svg {
+  }
+  @media only screen and (min-width: 1075px) {
+      .sidebyside {
+          width: 950px;
+          margin-bottom: 56px;
+      }
+      .sidebyside .left, .sidebyside .right {
+          vertical-align: top;
+          margin: 0;
+          display: inline-block;
+          width: 440px;
+      }
+      .sidebyside .left {
+          margin-right: 50px;
+      }
+  }
+</style>
+</head>
+<body>
+  <a href="../">Menu</a>
+  <ul>
+    <li>
+      <a href="#circle">Circle</a>
+    </li>
+    <li>
+      <a href="#rect">Rectangle</a>
+    </li>
+    <li>
+      <a href="#path">Path</a>
+    </li>
+    <li>
+      <a href="#g">g (transform)</a>
+    </li>
+  </ul>
+
+  <div name="circle" id="circle">
+    <p>circle</p>
+    <div class="sidebyside">
+      <div class="left">
+        <div class="editor"></div>
+      </div>
+      <div class="right">
+        <svg width="100%" height=200>
+        <circle cx=100 cy=100 r=10 fill="#bffbff"></circle>
+        </svg>
+      </div>
+    </div>
+    <script>
+      var options = {
+        mode: 'html',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+        theme: 'vibrant-ink'
+      }
+      var editor = d3.select("#circle").select(".editor");
+      var svg = d3.select("#circle svg");
+      var sticker = d3.sticker(svg.select("circle").node());
+
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = "<circle\n  cx=100\n  cy=100\n  r=10\n  fill='#bffbff'>\n</circle>";
+      cm.setValue(text);
+      cm.on("change", function() {
+        var value = cm.getValue();
+        sticker.string(value);
+        sticker.deserialize();
+        svg.selectAll("*").remove()
+        sticker(svg)
+      })
+    </script>
+  </div>
+  <div name="rect">
+    <p>rect</p>
+  </div>
+  <div name="path">
+    <p>path</p>
+  </div>
+  <div name="g">
+    <p>g</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,805 @@
+/* CSS Copyright 2007-2011 by amitp@cs.stanford.edu (Amit J. Patel)  */
+
+/* I don't mind if you copy my stylesheet.  However, I'd appreciate it
+   if you gave me credit. */
+
+/* NOTE: I'd love to inline http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700 but the rendering gets significantly worse in Chrome/Windows, so instead I'll put the link into the HTML */
+
+/* Font settings */
+@media screen {
+    body {
+        /* Fonts chosen after reading http://www.awayback.com/revised-font-stack/ */
+        /* Font-size-adjust from http://fontdeck.com/font-size-adjust.html */
+        font-family: "Open Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Tahoma", sans-serif;
+        font-size-adjust: 0.535;  /* Open Sans */
+        font-size: 14px;
+        line-height: 20px;
+        min-height: 95%;
+    }
+    body.width600 {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    
+    tt, code, kbd, samp, pre {
+        /* serif is a trick to get the font size to match */
+        font-family: "Droid Sans Mono", "Consolas", "Anonymous Pro", "Courier", monospace, serif;
+        font-size-adjust: 0.535;  /* Droid Sans Mono */
+        font-size: 14px;
+    }
+    pre {
+        font-size: 11px;
+    }
+    nav {
+        font-size: 14px;  /* Override this when width is small */
+    }
+    header, h2 {
+        text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.8);
+    }
+}
+
+@media print {
+    body {
+        font-family: "Book Antiqua", "Times New Roman", serif;
+        font-size: 12pt;
+        line-height: 1.25;
+    }
+    h1, h2, h3, h4, h5, h6, .footer, .divider-disqus {
+        font-family: "Helvetica", sans-serif;
+        font-size: 12pt;
+        text-rendering: optimizeLegibility;
+    }
+    h1 {
+        font-size: 18pt;
+    }
+    h1 .subheading {
+        font-size: 12pt;
+    }
+    tt, code, kbd, samp, pre {
+        font-family: "Courier", "Courier New", monospace;
+        font-size: 12pt;
+    }
+}
+
+@media print {
+    nav, div.comments {
+        display: none;
+    }
+}
+
+/* Main blocks */
+@media screen {
+    * {
+        /* I think IE got this and many other things right */
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    html {
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+        color: #333;
+    }
+
+    div.main {
+        max-width: 1075px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    header {
+        display: block;
+        text-align: center;
+        -moz-font-feature-settings: "liga=1,pnum=1,onum=1,kern=1";
+        -ms-font-feature-settings: "liga" 1, "pnum" 1, "onum" 1, "kern" 1;
+    }
+    
+    h1 {
+        margin: 0;
+        padding: 28px;  /* same as font-size */
+        padding-left: 80px;  /* add section and div.topic to line up with text */
+        text-align: left;
+    }
+
+    header, .footer, .divider, h2 {
+        background-color: #369;
+        color: #fff;
+        -webkit-font-smoothing: antialiased; /* useful for light text on dark background but it's webkit only; not sure if I should keep this */
+    }
+    
+    body.gameprog header, body.gameprog .footer, body.gameprog h2, body.gameprog .divider {
+        background-color: #a44;
+    }
+
+    header, .footer, h2, .divider {
+        background-image: url(http://theory.stanford.edu/~amitp/transparent-blob.png), url(http://theory.stanford.edu/~amitp/transparent-blob.png);
+        background-position: 0 0, 16px 16px;
+    }
+
+    div.comments, div.divider-disqus {
+        background-color: #e4e4e0;
+        background-image: url(http://theory.stanford.edu/~amitp/light-noise.png), url(http://theory.stanford.edu/~amitp/light-noise.png), url(http://theory.stanford.edu/~amitp/light-noise.png);
+        background-position: 0 0, 28px 14px, 18px 36px;
+    }
+
+    div.main {
+        padding: 0 40px;
+    }
+    
+    div.comments {
+        padding-bottom: 20px;
+        text-shadow: 1px 1px 3px #fff;
+    }
+    
+    h1 {
+        letter-spacing: -0.75px;
+        font-size: 28px;
+    }
+    h1 .subheading {
+        letter-spacing: normal;
+        margin-top: 7px;
+        font-size: 14px;
+    }
+    
+    h2 {
+        margin: 20px 0;
+        padding: 10px 40px;
+        max-width: 530px;  /* 450px for div.topic's width + 80px for div.topic's margin-left + margin-right */
+        font-size: 20px;
+    }
+    .width600 h2 {
+        max-width: 680px;  /* 600px for div.topic's width + 80px for margin */
+    }
+    
+    h3 {
+        margin: 18px 0;
+        font-size: 18px;
+    }
+    
+    nav {
+        display: block;
+    }
+    nav ul {
+        display: inline;
+    }
+    
+    nav ul li {
+        display: inline-block;
+        padding: 2px 5px;
+        width: 10%;
+        text-align: center;
+        white-space: nowrap;
+    }
+    nav ul li.nav:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+        font-weight: bold;
+    }
+    nav ul li.navself {
+        background-color: rgba(0, 0, 0, 0.3);
+        font-weight: bold;
+    }
+    nav a, body.gameprog nav a {
+        display: block;
+        width: 100%;
+        text-decoration: none;
+    }
+    
+    header, div.divider, h2 {
+        border-bottom: 1px solid #000;
+    }
+    div.divider, div.footer, h2 {
+        border-top: 1px solid #000;
+    }
+    
+    div.divider {
+        min-height: 28px;
+    }
+    div.divider-disqus {
+        padding-top: 14px;
+        text-align: center;
+    }
+}
+
+.footnotes { /* occur inside the main page content */
+    margin-top: 28px;
+    border-top: 1px solid gray;
+}
+
+.footer { /* occurs outside the main page content */
+    clear: both;
+    padding: 7px 14px;
+    border-top: 1px solid #000;
+}
+
+/* Target, used if someone followed a link that had an anchor. */
+
+h2:target {
+    -webkit-animation: target-attention 0.4s 1;
+    -moz-animation: target-attention 0.4s 1;
+}
+@-webkit-keyframes target-attention {
+    0% { -webkit-transform: scale(1.1); }
+    100% { -webkit-transform: scale(1.0); }
+}
+@-moz-keyframes target-attention {
+    0% { -webkit-transform: scale(1.1); }
+    100% { -webkit-transform: scale(1.0); }
+}
+h2:target {
+    font-size: 24px;
+}
+div:target {
+    border: 1px dashed #888;
+}
+
+/* If I use abbr with an explanation, make sure it's visible */
+abbr[title] {
+    border-bottom: 1px dotted;
+}
+
+/* I am using kbd kbd for keys, not things you type in, so I style them so they
+   look like keyboard keys. Inspired by the style used on Stack Overflow. */
+kbd kbd {
+    padding: 1px 7px;
+    margin: 0px 1px 3px 1px;
+    display: inline-block;
+    
+    font-size: 11px;
+    font-family: "Helvetica Neue", "Helvetica", "Tahoma", "Arial", sans-serif;
+    white-space: nowrap;
+
+    background: #ddd;
+    color: #242;
+    
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    
+    box-shadow: inset 0 0 1px 1px #fff, 0 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+samp, kbd {
+    background-color: #f4f4f0;
+}
+pre, code, samp {
+    color: #442;
+}
+kbd {
+    margin: 0 7px;
+    color: #252;
+}
+
+pre {
+    white-space: pre;
+}
+
+div.topic {
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 35px;
+}
+
+div.topic > img {
+    max-width: 100%;
+    -ms-interpolation-mode: bicubic;  /* when resizing, use a high quality algorithm */
+}
+div.topic figcaption {
+    font-size: 12px;
+    text-align: center;
+}
+
+@media screen {
+    div.topic {
+        max-width: 450px;
+    }
+    .width600 div.topic {
+        max-width: 600px;
+    }
+}
+
+@media print {
+    div.topic {
+        max-width: 45em;
+    }
+}
+
+/* Link colors */
+
+a {
+    color: #23a;
+    text-decoration: none;
+}
+body.gameprog a {
+    color: #a44;
+}
+
+header a, body.gameprog header a, h2 a, body.gameprog h2 a {
+    color: #fff;
+}
+
+@media screen {
+    /* Feedback for hovering on links */
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* Blog header links are not underlined */
+    body#blog h2 a {
+        text-decoration: none;
+    }
+    
+    /* Footer links are not colored blue, but are underlined */
+    body .footer a {
+        color: #ddd;
+    }
+}
+
+/* Hyphenation -- see http://meyerweb.com/eric/thoughts/2012/12/17/where-to-avoid-css-hyphenation */
+div.topic p, div.topic li {
+    text-align: justify;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    -o-hyphens: auto;
+    hyphens: auto;
+}
+
+nav, figure, abbr, acronym, code, kbd, samp, tt, var, pre {
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    -o-hyphens: none;
+    hyphens: none;
+}
+
+/* Low level block elements */
+
+p, ul, ol, ul.spaced > li, ol.spaced > li {
+    /* Need to increase the margin here to match the increase in line spacing */
+    margin: 1.25em 0;
+}
+ul ul, ul ol, ol ul, ol ol, li ul, li ol {
+    margin: 0;
+}
+
+/* A note that should go on the right side of the page, in the margin. */
+.note {
+    float: right;
+    margin-right: -280px;
+    margin-left: 0;
+    padding: 14px;
+    width: 210px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.note {
+    border-radius: 10px;
+}
+
+@media screen {
+    .additional-name {
+        display: none;
+    }
+}
+
+@media screen {
+    pre {
+        padding: 4px 12px;
+        max-width: 450px;
+        resize: both;
+        overflow: auto;
+        
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        border-left-width: 0;
+        border-right-width: 0;
+
+        background-color: #f4f4f0;
+        background: -webkit-radial-gradient(#fffff4, #f0f0e0);
+        background: -moz-radial-gradient(#fffff4, #f0f0e0);
+
+        box-shadow: inset 0px 1px 6px #ccc;
+    }
+    pre::-webkit-scrollbar {
+        height: 1em;
+    }
+    pre::-webkit-scrollbar-thumb:horizontal{
+        border-radius: 0.5em;
+        background: rgba(0, 0, 0, .4);
+    }
+    .width600 pre {
+        max-width: 600px;
+    }
+    
+    ul pre, ol pre {
+        width: 450px;
+    }
+    pre.simple, .comments pre {
+        overflow: visible;
+        width: 100%;
+        border: none;
+        background: transparent;
+        background-color: transparent;
+        box-shadow: none;
+    }
+}
+
+pre.snippet {
+    border-style: dashed;
+}
+
+div.topic > pre:only-child {
+    /* This style is used on old usenet posts that I haven't converted yet.
+       Unfortunately only-child is not widely supported. I should instead
+       either fix the posts or handle this in XSLT. */
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+blockquote {
+    max-width: 450px;
+    font-style: italic;
+}
+.width600 blockquote {
+    max-width: 600px;
+}
+
+table.standard {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-collapse: collapse;
+}
+table.standard th {
+    background-color: #f8f8f8;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), color-stop(0.5, #f8f8f8), to(#f0f0f0));
+    background: -moz-linear-gradient(top, #f8f8f8, #f8f8f8, #f0f0f0);
+}
+body.gameprog table.standard th {
+    background-color: #ffe;
+}
+table.standard td {
+    background-color: #fff;
+}
+table.standard th, table.standard td {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+svg {
+    /* IE defaults to visible; Opera, Chrome, Firefox use hidden */
+    overflow: hidden;
+}
+
+/* Browsers do not all agree on whether the indentation for lists 
+   should use padding or margin. I will use padding. */
+ul, ol {
+    margin-left: 0;
+    padding-left: 21px;
+}
+
+/* Inline elements */
+
+tt, code {
+    padding: 0 2px;
+}
+
+address {
+    text-align: right;
+}
+
+.footer address {
+    text-align: left;
+}
+
+.astar-nav {
+    margin-bottom: 14px;
+}
+.astar-nav span {
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+    font-size: 18px;
+}
+
+/* Fix sup,sub, based on https://gist.github.com/413930 */
+sup, sub {
+    position: relative;
+    vertical-align: baseline;
+    font-size: 75%;
+    line-height: 0;
+    padding-left: 2px;
+}
+sup {
+    top: -0.5em;
+}
+sub {
+    bottom: -0.25em;
+}
+
+sup.footnote {
+    color: red;
+}
+
+sup.new {
+    color: #400;
+    background-color: #ffc;
+    background: -moz-linear-gradient(left,#ffc,#ff4,#ffc);
+    background: -webkit-linear-gradient(left,#ffc,#ff4,#ffc);
+    text-transform: uppercase;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+sup.verynew {
+    color: #000;
+    background-color: #ff8;
+    background: -moz-linear-gradient(left,#ff8,#ff0,#ff8);
+    background: -webkit-linear-gradient(left,#ff8,#ff0,#ff8);
+}
+
+dt {
+    font-weight: bold;
+}
+
+/* Formatting for small browsers, such as mobile */
+@media only screen and (max-width: 700px) {
+    div.main {
+        padding: 0 10px;
+    }
+
+    div.topic {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    h2 {
+        max-width: 400px;
+    }
+
+    pre {
+        font-size: 10px;
+    }
+    
+    nav {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    header, .footer {
+        font-size: 12px;
+    }
+    
+    h1 {
+        padding: 14px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    nav span.longnav,
+    nav form,
+    nav #Label1,
+    nav #BlogArchive1,
+    nav #PopularPosts1 {
+        display: none;
+    }
+
+    nav ul li {
+        width: 15%;  /* reduced from 9 to 6 entries, so make them wider */
+    }
+
+    .omit-if-narrow, nav ul li.omit-if-narrow {
+        display: none;
+    }
+
+    pre {
+        width: auto;
+        font-size: 9px;
+        white-space: pre-wrap;
+    }
+
+    nav {
+        font-size: 10px;
+    }
+}
+
+/* Forms */
+
+form {
+    margin: 0;
+}
+input[type="text"] {
+    max-width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    background-color: #f8f8f4;
+    color: #000;
+    text-align: center;
+    font-weight: bold;
+}
+input[type="text"]:focus {
+    background-color: #fffff4;
+}
+input::-webkit-input-placeholder {
+    color: #aaa;
+}
+input:-moz-placeholder {
+    color: #aaa;
+}
+
+/* For the blogs */
+
+#ArchiveList {
+    padding: 0 24px;
+    font-size: 12px;
+}
+div.blog-posts {
+    margin-top: 14px;
+}
+div.byline {
+    text-align: right;
+}
+div.blog-comment {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #eee;
+}
+div.blog-comment-body {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+div.comment-form {
+    padding-left: 20px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    background-color: #eee;
+}
+
+body .PopularPosts .widget-content ul li {
+    float: left;
+    margin: 1em 3em;
+    padding: 0;
+    width: 25em;
+    list-style-type: none;
+}
+body .PopularPosts h3 {
+    display: none;
+}
+
+p.blogger-labels {
+    text-align: right;
+    font-size: small;
+}
+
+p.blogger-labels a[rel="tag"] {
+    padding: 0.2em 0.6em;
+    
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: -1px -1px 3px rgba(0, 0, 0, 0.2);
+    
+    background-color: #369;
+
+    border: 1px outset #369;
+    border-top-right-radius: 5px 10px;
+    border-bottom-right-radius: 5px 10px;
+    border-top-left-radius: 5px 10px;
+    border-bottom-left-radius: 5px 10px;
+    box-shadow: 1px 1px 2px #000;
+}
+body.gameprog p.blogger-labels a[rel="tag"] {
+    border: 1px outset #a44;
+    background-color: #a44;
+}
+p.blogger-labels a[rel="tag"]:hover {
+    box-shadow: 2px 2px 2px #000;
+}
+
+/* Add # to blogger labels */
+p.blogger-labels a[rel="tag"]:before /* At the bottom of blog posts */,
+.status-msg-body b:before /* When filtering for a label */,
+#Label1 .widget-content a:before /* In the sidebar list of labels */
+{
+    content: " #";
+}
+#Label1 ul li span:first-child, #Label1 ul li b:first-child {
+    /* Current label when searching */
+    font-weight: bold;
+}
+#Label1 ul li span:first-child:before, #Label1 ul li b:first-child:before {
+    content: " #";
+}
+nav #Label1 li {
+    /* These items will have # before them instead of the bullet */
+    list-style-type: none;
+}
+
+/* To assign colors to each label, use a rule like p.blogger-labels a[rel="tag"][href$="/project"] */
+
+/* Counter */
+.statcounter {
+    display: none;
+}
+
+/* Override the Google search box style */
+.divider { text-align: right; }
+.divider .google-search { display: inline-block; width: 25em; margin-right: 40px; }
+.divider .gsc-control-cse { padding: 0; border: none; background: transparent; font-family: inherit; }
+.divider .gsc-results { background: #eee; text-align: left; margin-left: 40px; margin-right: 40px; width: auto; box-shadow: inset 0px 1px 6px #aaa; }
+.divider .gsc-results .gsc-cursor-box .gsc-cursor-page { border: 2px solid #369; background-color: #fff; padding: 4px 6px; color: #369; }
+.gameprog .divider .gsc-results .gsc-cursor-box .gsc-cursor-page { border-color: #a44; color: #a44; }
+.divider .gsc-above-wrapper-area { background: #eee; }
+
+/* Override the Disqus styles */
+.alert.info {
+    background: #369 ! important;
+}
+.gameprog .alert.info {
+    background: #a44;
+}
+
+.comments h3 {
+    font-size: 18px;
+}
+
+/* Disqus: remove gap between toolbar and comments */
+#dsq-content #dsq-global-toolbar {
+    margin: 0 ! important;
+}
+
+.dsq-avatar img {
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 8px ! important;
+}
+
+/* Disqus: remove stuff I don't care about */
+#dsq-pagination, .dsq-trackback-url {
+    display: none;
+}
+
+/* Disqus: connect the header and the comment boxes and their borders */
+.dsq-comment-header {
+    margin-bottom: 0 ! important;
+    border-top-left-radius: 8px ! important;
+    border-top-right-radius: 8px ! important;
+    border-bottom-left-radius: 0 ! important;
+    border-bottom-right-radius: 0 ! important;
+}
+.dsq-comment-message {
+    margin-top: 0 ! important;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-top-width: 0px;
+    
+    background-color: #f4f4f0;
+    
+    box-shadow: 0px 2px 4px -2px #aaa;
+}
+#dsq-content .dsq-content-text {
+    background-color: #f4f4f0;
+}
+#dsq-content .dsq-reaction-header table {
+    background: #ccc;
+}
+
+/* Disqus: mark moderator messages */
+.dsq-moderator .dsq-comment-header,
+.dsq-moderator .dsq-comment-message {
+    border-color: #369 ! important;
+    border-color: rgba(51,102,153,.5) ! important;
+}
+.dsq-moderator .dsq-comment-message {
+    background-color: #fff;
+}
+body.gameprog .dsq-moderator .dsq-comment-header,
+body.gameprog .dsq-moderator .dsq-comment-message {
+    border-color: #a44 ! important;
+    border-color: rgba(170,68,68,.5) ! important;
+}
