@@ -10,6 +10,7 @@
   <script src="../lib/d3.min.js"></script>
   <script src="../lib/sticker.js"></script>
   <script src="../lib/inlet.min.js"></script>
+  <title>Binding API</title>
 </head>
 <style>
   body {
@@ -388,7 +389,7 @@
       var svg = d3.select("#events svg");
       var cm = CodeMirror(editor.node(), options);
       Inlet(cm)
-      var text = "var data = [50, 100, 150, 200]\nvar divs = d3.select('#events .right')\n  .selectAll('div.item')\n  .data(data);\ndivs.enter()\n  .append('div').classed('item', true)\ndivs.style({\n  width:'20px',\n  height:function(d) { return d + 'px' },\n  margin:'15px',\n  float:'left',\n  'background-color':'#25B0B0'\n}).on('click', function(d,i) {\n  d3.select(this)\n    .style('background-color','#42efef')\n    .style('padding-left','10px')\n    .text(i)\n});";
+      var text = "var data = [50, 100, 150, 200]\nvar divs = d3.select('#events .right')\n  .selectAll('div.item')\n  .data(data);\ndivs.enter()\n  .append('div').classed('item', true)\ndivs.style({\n  width:'20px',\n  height:function(d) { return d + 'px' },\n  margin:'15px',\n  float:'left',\n  'background-color':'#25B0B0'\n})\n.on('click', function(d,i) {\n  d3.select(this)\n    .style('background-color','#42efef')\n    .style('padding-left','10px')\n    .text(i)\n});";
       cm.on("change", function() {
         d3.select("#events .right").selectAll("*").remove()
         var value = cm.getValue();

@@ -5,25 +5,56 @@
   <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Ubuntu' rel='stylesheet' type='text/css'>
 </head>
 <style>
+  body {
+    font-family: Lato;
+  }
+  ul {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
   li {
+    list-style: none;
     font-family: Ubuntu;
     font-size: 24px;
-    list-style: none;
+    clear:left;
+    float:left;
+    margin: 20px;
   }
-  p {
+  li p {
     font-family: Lato;
     font-size: 12px;
+    width: 200px;
+    float: left;
+    margin-left: 20px;
+  }
+  li a {
+    margin-left: 20px;
   }
   img {
+    width: 100px;
     height: 100px;
+    float:left;
+  }
+  .thanks {
+    position:fixed;
+    bottom: 10px;
+    right: 15px;
+    background-color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    text-align: right;
   }
 </style>
 </head>
 <body>
+  <div class=thanks>
+    Thanks to <a href="https://twitter.com/mrejfox">EJ Fox</a> and <a href="https://twitter.com/enoex">Erik Hazzard</a> for reviewing these materials with me.<br>
+    Shoutout to <a href="https://twitter.com/syntagmatic">Kai Chang</a> and <a href="https://twitter.com/poezn">Michael Porath</a> for teaching me a ton about d3 as well as how to teaching it.<br>
+    Thanks to <a href="http://www.redblobgames.com">Amit Patel</a> for sharing his tutorial creation process with me.<br>
+    Thanks to <a href="https://twitter.com/1marc">Marc Grabanski</a> for considering me a <a href="http://frontendmasters.com">Frontend Master</a>.
+  </div>
   <ul>
     <li>
-      <img src="svg/thumb.png">
       <a href="svg">SVG Overview</a>
+      <img src="svg/thumb.png">
       <p>overview of most common SVG elements and key ways SVG is similar to and different from html</p>
     </li>
     <li>
@@ -52,5 +83,6 @@
       <p>d3 components can abstract behaviors, layouts as well as charts</p>
     </li>
   </ul>
+  
 </body>
 </html>
