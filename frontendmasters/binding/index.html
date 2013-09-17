@@ -20,21 +20,38 @@
     font-family: Ubuntu;
     font-size: 16px;
     list-style: none;
+    display: inline;
+    list-style-type: none;
+  }
+  .content {
+    position:absolute;
+    top: 70px;
   }
   .header {
     display: inline-block;
+    position: fixed;
+    top:0;
+    margin-top:0;
+    padding-bottom: 5px;
+    height: 70px;
+    width: 100%;
+    z-index:1000;
+    background-color: white;
   }
   .header a{
     float:left;
     margin: 2px;
+    margin-left: 10px;
   }
   .header ul {
-    float:left;
-    margin-top: 50px;
+    margin-top: 30px;
+    width: 100%;
   }
   h1 {
     font-family: Ubuntu;
     font-size: 72px;
+    padding: 0;
+    margin:0;
     float:left;
   }
   h2 {
@@ -102,7 +119,7 @@
 </head>
 <body>
   <div class="header">
-  <a href="../">Main Menu</a>
+  <a style="float:right;margin-right:20px" href="../">Main Menu</a>
   <h1>Binding API</h1>
   <ul>
     <li>
@@ -133,6 +150,8 @@
 
   </ul>
   </div>
+
+  <div class="content">
 
   <div name="append" id="append">
     <h2>append</h2>
@@ -449,5 +468,6 @@
   </div>
 
   <a href="#">Top</a>
+</div>
 </body>
 </html>

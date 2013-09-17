@@ -10,7 +10,7 @@
   <script src="../lib/d3.min.js"></script>
   <script src="../lib/sticker.js"></script>
   <script src="../lib/inlet.min.js"></script>
-  <title>Non-Binding API</title>
+  <title>Application patterns</title>
 </head>
 <style>
   body {
@@ -60,12 +60,16 @@
     width: 100%;
     padding: 5px;
     background-color: #dfefef;
-  }  h3 {
+  }
+  h3 {
     font-family: Ubuntu;
   }
   p {
     font-family: Lato;
     font-size: 14px;
+  }
+  snippet {
+    display: none;
   }
   .editor {
   }
@@ -122,25 +126,16 @@
 <body>
   <div class="header">
   <a style="float:right;margin-right:20px" href="../">Main Menu</a>
-  <h1>Non-Binding API</h1>
+  <h1>Application Patterns</h1>
   <ul>
     <li>
-      <a href="#scales">scales</a>
+      <a href="#init">init</a>
     </li>
     <li>
-      <a href="#generators">generators</a>
+      <a href="#update">update</a>
     </li>
     <li>
-      <a href="#layouts">layouts</a>
-    </li>
-    <li>
-      <a href="#behaviors">behaviors</a>
-    </li>
-    <li>
-      <a href="#ajax">ajax</a>
-    </li>
-    <li>
-      <a href="#geo">geo</a>
+      <a href="#render">render</a>
     </li>
 
     <li>
@@ -151,18 +146,17 @@
   </div>
   <div class="content">
 
-  <iframe src="http://tributary.io/e/5736996" width=100% height=400px frameborder=0 scrolling=none></iframe>
-  <a target=_blank href="http://tributary.io/inlet/5736996">API categorization</a>
-
-
-  <div name="scales" id="scales">
-    <h2>scales</h2>
-    <h3>quantitative scales</h3>
-    <div class="qscales sidebyside">
+  <div name="init" id="init">
+    <h2>init</h2>
+    <h3>data prep</h3>
+    <div class="dataprep sidebyside">
       <div class="left">
+<snippet>
+var data = [5, 10, 15];
+</snippet>
         <div class="editor"></div>
         <p>
-          
+          testing data prep
         </p>
       </div>
       <div class="right">
@@ -177,11 +171,12 @@
         lineNumbers: true,
         viewportMargin: Infinity,
       }
-      var editor = d3.select(".qscales").select(".editor");
-      var svg = d3.select(".qscales svg");
+      var editor = d3.select(".dataprep").select(".editor");
+      var snippet  = d3.select(".dataprep").select("snippet");
+      var svg = d3.select(".dataprep svg");
       var cm = CodeMirror(editor.node(), options);
       Inlet(cm)
-      var text = "d3.select('.qscales')";
+      var text = snippet.text()//"d3.select('.qscales')";
       cm.on("change", function() {
         svg.selectAll("*").remove()
         var value = cm.getValue();
@@ -195,8 +190,8 @@
     }())
     </script>
 
-    <h3>categorical scales</h3>
-    <div class="cscales sidebyside">
+    <h3>parameters</h3>
+    <div class="parameters sidebyside">
       <div class="left">
         <div class="editor"></div>
         <p>
@@ -215,11 +210,11 @@
         lineNumbers: true,
         viewportMargin: Infinity,
       }
-      var editor = d3.select(".cscales").select(".editor");
-      var svg = d3.select(".cscales svg");
+      var editor = d3.select(".parameters").select(".editor");
+      var svg = d3.select(".parameters svg");
       var cm = CodeMirror(editor.node(), options);
       Inlet(cm)
-      var text = "d3.select('.cscales')";
+      var text = "d3.select('.parameters')";
       cm.on("change", function() {
         svg.selectAll("*").remove()
         var value = cm.getValue();
@@ -235,10 +230,10 @@
 
   </div>
 
-  <div name="generators" id="generators">
-    <h2>generators</h2>
-    <h3>axis</h3>
-    <div class="axisgen sidebyside">
+  <div name="update" id="update">
+    <h2>update</h2>
+    <h3>new data</h3>
+    <div class="newdata sidebyside">
       <div class="left">
         <div class="editor"></div>
         <p>
@@ -257,11 +252,11 @@
         lineNumbers: true,
         viewportMargin: Infinity,
       }
-      var editor = d3.select(".axisgen").select(".editor");
-      var svg = d3.select(".axisgen svg");
+      var editor = d3.select(".newdata").select(".editor");
+      var svg = d3.select(".newdata svg");
       var cm = CodeMirror(editor.node(), options);
       Inlet(cm)
-      var text = "d3.select('.axisgen')";
+      var text = "d3.select('.newdata')";
       cm.on("change", function() {
         svg.selectAll("*").remove()
         var value = cm.getValue();
@@ -275,8 +270,8 @@
     }())
     </script>
 
-    <h3>line</h3>
-    <div class="linegen sidebyside">
+    <h3>filter</h3>
+    <div class="filter sidebyside">
       <div class="left">
         <div class="editor"></div>
         <p>
@@ -295,49 +290,11 @@
         lineNumbers: true,
         viewportMargin: Infinity,
       }
-      var editor = d3.select(".linegen").select(".editor");
-      var svg = d3.select(".linegen svg");
+      var editor = d3.select(".filter").select(".editor");
+      var svg = d3.select(".filter svg");
       var cm = CodeMirror(editor.node(), options);
       Inlet(cm)
-      var text = "d3.select('.linegen')";
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
-      })
-      cm.setValue(text);
-    }())
-    </script>
-
-    <h3>brush</h3>
-    <div class="brushgen sidebyside">
-      <div class="left">
-        <div class="editor"></div>
-        <p>
-          
-        </p>
-      </div>
-      <div class="right">
-        <svg width="100%" height=200>
-        </svg>
-      </div>
-    </div>
-    <script>
-    (function() {
-      var options = {
-        mode: 'javascript',
-        lineNumbers: true,
-        viewportMargin: Infinity,
-      }
-      var editor = d3.select(".brushgen").select(".editor");
-      var svg = d3.select(".brushgen svg");
-      var cm = CodeMirror(editor.node(), options);
-      Inlet(cm)
-      var text = "d3.select('.brushgen')";
+      var text = "d3.select('.filter')";
       cm.on("change", function() {
         svg.selectAll("*").remove()
         var value = cm.getValue();
@@ -352,14 +309,13 @@
     </script>
   </div>
 
-  <div name="layouts" id="layouts">
-    <h2>layouts</h2>
-    <h3>histogram</h3>
-    <div class="histogram sidebyside">
+  <div name="render" id="render">
+    <h2>render</h2>
+    <div class="render sidebyside">
       <div class="left">
         <div class="editor"></div>
         <p>
-          
+          put data into the DOM.
         </p>
       </div>
       <div class="right">
@@ -374,11 +330,11 @@
         lineNumbers: true,
         viewportMargin: Infinity,
       }
-      var editor = d3.select(".histogram").select(".editor");
-      var svg = d3.select(".histogram svg");
+      var editor = d3.select(".render").select(".editor");
+      var svg = d3.select(".render svg");
       var cm = CodeMirror(editor.node(), options);
       Inlet(cm)
-      var text = "d3.select('.histogram')";
+      var text = "d3.select('.render')";
       cm.on("change", function() {
         svg.selectAll("*").remove()
         var value = cm.getValue();
@@ -392,126 +348,6 @@
     }())
     </script>
   </div>
-
-  <div name="ajax" id="ajax">
-    <h2>ajax</h2>
-    <h3>json</h3>
-    <div class="jsonajax sidebyside">
-      <div class="left">
-        <div class="editor"></div>
-        <p>
-          
-        </p>
-      </div>
-      <div class="right">
-        <svg width="100%" height=200>
-        </svg>
-      </div>
-    </div>
-    <script>
-    (function() {
-      var options = {
-        mode: 'javascript',
-        lineNumbers: true,
-        viewportMargin: Infinity,
-      }
-      var editor = d3.select(".jsonajax").select(".editor");
-      var svg = d3.select(".jsonajax svg");
-      var cm = CodeMirror(editor.node(), options);
-      Inlet(cm)
-      var text = "d3.select('.jsonajax')";
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
-      })
-      cm.setValue(text);
-    }())
-    </script>
-    <h3>csv</h3>
-    <div class="csvajax sidebyside">
-      <div class="left">
-        <div class="editor"></div>
-        <p>
-          
-        </p>
-      </div>
-      <div class="right">
-        <svg width="100%" height=200>
-        </svg>
-      </div>
-    </div>
-    <script>
-    (function() {
-      var options = {
-        mode: 'javascript',
-        lineNumbers: true,
-        viewportMargin: Infinity,
-      }
-      var editor = d3.select(".csvajax").select(".editor");
-      var svg = d3.select(".csvajax svg");
-      var cm = CodeMirror(editor.node(), options);
-      Inlet(cm)
-      var text = "d3.select('.csvajax')";
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
-      })
-      cm.setValue(text);
-    }())
-    </script>
-  </div>
-
-  <div name="geo" id="geo">
-    <h2>geo</h2>
-    <div class="geo sidebyside">
-      <div class="left">
-        <div class="editor"></div>
-        <p>
-          
-        </p>
-      </div>
-      <div class="right">
-        <svg width="100%" height=200>
-        </svg>
-      </div>
-    </div>
-    <script>
-    (function() {
-      var options = {
-        mode: 'javascript',
-        lineNumbers: true,
-        viewportMargin: Infinity,
-      }
-      var editor = d3.select(".geo").select(".editor");
-      var svg = d3.select(".geo svg");
-      var cm = CodeMirror(editor.node(), options);
-      Inlet(cm)
-      var text = "d3.select('.geo')";
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
-      })
-      cm.setValue(text);
-    }())
-    </script>
-  </div>
-
-
 
 
   <script>
