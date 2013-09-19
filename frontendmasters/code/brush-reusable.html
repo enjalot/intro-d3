@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <style>
+      svg {
+        width: 560px;
+        height: 500px;
+        border: 1px solid gray;
+      }
+      .background {
+        visibility: visible !important;
+        fill: #4B9E9E;
+      }
+      .extent {
+        visibility: visible !important;
+        fill: #78C5C5;
+      }
+      .resize rect {
+        visibility: visible !important;
+        fill: #276C86;
+      }
+      rect.event {
+        fill: #155C40;
+        fill-opacity: 0.3;
+        stroke: #E0E0E0;
+        stroke-opacity: 0.5;
+      }
+
+
+      .axis {
+        font-size: 10px;
+      }
+      .axis path {
+        fill: none;
+        stroke: #000000;
+      }
+      .axis .tick line {
+        stroke: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <svg></svg>
+    <script src="lib/d3.js"></script>
+    <script src="brush.js"></script>
+    <script>
+      /* OPEN YOUR CONSOLE (always while developing) */
+      /*
+      http://www.reddit.com/dev/api
+
+      this data:
+      http://www.reddit.com/r/pics.json?limit=40
+      */
+      //console.log(tributary.pics);
+      d3.json('data/pics.json', function(err, pics) {
+        var links = pics.data.children;
+        links.forEach(function(d) {
+          d.data.created *= 1000;
+        })
+
+        var svg = d3.select("svg")
+        var g = svg.append("g")
+        .attr("transform", "translate(45, 25)");
+
+        var brush = d3.chart.brush()
+        brush.data(links)
+        brush(g)
+
+        brush.on("filter", function(d) {
+          console.log("hey", d)
+        })
+
+      });
+    </script>
+  </body>
+</html>
+
+

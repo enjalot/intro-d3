@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="lib/tipsy.css">
+    <style>
+      svg {
+        width: 560px;
+        height: 500px;
+        border: 1px solid gray;
+      }
+    </style>
+  </head>
+  <body>
+    <svg></svg>
+    <script src="lib/jquery-1.7.1.min.js"></script>
+    <script src="lib/d3.js"></script>
+    <script>
+      /* OPEN YOUR CONSOLE (always while developing) */
+      /*
+      http://www.reddit.com/dev/api
+      https://github.com/mbostock/d3/wiki/Histogram-Layout#wiki-histogram
+
+      this data:
+      http://www.reddit.com/r/pics.json?limit=40
+      */
+      //console.log(tributary.pics);
+      d3.json('data/pics.json', function(err, pics) {
+        var links = pics.data.children;
+        //console.log(links);
+
+        var svg = d3.select("svg");
+
+        var max = d3.max(links, function(d) { return d.data.score })
+
+        var hist = d3.layout.histogram()
+        .value(function(d) { return d.data.score })
+        .range([0, max ])
+        .bins(5);
+
+        var layout = hist(links);
+
+        xmax = d3.max(layout, function(d) { return d.length })
+
+        var xScale = d3.scale.linear()
+        .domain([0, xmax])
+        .range([0, 300])
+
+        var yScale = d3.scale.ordinal()
+        .domain(d3.range(layout.length))
+        .rangeBands([50, 300], 0.1)
+
+        var rects = svg.selectAll("rect")
+        .data(layout)
+
+        rects.enter()
+        .append("rect")
+
+        rects.attr({
+          x: 100,
+          y: function(d, i) { return yScale(i) },
+          height: yScale.rangeBand(),
+          width: function(d) { return xScale(d.length) }
+        })
+        .on("click", function(d) {
+          console.log("bin", d)
+        })
+      });
+    </script>
+  </body>
+</html>
+
+
