@@ -19,15 +19,14 @@
   <h1>Reusable Charts</h1>
   <ul>
     <li>
-      <a href="#bar">bar chart</a>
+      <a href="#scatter">scatter plot</a>
     </li>
     <li>
-      <a href="#scatter">scatter plot</a>
+      <a href="#bar">bar chart (histogram)</a>
     </li>
     <li>
       <a href="#table">table</a>
     </li>
-
     <li>
       <a href="#resources">Resources</a>
     </li>
@@ -36,125 +35,52 @@
   </div>
   <div class="content">
 
-  <div name="init" id="init">
-    <h2>bar chart</h2>
-    <div class="data sidebyside">
-      <div class="left">
-        <div class="editor"></div>
-        <p>
-          
-        </p>
-      </div>
-      <div class="right">
-        <svg width="100%" height=200>
-        </svg>
-      </div>
-    </div>
-    <script>
-    (function() {
-      var options = {
-        mode: 'javascript',
-        lineNumbers: true,
-        viewportMargin: Infinity,
-      }
-      var editor = d3.select(".data").select(".editor");
-      var svg = d3.select(".data svg");
-      var cm = CodeMirror(editor.node(), options);
-      Inlet(cm)
-      var text = "d3.select('.data')";
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
-      })
-      cm.setValue(text);
-    }())
-    </script>
-  </div>
-
   <div name="scatter" id="scatter">
     <h2>scatter</h2>
     <div class="scatter sidebyside">
       <div class="left">
-        <div class="editor"></div>
-        <p>
-          
-        </p>
+        <h3><a href="/frontendmasters/code/scatter.html">One-and-Done</a></h3>
+        <h3>
+          <a href="/frontendmasters/code/scatter-reusable.html">Reusable</a>
+          <a href="/frontendmasters/code/scatter.js">(js)</a>
+        </h3>
       </div>
       <div class="right">
-        <svg width="100%" height=200>
-        </svg>
+        <img src="scatter.png" height=300px>
       </div>
     </div>
-    <script>
-    (function() {
-      var options = {
-        mode: 'javascript',
-        lineNumbers: true,
-        viewportMargin: Infinity,
-      }
-      var editor = d3.select(".scatter").select(".editor");
-      var svg = d3.select(".scatter svg");
-      var cm = CodeMirror(editor.node(), options);
-      Inlet(cm)
-      var text = "d3.select('.scatter')";
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
-      })
-      cm.setValue(text);
-    }())
-    </script>
+  </div>
 
+  <div name="bar" id="bar">
+    <h2>bar chart (histogram)</h2>
+    <div class="data sidebyside">
+      <div class="left">
+        <h3><a href="/frontendmasters/code/histogram.html">One-and-Done</a></h3>
+        <h3>
+          <a href="/frontendmasters/code/histogram-reusable.html">Reusable</a>
+          <a href="/frontendmasters/code/histogram.js">(js)</a>
+        </h3>
+      </div>
+      <div class="right">
+        <img src="histogram.png" height=300px>
+      </div>
+    </div>
   </div>
 
   <div name="table" id="table">
     <h2>table</h2>
     <div class="table sidebyside">
       <div class="left">
-        <div class="editor"></div>
-        <p>
-          table
-        </p>
+        <h3><a href="/frontendmasters/code/table.html">One-and-Done</a></h3>
+        <h3>
+          <a href="/frontendmasters/code/table-reusable.html">Reusable</a>
+          <a href="/frontendmasters/code/table.js">(js)</a>
+        </h3>
       </div>
       <div class="right">
-        <svg width="100%" height=200>
-        </svg>
+        <img src="table.png" height=300px>
       </div>
     </div>
-    <script>
-    (function() {
-      var options = {
-        mode: 'javascript',
-        lineNumbers: true,
-        viewportMargin: Infinity,
-      }
-      var editor = d3.select(".table").select(".editor");
-      var svg = d3.select(".table svg");
-      var cm = CodeMirror(editor.node(), options);
-      Inlet(cm)
-      var text = "d3.select('.table')";
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
-      })
-      cm.setValue(text);
-    }())
-    </script>
   </div>
 
 
@@ -193,12 +119,11 @@
     <h2>Resources</h2>
     <p>
       <ul>
-        <li><a target=_blank href="http://edenhalperin.com/d3-scale-generator/">d3 scale generator</a>
-        <li><a target=_blank href=""></a>
-        <li><a target=_blank href=""></a>
-        <li><a target=_blank href=""></a>
-        <li><a target=_blank href=""></a>
-        <li><a target=_blank href=""></a>
+        <li><a target=_blank href="http://bost.ocks.org/mike/chart/">Towards Reusable Charts</a>
+        <li><a target=_blank href="http://www.biovisualize.com/2013/05/d3-meetup-integrating-d3-with-mv.html">Talk by @d3visualization (video)</a>
+        <li><a target=_blank href="http://www.biovisualize.com/2013/08/developing-d3js-edge.html">Developing a D3.js Edge</a>
+        <li><a target=_blank href="http://misoproject.com/d3-chart/">Miso d3.chart</a>
+        <li><a target=_blank href="http://nvd3.org/">NVD3</a>
       </ul>
     </p>
   </div>

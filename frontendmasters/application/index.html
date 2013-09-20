@@ -27,9 +27,8 @@
     <li>
       <a href="#render">render</a>
     </li>
-
     <li>
-      <a href="#resources">Resources</a>
+      <a href="#alltogether">all together</a>
     </li>
 
   </ul>
@@ -41,44 +40,13 @@
     <h3>data prep</h3>
     <div class="dataprep sidebyside">
       <div class="left">
-<snippet>
-var data = [5, 10, 15];
-</snippet>
         <div class="editor"></div>
         <p>
-          testing data prep
         </p>
       </div>
       <div class="right">
-        <svg width="100%" height=200>
-        </svg>
       </div>
     </div>
-    <script>
-    (function() {
-      var options = {
-        mode: 'javascript',
-        lineNumbers: true,
-        viewportMargin: Infinity,
-      }
-      var editor = d3.select(".dataprep").select(".editor");
-      var snippet  = d3.select(".dataprep").select("snippet");
-      var svg = d3.select(".dataprep svg");
-      var cm = CodeMirror(editor.node(), options);
-      Inlet(cm)
-      var text = snippet.text()//"d3.select('.qscales')";
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
-      })
-      cm.setValue(text);
-    }())
-    </script>
 
     <h3>parameters</h3>
     <div class="parameters sidebyside">
@@ -89,35 +57,8 @@ var data = [5, 10, 15];
         </p>
       </div>
       <div class="right">
-        <svg width="100%" height=200>
-        </svg>
       </div>
     </div>
-    <script>
-    (function() {
-      var options = {
-        mode: 'javascript',
-        lineNumbers: true,
-        viewportMargin: Infinity,
-      }
-      var editor = d3.select(".parameters").select(".editor");
-      var svg = d3.select(".parameters svg");
-      var cm = CodeMirror(editor.node(), options);
-      Inlet(cm)
-      var text = "d3.select('.parameters')";
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
-      })
-      cm.setValue(text);
-    }())
-    </script>
-
   </div>
 
   <div name="update" id="update">
@@ -131,35 +72,9 @@ var data = [5, 10, 15];
         </p>
       </div>
       <div class="right">
-        <svg width="100%" height=200>
-        </svg>
       </div>
     </div>
-    <script>
-    (function() {
-      var options = {
-        mode: 'javascript',
-        lineNumbers: true,
-        viewportMargin: Infinity,
-      }
-      var editor = d3.select(".newdata").select(".editor");
-      var svg = d3.select(".newdata svg");
-      var cm = CodeMirror(editor.node(), options);
-      Inlet(cm)
-      var text = "d3.select('.newdata')";
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
-      })
-      cm.setValue(text);
-    }())
-    </script>
-
+    
     <h3>filter</h3>
     <div class="filter sidebyside">
       <div class="left">
@@ -169,34 +84,8 @@ var data = [5, 10, 15];
         </p>
       </div>
       <div class="right">
-        <svg width="100%" height=200>
-        </svg>
       </div>
     </div>
-    <script>
-    (function() {
-      var options = {
-        mode: 'javascript',
-        lineNumbers: true,
-        viewportMargin: Infinity,
-      }
-      var editor = d3.select(".filter").select(".editor");
-      var svg = d3.select(".filter svg");
-      var cm = CodeMirror(editor.node(), options);
-      Inlet(cm)
-      var text = "d3.select('.filter')";
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
-      })
-      cm.setValue(text);
-    }())
-    </script>
   </div>
 
   <div name="render" id="render">
@@ -205,85 +94,21 @@ var data = [5, 10, 15];
       <div class="left">
         <div class="editor"></div>
         <p>
-          put data into the DOM.
         </p>
       </div>
       <div class="right">
-        <svg width="100%" height=200>
-        </svg>
       </div>
     </div>
-    <script>
-    (function() {
-      var options = {
-        mode: 'javascript',
-        lineNumbers: true,
-        viewportMargin: Infinity,
-      }
-      var editor = d3.select(".render").select(".editor");
-      var svg = d3.select(".render svg");
-      var cm = CodeMirror(editor.node(), options);
-      Inlet(cm)
-      var text = "d3.select('.render')";
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
-      })
-      cm.setValue(text);
-    }())
-    </script>
+  </div>
+  <div name="alltogether" id="alltogether">
+    <h2>putting it all together</h2>
+    <div class="alltogether sidebyside">
+      <a target=_blank href="/frontendmasters/code/all-together.html">
+        <img src="alltogether.png" width=90%>
+      </a>
+    </div>
   </div>
 
-
-  <script>
-    function matches(node, selector) {
-      var _ref;
-      if (node.matches) {
-        return node.matches(selector);
-      }
-      return ((_ref = node.parentNode) != null ? _ref.querySelector(selector) : void 0) === node;
-    };
-
-    function containingParent(node, selector) {
-      while (node) {
-        if (matches(node, selector)) {
-          return node;
-        }
-        node = node.parentNode;
-      }
-    };
-
-    d3.select(document.body).on("click", function() {
-      var target = d3.select(d3.event.target);
-      var contains = containingParent(target.node(), ".editor");
-      //TODO: figure out why this doesn't work
-      //var contains2 = containingParent(target.node(), ".ColorPicker");
-      if(!target.classed("range") && !contains) {
-        d3.selectAll(".inlet_slider").style("visibility", "hidden");
-        d3.selectAll(".ColorPicker").style("display", "none");
-      }
-    })
-    d3.selectAll("svg").attr("title", "Right click and Inspect me");
-  </script>
-
-  <div name="resources" id="resources">
-    <h2>Resources</h2>
-    <p>
-      <ul>
-        <li><a target=_blank href="http://edenhalperin.com/d3-scale-generator/">d3 scale generator</a>
-        <li><a target=_blank href=""></a>
-        <li><a target=_blank href=""></a>
-        <li><a target=_blank href=""></a>
-        <li><a target=_blank href=""></a>
-        <li><a target=_blank href=""></a>
-      </ul>
-    </p>
-  </div>
 
   <a href="#">Top</a>
 </div>

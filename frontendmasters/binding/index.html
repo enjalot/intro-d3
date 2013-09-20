@@ -53,6 +53,25 @@
     <h2>append</h2>
     <div class="sidebyside">
       <div class="left">
+<snippet>
+var svg = d3.select('#append svg')
+
+svg.append('circle')
+.attr({
+  cx: 100,
+  cy: 100,
+  r: 40,
+  fill:'#25B0B0'
+})
+
+svg.append('circle')
+.attr({
+  cx: 350,
+  cy: 100,
+  r: 40,
+  fill:'#25B0B0'
+})
+</snippet>
         <div class="editor"></div>
         <p>
           You can append elements to the DOM by name.
@@ -74,7 +93,8 @@
       var svg = d3.select("#append svg");
       var cm = CodeMirror(editor.node(), options);
       Inlet(cm)
-      var text = "var svg = d3.select('#append svg')\n\nsvg.append('circle')\n  .attr({cx: 100, cy: 100, r: 40, fill:'#25B0B0'})\n\nsvg.append('circle')\n  .attr({cx: 350, cy: 100, r: 40, fill:'#25B0B0'})";
+      var snippet  = d3.select("#append").select("snippet");
+      var text = snippet.text()
       cm.on("change", function() {
         svg.selectAll("*").remove()
         var value = cm.getValue();
