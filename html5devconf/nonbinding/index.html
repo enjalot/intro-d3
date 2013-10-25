@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Ubuntu' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../lib/codemirror.css">
+  <link rel="stylesheet" href="../lib/inlet.css">
+  <link rel="stylesheet" href="../style.css">
+  <script src="../lib/codemirror.js"></script>
+  <script src="../lib/javascript.js"></script>
+  <script src="../lib/d3.min.js"></script>
+  <script src="../lib/sticker.js"></script>
+  <script src="../lib/inlet.min.js"></script>
+  <title>Non-Binding API</title>
+</head>
+<body>
+  <div class="header">
+  <div class="header-content">
+  <a style="float:right;margin-right:20px" href="../">Main Menu</a>
+  <h1>Non-Binding API</h1>
+  <ul>
+    <li>
+      <a href="#scales">scales</a>
+    </li>
+    <li>
+      <a href="#generators">generators</a>
+    </li>
+    <li>
+      <a href="#layouts">layouts</a>
+    </li>
+    <li>
+      <a href="#ajax">ajax</a>
+    </li>
+    <li>
+      <a href="#resources">Resources</a>
+    </li>
+
+  </ul>
+  </div>
+  </div>
+  <div class="container">
+  <div class="content">
+
+    <div class="section">
+  <iframe src="http://tributary.io/e/5736996" width=100% height=400px frameborder=0 scrolling=none></iframe>
+  <a target=_blank href="http://tributary.io/inlet/5736996">API categorization</a>
+  </div>
+
+
+  <div name="scales" id="scales" class="section">
+    <h2>scales</h2>
+    <h3>quantitative scales</h3>
+    <div class="qscales sidebyside">
+      <div class="left2">
+<snippet>
+var quant = [0, 5, 10, 15, 20];
+var qual = ["big", "small", "medium"];
+
+var qScale = d3.scale.linear()
+  .domain(d3.extent(quant))
+  .range([10, 100])
+
+quantValue = qScale(7);
+</snippet>
+        <div class="editor"></div>
+        <p>
+        </p>
+      </div>
+      <div class="right2">
+        <svg width="100%" height=200>
+          <text x=50 y=50>Quantity: <tspan class="quant"></tspan></text>
+          <rect x=50 y=80 width=10 height=20></rect>
+        </svg>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select(".qscales").select(".editor");
+      var svg = d3.select(".qscales svg");
+      var snippet  = d3.select(".qscales").select("snippet");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = snippet.text()
+      cm.on("change", function() {
+        var value = cm.getValue();
+        try {
+          eval(value);
+          svg.select(".quant").text(quantValue)
+          svg.select("rect").attr("width", quantValue)
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+
+    <h3>categorical scales</h3>
+    <div class="cscales sidebyside">
+      <div class="left2">
+<snippet>
+var qual = ["big", "small", "medium"];
+var ord = d3.range(qual.length);
+
+var oScale = d3.scale.ordinal()
+  .domain(ord)
+  .rangeBands([50, 150], 0.1)
+
+svg.selectAll("text").data(qual)
+.enter().append("text")
+.text(function(d) { return d })
+.attr({
+  x: 20,
+  y: function(d,i) { return oScale(i) }
+})
+</snippet>
+
+        <div class="editor"></div>
+        <p>
+        </p>
+      </div>
+      <div class="right2">
+        <svg width="100%" height=200>
+        </svg>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select(".cscales").select(".editor");
+      var svg = d3.select(".cscales svg");
+      var snippet  = d3.select(".cscales").select("snippet");
+      var text = snippet.text()
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = snippet.text()
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+  <div name="generators" id="generators" class="section">
+    <h2>generators</h2>
+    <h3>axis</h3>
+    <div class="axisgen sidebyside">
+      <div class="left2">
+<snippet>
+var scale = d3.scale.linear()
+.domain([20, 30])
+.range([10, 200])
+
+var axis = d3.svg.axis()
+.scale(scale)
+.orient("bottom") //left, right, top
+.ticks(4) //best guess
+// specify exact values
+//.tickValues([20, 25, 30]) 
+
+var g = svg.append("g")
+axis(g)
+g.attr("transform", "translate(50, 50)")
+g.selectAll("path")
+  .style({ fill: "none", stroke: "#000"})
+g.selectAll("line")
+  .style({ stroke: "#000"})
+</snippet>
+        <div class="editor"></div>
+        <p>
+          
+        </p>
+      </div>
+      <div class="right2">
+        <svg width="100%" height=200>
+        </svg>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select(".axisgen").select(".editor");
+      var svg = d3.select(".axisgen svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var snippet  = d3.select(".axisgen").select("snippet");
+      var text = snippet.text()
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+
+    <h3>line</h3>
+    <div class="linegen sidebyside">
+      <div class="left2">
+<snippet>
+var data = [0, 30, 20, 10, 50]
+var x = d3.scale.ordinal()
+  .domain(d3.range(data.length))
+  .rangeBands([10, 400])
+var y = d3.scale.linear()
+  .domain(d3.extent(data))
+  .range([150, 10])
+
+var line = d3.svg.line()
+.x(function(d,i) { return x(i) })
+.y(function(d,i) { return y(d) })
+
+svg.append("path")
+.attr("d", line(data))
+.style({
+  fill: "none",
+  stroke: "#000"
+})
+</snippet>
+        <div class="editor"></div>
+        <p>
+          
+        </p>
+      </div>
+      <div class="right2">
+        <svg width="100%" height=200>
+        </svg>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select(".linegen").select(".editor");
+      var svg = d3.select(".linegen svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var snippet  = d3.select(".linegen").select("snippet");
+      var text = snippet.text()
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+
+    <h3>brush</h3>
+    <div class="brushgen sidebyside">
+      <div class="left2">
+        <div class="editor"></div>
+<snippet>
+var scale = d3.scale.linear()
+  .domain([20, 30])
+  .range([10, 250])
+
+var brush = d3.svg.brush()
+brush.x(scale)
+brush.extent([22, 28])
+
+var g = svg.append("g")
+brush(g)
+g.attr("transform", "translate(50, 100)")
+g.selectAll("rect").attr("height", 30)
+g.selectAll(".background")
+  .style({fill: "#4B9E9E", visibility: "visible"})
+g.selectAll(".extent")
+  .style({fill: "#78C5C5", visibility: "visible"})
+g.selectAll(".resize rect")
+  .style({fill: "#276C86", visibility: "visible"})
+
+</snippet>
+        <p>
+          
+        </p>
+      </div>
+      <div class="right2">
+        <svg width="100%" height=200>
+        </svg>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select(".brushgen").select(".editor");
+      var svg = d3.select(".brushgen svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var snippet  = d3.select(".brushgen").select("snippet");
+      var text = snippet.text()
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+  <div name="layouts" id="layouts" class="section">
+    <h2>layouts</h2>
+    <h3>histogram</h3>
+    <div class="histogram sidebyside">
+      <div class="left2">
+<snippet>
+var data = [0, 1, 1, 2, 3, 2, 5, 5, 6, 1, 2, 3, 4]
+var hist = d3.layout.histogram()
+.value(function(d) { return d })
+.range([0, d3.max(data) ])
+.bins(5);
+
+var layout = hist(data);
+console.log("histogram:", layout)
+
+svg.selectAll("rect")
+.data(layout)
+.enter().append("rect")
+.attr({
+  x: function(d,i) {
+    return 100 + i * 30
+  },
+  y: 50,
+  width: 20,
+  height: function(d,i) {
+    return 20 * d.length
+  }
+})
+
+</snippet>
+        <div class="editor"></div>
+        <p>
+        </p>
+      </div>
+      <div class="right2">
+        <svg width="100%" height=200>
+        </svg>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select(".histogram").select(".editor");
+      var svg = d3.select(".histogram svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var snippet  = d3.select(".histogram").select("snippet");
+      var text = snippet.text()
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+  <div name="ajax" id="ajax" class="section">
+    <h2>ajax</h2>
+    <div class="jsonajax sidebyside">
+      <div class="left2">
+<snippet>
+d3.json(url, function(err, data) {...})
+d3.csv(url, function(err, data) {...})
+d3.tsv(url, function(err, data) {...})
+d3.text(url, function(err, data) {...})
+</snippet>
+        <div class="editor"></div>
+      </div>
+      <div class="right2">
+        <p>
+          These functions are for convenience, and behave similar to jQuery's .ajax()
+        </p>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select(".jsonajax").select(".editor");
+      var snippet  = d3.select(".jsonajax").select("snippet");
+      var text = snippet.text()//"d3.select('.qscales')";
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = snippet.text()
+      cm.setValue(text);
+    }())
+    </script>
+
+  <div name="resources" id="resources" class="section">
+    <h2>Resources</h2>
+    <p>
+      <ul>
+        <li><a target=_blank href="http://edenhalperin.com/d3-scale-generator/">d3 scale generator</a>
+        <li><a target=_blank href="https://github.com/mbostock/d3/wiki/API-Reference">d3 API docs</a>
+        <li><a target=_blank href="https://github.com/mbostock/d3/wiki/SVG-Axes#wiki-axis">Axis API docs</a>
+        <li><a target=_blank href="https://github.com/mbostock/d3/wiki/Histogram-Layout#wiki-histogram">Histogram API docs</a>
+        <li><a target=_blank href="https://github.com/mbostock/d3/wiki/SVG-Controls#wiki-brush">Brush API docs</a>
+        <li><a target=_blank href="https://github.com/mbostock/d3/wiki/Time-Scales#wiki-scale">Time API docs</a>
+      </ul>
+    </p>
+  </div>
+
+  </div>
+
+  <script>
+    function matches(node, selector) {
+      var _ref;
+      if (node.matches) {
+        return node.matches(selector);
+      }
+      return ((_ref = node.parentNode) != null ? _ref.querySelector(selector) : void 0) === node;
+    };
+
+    function containingParent(node, selector) {
+      while (node) {
+        if (matches(node, selector)) {
+          return node;
+        }
+        node = node.parentNode;
+      }
+    };
+
+    d3.select(document.body).on("click", function() {
+      var target = d3.select(d3.event.target);
+      var contains = containingParent(target.node(), ".editor");
+      //TODO: figure out why this doesn't work
+      //var contains2 = containingParent(target.node(), ".ColorPicker");
+      if(!target.classed("range") && !contains) {
+        d3.selectAll(".inlet_slider").style("visibility", "hidden");
+        d3.selectAll(".ColorPicker").style("display", "none");
+      }
+    })
+    d3.selectAll("svg").attr("title", "Right click and Inspect me");
+  </script>
+
+  <a href="#">Top</a>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-39326674-5', 'enjalot.github.io');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>

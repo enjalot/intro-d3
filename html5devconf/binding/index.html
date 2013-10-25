@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Ubuntu' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../lib/codemirror.css">
+  <link rel="stylesheet" href="../lib/inlet.css">
+  <link rel="stylesheet" href="../style.css">
+  <script src="../lib/codemirror.js"></script>
+  <script src="../lib/javascript.js"></script>
+  <script src="../lib/d3.min.js"></script>
+  <script src="../lib/sticker.js"></script>
+  <script src="../lib/inlet.min.js"></script>
+  <title>Binding API</title>
+</head>
+<body>
+  <div class="header">
+  <div class="header-content">
+  <a style="float:right;margin-right:20px" href="../">Main Menu</a>
+  <h1>Binding API</h1>
+  <ul>
+    <li>
+      <a href="#append">append</a>
+    </li>
+    <li>
+      <a href="#select">select</a>
+    </li>
+    <li>
+      <a href="#selectAll">selectAll</a>
+    </li>
+    <li>
+      <a href="#enter">enter</a>
+    </li>
+    <li>
+      <a href="#exit">exit</a>
+    </li>
+    <li>
+      <a href="#transition">transition</a>
+    </li>
+    <li>
+      <a href="#events">events</a>
+    </li>
+
+    <li>
+      <a href="#resources">Resources</a>
+    </li>
+
+  </ul>
+  </div>
+  </div>
+
+  <div class="container">
+  <div class="content">
+
+  <div name="append" id="append" class="section">
+    <h2>append</h2>
+    <div class="sidebyside">
+      <div class="left">
+<snippet>
+var svg = d3.select('#append svg')
+
+svg.append('circle')
+.attr({
+  cx: 100,
+  cy: 100,
+  r: 40,
+  fill:'#25B0B0'
+})
+
+svg.append('circle')
+.attr({
+  cx: 350,
+  cy: 100,
+  r: 40,
+  fill:'#25B0B0'
+})
+</snippet>
+        <div class="editor"></div>
+        <p>
+          You can append elements to the DOM by name.
+        </p>
+      </div>
+      <div class="right">
+        <svg width="100%" height=200>
+        </svg>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#append").select(".editor");
+      var svg = d3.select("#append svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var snippet  = d3.select("#append").select("snippet");
+      var text = snippet.text()
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+  <div name="select" id="select" class="section">
+    <h2>select</h2>
+    <aside>Right click on this sections header and choose <b>Inspect Element</b></aside>
+    <div class="sidebyside">
+<snippet>
+d3.select('#select')
+  .select('h2')
+  .style('background-color', '#F89830')
+</snippet>
+      <div class="editor"></div>
+      <div class="left">
+        <p>
+          You can select elements using the usual <a target=_blank href="http://www.w3.org/TR/CSS2/selector.html">CSS selectors</a>.
+        </p>
+      </div>
+      <div class="right">
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#select").select(".editor");
+      var svg = d3.select("#select svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var snippet = d3.select("#select snippet")
+      var text = snippet.text();
+      //var text = "d3.select('#select')\n.select('h2')\n  .style('background-color', '#DFEFEF')\n\nd3.select('#select svg')\n  .append('rect')\n  .attr({\n    x: 100, y: 50,\n    width: 250, height: 100, fill:'#25B0B0'\n  })";
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+  <div name="selectAll" id="selectAll" class="section">
+    <h2>selectAll</h2>
+    <aside>try changing the color of all the headers</aside>
+    <div class="sidebyside">
+      <div class="editor"></div>
+      <div class="left">
+        <p>
+        </p>
+      </div>
+      <div class="right">
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#selectAll").select(".editor");
+      var svg = d3.select("#selectall svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = "d3.selectAll('h2')\n  .style('background-color', '#F89830')";
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+
+  </div>
+
+  <div name="enter" id="enter" class="section">
+    <h2>enter</h2>
+    <aside>don't be afraid to play with the data</aside>
+    <div class="sidebyside">
+      <div class="left2">
+        <snippet>
+var data = [50, 100, 150, 200]
+var div = d3.select('#enter .right2');
+var divs = div
+  .selectAll('div.item')
+  .data(data);
+
+divs.enter()
+  .append('div').classed('item', true)
+
+divs.style({
+  width:'20px',
+  height:function(d) { return d + 'px' },
+  margin:'25px',
+  float:'left',
+  'background-color':'#25B0B0'
+})
+        </snippet>
+        <div class="editor"></div>
+        <p>
+        </p>
+      </div>
+      <div class="right2">
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#enter").select(".editor");
+      var svg = d3.select("#enter svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var snippet = d3.select("#enter snippet");
+      var text = snippet.text();
+      //var text = "var data = [50, 100, 150, 200]\nvar divs = d3.select('#enter .right2')\n  .selectAll('div.item')\n  .data(data);\n\ndivs.enter()\n  .append('div').classed('item', true)\n\ndivs.style({\n  width:'20px',\n  height:function(d) { return d + 'px' },\n  margin:'15px',\n  float:'left',\n  'background-color':'#25B0B0'\n})";
+      cm.on("change", function() {
+        d3.select("#enter .right2").selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+  <div name="exit" id="exit" class="section">
+    <h2>exit</h2>
+    <div class="sidebyside">
+      <div class="left2">
+        <snippet>
+data = [50, 100]
+divs = div.selectAll('div.item')
+  .data(data);
+
+divs.exit().style({
+  'background-color':'#B42424'
+})
+        </snippet>
+        <div class="editor"></div>
+        <p>
+        </p>
+      </div>
+      <div class="right2">
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#exit").select(".editor");
+      var svg = d3.select("#exit svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var snippet = d3.select("#exit snippet");
+      var text = snippet.text();
+      //var text = "var data = [50, 100, 150, 200]\nvar divs = d3.select('#exit .right2')\n  .selectAll('div.item')\n  .data(data);\ndivs.enter()\n  .append('div').classed('item', true)\ndivs.style({\n  width:'20px',\n  height:function(d) { return d + 'px' },\n  margin:'15px',\n  float:'left',\n  'background-color':'#25B0B0'\n})\n\ndata = [50, 100]\ndivs = d3.select('#exit .right2')\n  .selectAll('div.item')\n  .data(data);\ndivs.exit().style({'background-color':'#B42424'})";
+      cm.on("change", function() {
+        d3.select("#exit .right2").selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          var div = d3.select('#exit .right2')
+          var data = [50, 100, 150, 200]
+          var divs = div
+            .selectAll('div.item')
+            .data(data);
+          divs.enter()
+            .append('div').classed('item', true)
+          divs.style({
+            width:'20px',
+            height:function(d) { return d + 'px' },
+            margin:'15px',
+            float:'left',
+            'background-color':'#25B0B0'
+          })
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+
+  </div>
+  <div name="transition" id="transition" class="section">
+    <h2>transition</h2>
+    <aside>change anything in the code to see it update</aside>
+    <div class="sidebyside">
+      <div class="left2">
+        <snippet>
+data = [100, 200, 20, 100]
+var divs = div.selectAll('div.item')
+  .data(data)
+divs.transition()
+  .delay(50)
+  .duration(1000)
+  .style({
+    'height': function(d) { return d + 'px' },
+    'background-color':'#42efef'
+  })
+        </snippet>
+        <div class="editor"></div>
+        <p>
+        </p>
+      </div>
+      <div class="right2">
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#transition").select(".editor");
+      var svg = d3.select("#transition svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var snippet = d3.select("#transition snippet");
+      var text = snippet.text();
+      //var text = "var data = [50, 100, 150, 200]\nvar divs = d3.select('#transition .right')\n  .selectAll('div.item')\n  .data(data);\ndivs.enter()\n  .append('div').classed('item', true)\ndivs.style({\n  width:'20px',\n  height:function(d) { return d + 'px' },\n  margin:'15px',\n  float:'left',\n  'background-color':'#25B0B0'\n})\n\ndata = [100, 200, 20, 100]\ndivs = d3.select('#transition .right')\n  .selectAll('div.item')\n  .data(data)\ndivs.transition().delay(50).duration(1000)\n  .style({\n  'height': function(d) { return d + 'px' },\n  'background-color':'#42efef'\n})";
+      cm.on("change", function() {
+        d3.select("#transition .right").selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          var div = d3.select("#transition .right2");
+          var data = [50, 100, 150, 200]
+          var divs = div
+            .selectAll('div.item')
+            .data(data);
+          divs.enter()
+            .append('div').classed('item', true)
+          divs.style({
+            width:'20px',
+            height:function(d) { return d + 'px' },
+            margin:'25px',
+            float:'left',
+            'background-color':'#25B0B0'
+          })
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+  <div name="events" id="events" class="section">
+    <h2>DOM events</h2>
+    <aside>click on the bars to trigger <b>click</b> events</aside>
+    <div class="sidebyside">
+      <div class="left2">
+        <snippet>
+divs.on('click', function(d,i) {
+  d3.select(this)
+    .style('background-color','#42efef')
+    .style('padding-left','10px')
+    .text(i)
+});
+        </snippet>
+        <div class="editor"></div>
+        <p>
+        </p>
+      </div>
+      <div class="right2">
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#events").select(".editor");
+      var svg = d3.select("#events svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var snippet = d3.select("#events snippet");
+      var text = snippet.text();
+      //var text = "var data = [50, 100, 150, 200]\nvar divs = d3.select('#events .right')\n  .selectAll('div.item')\n  .data(data);\ndivs.enter()\n  .append('div').classed('item', true)\ndivs.style({\n  width:'20px',\n  height:function(d) { return d + 'px' },\n  margin:'15px',\n  float:'left',\n  'background-color':'#25B0B0'\n})\n.on('click', function(d,i) {\n  d3.select(this)\n    .style('background-color','#42efef')\n    .style('padding-left','10px')\n    .text(i)\n});";
+      cm.on("change", function() {
+        d3.select("#events .right").selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          var data = [50, 100, 150, 200]
+          var divs = d3.select('#events .right2')
+            .selectAll('div.item')
+            .data(data);
+          divs.enter()
+            .append('div').classed('item', true)
+          divs.style({
+            width:'20px',
+            height:function(d) { return d + 'px' },
+            margin:'25px',
+            float:'left',
+            'background-color':'#25B0B0'
+          })
+
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+    
+    <div name="resources" id="resources" class="section">
+    <h2>Resources</h2>
+    <p>
+      <ul>
+        <li><a target=_blank href="http://www.w3.org/TR/CSS2/selector.html">CSS selectors</a>
+        <li><a target=_blank href="http://mbostock.github.io/d3/tutorial/circle.html">Three little circles tutorial</a>
+        <li><a target=_blank href="http://bost.ocks.org/mike/selection/">How selections work</a>
+        <li><a target=_blank href="http://bost.ocks.org/mike/constancy/">Object constancy</a>
+        <li><a target=_blank href="http://bost.ocks.org/mike/transition/">Working with transitions</a>
+      </ul>
+    </p>
+  </div>
+
+
+  </div>
+
+  <script>
+    function matches(node, selector) {
+      var _ref;
+      if (node.matches) {
+        return node.matches(selector);
+      }
+      return ((_ref = node.parentNode) != null ? _ref.querySelector(selector) : void 0) === node;
+    };
+
+    function containingParent(node, selector) {
+      while (node) {
+        if (matches(node, selector)) {
+          return node;
+        }
+        node = node.parentNode;
+      }
+    };
+
+    d3.select(document.body).on("click", function() {
+      var target = d3.select(d3.event.target);
+      var contains = containingParent(target.node(), ".editor");
+      //TODO: figure out why this doesn't work
+      //var contains2 = containingParent(target.node(), ".ColorPicker");
+      if(!target.classed("range") && !contains) {
+        d3.selectAll(".inlet_slider").style("visibility", "hidden");
+        d3.selectAll(".ColorPicker").style("display", "none");
+      }
+    })
+    d3.selectAll("svg").attr("title", "Right click and Inspect me");
+  </script>
+ 
+  <a href="#">Top</a>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-39326674-5', 'enjalot.github.io');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>

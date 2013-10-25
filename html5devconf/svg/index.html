@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Ubuntu' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../lib/codemirror.css">
+  <link rel="stylesheet" href="../lib/inlet.css">
+  <link rel="stylesheet" href="../style.css">
+  <script src="../lib/codemirror.js"></script>
+  <script src="../lib/xml.js"></script>
+  <script src="../lib/htmlembedded.js"></script>
+  <script src="../lib/d3.min.js"></script>
+  <script src="../lib/sticker.js"></script>
+  <script src="../lib/inlet.min.js"></script>
+  <title>SVG Overview</title>
+</head>
+<body>
+  <div class="header">
+  <div class="header-content">
+  <a style="float:right;margin-right:20px" href="../">Main Menu</a>
+  <h1>SVG</h1>
+  <ul>
+    <li>
+      <a href="#circle">Circle</a>
+    </li>
+    <li>
+      <a href="#rect">Rectangle</a>
+    </li>
+    <li>
+      <a href="#path">Path</a>
+    </li>
+    <li>
+      <a href="#g">Group</a>
+    </li>
+    <li>
+      <a href="#style">Style</a>
+    </li>
+    <li>
+      <a href="#resources">Resources</a>
+    </li>
+
+  </ul>
+  </div>
+  </div>
+  <div class="container">
+  <div class="content">
+
+  <div name="circle" id="circle" class="section">
+    <h2>circle</h2>
+    <aside>Click on any of the numbers in the code to change them</aside>
+    <div class="sidebyside">
+      <div class="left">
+        <div class="editor"></div>
+        <p>
+          The circle's unique attributes are <b>cx</b>, <b>cy</b> for the center coordinates and <b>r</b> for the radius.
+          Try changing them to see how the numbers map to the visual. Notice that the smaller <b>cy</b> is, the closer it is to the top.
+        </p>
+      </div>
+      <div class="right">
+        <svg width="100%" height=200>
+          <circle cx=200 cy=100 r=30 fill="#25B0B0"></circle>
+        </svg>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'text/html',
+        lineNumbers: true,
+        viewportMargin: Infinity
+      }
+      var editor = d3.select("#circle").select(".editor");
+      var svg = d3.select("#circle svg");
+      var sticker = d3.sticker(svg.select("circle").node());
+
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = "<circle\n  cx=250\n  cy=100\n  r=30\n  fill='#25B0B0'>\n</circle>";
+      cm.on("change", function() {
+        var value = cm.getValue();
+        sticker.string(value);
+        sticker.deserialize();
+        svg.selectAll("*").remove()
+        sticker(svg)
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+  <div name="rect" id="rect" class="section">
+    <h2>rect</h2>
+    <div class="sidebyside">
+      <aside>Right click on the rectangle and choose <b>Inspect Element</b></aside>
+      <div class="left">
+      <div class="editor"></div>
+        <p>
+          The rect's unique attributes are <b>x</b>, <b>y</b> for the top left coordinates and <b>width</b>, <b>height</b> for the dimensions.
+          You can play with the corner radius using the <b>rx</b> and <b>ry</b> attributes.
+        </p>
+      </div>
+      <div class="right">
+        <svg width="100%" height=200>
+        <rect x=200
+          y="50"
+          width=100
+          height=100
+          rx=0
+          ry=0
+          fill="#25B0B0">
+        </rect>
+
+        </svg>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'text/html',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#rect").select(".editor");
+      var svg = d3.select("#rect svg");
+      var sticker = d3.sticker(svg.select("rect").node());
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = "<rect\n  x=200\n  y=50\n  width=100\n  height=100\n  rx=0\n  ry=0\n  fill='#25B0B0'>\n</rect>";
+      cm.on("change", function() {
+        var value = cm.getValue();
+        sticker.string(value);
+        sticker.deserialize();
+        svg.selectAll("*").remove()
+        sticker(svg)
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+  <div name="path" id="path" class="section">
+    <h2>path</h2>
+    <div class="sidebyside">
+      <div class="left">
+        <div class="editor"></div>
+        <p>
+        The path's unique attribute is <b>d</b>. Directly manipulating the <b>d</b> attribute is cumbersome, so most people will use <b>d3.svg.line</b> which we will cover in the <a src="../nonbinding">Non Binding API</a> section.
+        </p>
+      </div>
+      <div class="right">
+        <svg width="100%" height=200>
+          <path d="
+    M50,100
+    L131,66
+    L259,115
+    L339,50
+    L400,98
+    M350,150
+    L100,150"
+  fill=none
+  stroke=#25B0B0></path>
+        </svg>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'text/html',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#path").select(".editor");
+      var svg = d3.select("#path svg");
+      var sticker = d3.sticker(svg.select("path").node());
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = "<path d='\n  M50,100\n  L131,66\n  L259,115\n  L339,50\n  L400,98\n  M350,150\n  L100,150'\n  fill=none\n  stroke='#25B0B0'></path>"
+      cm.on("change", function() {
+        var value = cm.getValue();
+        sticker.string(value);
+        sticker.deserialize();
+        svg.selectAll("*").remove()
+        sticker(svg)
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+  <div name="g" id="g" class="section">
+    <h2>g</h2>
+    <div class="sidebyside">
+      <div class="left">
+        <div class="editor"></div>
+        <p>
+          The <b>g</b> element allows you to <b>group</b> elements together. Try changing the values in the <b>transform</b> attribute to see the circles move together.
+        </p>
+      </div>
+      <div class="right">
+        <svg width="100%" height=200>
+          <g transform="translate(200, 100)">
+            <circle cx=20 cy=10 r=30 fill="#25B0B0"></circle>
+            <circle cx=100 cy=10 r=30 fill="#25B0B0"></circle>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <script>
+      (function() {
+      var options = {
+        mode: 'text/html',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#g").select(".editor");
+      var svg = d3.select("#g svg");
+      var sticker = d3.sticker(svg.select("g").node());
+
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = "<g transform='translate(100, 100)'>\n  <circle cx=20 cy=10 r=30 fill='#25B0B0'>\n  </circle>\n  <circle cx=100 cy=10 r=30 fill='#25B0B0'>\n  </circle>\n</g>";
+      cm.setValue(text);
+      cm.on("change", function() {
+        var value = cm.getValue();
+        sticker.string(value);
+        sticker.deserialize();
+        svg.selectAll("*").remove()
+        sticker(svg)
+      })
+    }())
+    </script>
+
+  </div>
+  <div name="style" id="style" class="section">
+    <h2>style vs attribute</h2>
+    <aside>Click on any of the hex strings in the code to change them</aside>
+    <div class="sidebyside">
+      <div class="left">
+        <div class="editor"></div>
+        <p>
+          It is possible to use attributes for some stylistic properties of SVG elements. It is usually better to use styles and classes like the rest of HTML.
+        </p>
+      </div>
+      <div class="right">
+        <svg width="100%" height=200>
+          <g>
+            <circle cx=250 cy=100 r=30 fill="#25B0B0"></circle>
+            <circle cx=300 cy=100 r=30 style="fill:#25B0B0"></circle>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <script>
+      (function() {
+      var options = {
+        mode: 'text/html',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#style").select(".editor");
+      var svg = d3.select("#style svg");
+      var sticker = d3.sticker(svg.select("g").node());
+
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = "<g>\n  <circle cx=250 cy=100 r=30 fill='#25B0B0'>\n  </circle>\n  <circle cx=300 cy=100 r=30 style='fill:#25B0B0'>\n  </circle>\n</g>";
+      cm.setValue(text);
+      cm.on("change", function() {
+        var value = cm.getValue();
+        sticker.string(value);
+        sticker.deserialize();
+        svg.selectAll("*").remove()
+        sticker(svg)
+      })
+    }())
+    </script>
+    
+  <div name="resources" id="resources" class="section">
+    <h2>Resources</h2>
+    <p>
+      <ul>
+        <li><a target=_blank href="http://www.w3.org/TR/SVG/expanded-toc.html">SVG Reference</a>
+        <li><a target=_blank href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element">MDN SVG Elements</a>
+        <li><a target=_blank href="http://www.w3.org/TR/SVG/paths.html">Path Reference</a>
+        <li><a target=_blank href="http://alignedleft.com/tutorials/d3/fundamentals">Scott Murray's tutorial</a>
+      </ul>
+    </p>
+  </div>
+
+  </div>
+  </div>
+
+  <script>
+    var matches = function(node, selector) {
+      var _ref;
+      if (node.matches) {
+        return node.matches(selector);
+      }
+      return ((_ref = node.parentNode) != null ? _ref.querySelector(selector) : void 0) === node;
+    };
+
+    var containingParent = function(node, selector) {
+      while (node) {
+        if (matches(node, selector)) {
+          return node;
+        }
+        node = node.parentNode;
+      }
+    };
+
+    d3.select(document.body).on("click", function() {
+      var target = d3.select(d3.event.target);
+      var contains = containingParent(target.node(), ".editor");
+      if(!target.classed("range") && !contains) {
+        d3.selectAll(".inlet_slider").style("visibility", "hidden");
+        d3.selectAll(".ColorPicker").style("display", "none");
+      }
+    })
+    d3.selectAll("svg").attr("title", "Right click and Inspect me");
+  </script>
+  
+  <a href="#">Top</a>
+  </div>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-39326674-5', 'enjalot.github.io');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>

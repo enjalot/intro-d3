@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>
+    <link rel="stylesheet" href="lib/tipsy.css">
+    <style>
+      svg {
+        width: 560px;
+        height: 500px;
+        border: 1px solid gray;
+      }
+      .background {
+        visibility: visible !important;
+        fill: #4B9E9E;
+      }
+      .extent {
+        visibility: visible !important;
+        fill: #78C5C5;
+      }
+      .resize rect {
+        visibility: visible !important;
+        fill: #276C86;
+      }
+
+      .axis {
+        font-size: 10px;
+      }
+      .axis path {
+        fill: none;
+        stroke: #000000;
+      }
+      .axis .tick line {
+        stroke: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <svg></svg>
+    <script src="lib/jquery-1.7.1.min.js"></script>
+    <script src="lib/jquery.tipsy.js"></script>
+    <script src="lib/d3.js"></script>
+    <script>
+      /* OPEN YOUR CONSOLE (always while developing) */
+      /*
+      http://www.reddit.com/dev/api
+      https://github.com/mbostock/d3/wiki/SVG-Controls#wiki-brush
+      https://github.com/mbostock/d3/wiki/Time-Scales#wiki-scale
+      https://github.com/mbostock/d3/wiki/SVG-Axes#wiki-axis
+
+      this data:
+      http://www.reddit.com/r/pics.json?limit=40
+      */
+      //console.log(tributary.pics);
+      d3.json('data/pics.json', function(err, pics) {
+        var links = pics.data.children;
+        links.forEach(function(d) {
+          d.data.created *= 1000;
+        })
+        //console.log(links);
+
+        var cx = 50;
+        var cy = 305;
+
+        var maxCreated = d3.max(links, function(d) { return d.data.created });
+        var minCreated = d3.min(links, function(d) { return d.data.created });
+
+        var maxScore = d3.max(links, function(d) { return d.data.score })
+        var maxUp = d3.max(links, function(d) { return d.data.ups })
+        var maxDown = d3.max(links, function(d) { return d.data.downs })
+
+        var createdScale = d3.time.scale()
+          .domain([minCreated, maxCreated])
+          .range([cx, 500])
+
+        var colorScale = d3.scale.linear()
+          .domain([minCreated, maxCreated])
+          .range(["#D5E9E5", "#12882A"])
+          .interpolate(d3.interpolateHcl)
+
+        var upScale = d3.scale.linear()
+          .domain([0, maxUp])
+        var downScale = d3.scale.linear()
+          .domain([0, maxDown])
+        var scoreScale = d3.scale.linear()
+          .domain([0, maxScore])
+
+        var yScale = scoreScale;
+        yScale
+          .range([300, 50])
+
+        var svg = d3.select("svg")
+
+        var xAxis = d3.svg.axis()
+        .scale(createdScale)
+        .ticks(3)
+        .tickFormat(d3.time.format("%x %H:%M"))
+
+        var yAxis = d3.svg.axis()
+        .scale(yScale)
+        .ticks(3)
+        .orient("left")
+
+        var xg = svg.append("g")
+          .classed("axis", true)
+          .attr("transform", "translate(" + [0,cy] + ")")
+          .call(xAxis)
+
+        var yg = svg.append("g")
+          .classed("axis", true)
+          .attr("transform", "translate(" + [cx - 5,0] + ")")
+          .call(yAxis)
+
+
+
+        var circles = svg.selectAll("circle")
+          .data(links, function(d) { return d.data.id });
+        circles.enter()
+        .append("circle")
+        .attr({
+          cx: 0,
+          cy: 300,
+          fill: function(d) { return colorScale(d.data.created) },
+          title: function(d) { return d.data.title + " score: " + d.data.score}
+        })
+
+        circles.transition()
+        .duration(150)
+        .attr({
+          cx: function(d,i) { return createdScale(d.data.created) },
+          cy: function(d,i) { return yScale(d.data.score) },
+          r: 5
+        })
+        circles.exit().transition()
+          .duration(150)
+          .attr({ r: 0.0001 })
+          .remove()
+        $('circle').tipsy({gravity: 'sw'})
+      });
+    </script>
+  </body>
+</html>
+
+
