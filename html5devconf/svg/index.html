@@ -79,7 +79,6 @@
       var text = "<circle\n  cx=250\n  cy=100\n  r=30\n  fill='#25B0B0'>\n</circle>";
       cm.on("change", function() {
         var value = cm.getValue();
-        console.log("VALUE", value)
         sticker.string(value);
         sticker.deserialize();
         svg.selectAll("*").remove()
