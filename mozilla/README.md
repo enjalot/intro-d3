@@ -2,8 +2,8 @@
 
 In the morning we'll cover basic topics on creating visualizations 
 
-* *9am-10am* SVG Basics and Selections
-* *10am-11am* Transitions and Scales
+* *9am-10am* Setup and SVG Basics
+* *10am-11am* Selections, Transitions and Scales
 * *11am-Noon* Loading Data and General Update Pattern
 * *Noon-1pm Lunch Break*
 * *1pm-2pm* Layouts/Behaviors
