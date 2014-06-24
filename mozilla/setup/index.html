@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Ubuntu' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../lib/codemirror.css">
+  <link rel="stylesheet" href="../lib/inlet.css">
+  <link rel="stylesheet" href="../style.css">
+  <script src="../lib/html5slider.js"></script>
+  <script src="../lib/codemirror.js"></script>
+  <script src="../lib/xml.js"></script>
+  <script src="../lib/htmlembedded.js"></script>
+  <script src="../lib/d3.min.js"></script>
+  <script src="../lib/sticker.js"></script>
+  <script src="../lib/inlet.min.js"></script>
+  <title>Setup</title>
+  <style>
+  .gistid {
+    font-weight: 700;
+    font-size: 16px;
+  }
+  </style>
+</head>
+<body>
+  <div class="header">
+  <a style="float:right;margin-right:20px" href="../">Main Menu</a>
+  <h1>Setup</h1>
+  <ul>
+    <li>
+      <a href="#local">Local environment</a>
+    </li>
+    <li>
+      <a href="#tributary">Tributary</a>
+    </li>
+
+  </ul>
+  </div>
+  <div class="content">
+
+  <div name="local" id="local" class="section">
+    <h2>local</h2>
+    <div class="sidebyside">
+      <div class="left">
+        <p>
+          Start with a block
+          <p>
+          <a href="http://bl.ocks.org/syntagmatic/b6821801c222d4d3bfe0">
+          http://bl.ocks.org/syntagmatic/<span class="gistid">b6821801c222d4d3bfe0</span></a>
+          </p>
+          You can fork a gist from GitHub
+          <p><a href="https://gist.github.com/syntagmatic/b6821801c222d4d3bfe0">
+          https://gist.github.com/syntagmatic/<span class="gistid">b6821801c222d4d3bfe0</span></a>
+          </p>
+          You can clone a gist that's yours
+          <pre>git clone git@github.com:<span class="gistid">b6821801c222d4d3bfe0</span>.git</pre>
+          <p>or someone else's
+          <pre>git clone git@github.com:<span class="gistid">b6821801c222d4d3bfe0</span>.git</pre>
+          </p>
+        </p>
+      </div>
+      <div class="right">
+      </div>
+    </div>
+  </div>
+
+  <div name="tributary" id="tribtuary" class="section">
+    <h2>tributary</h2>
+    <div class="sidebyside">
+      <div class="left">
+        <p>
+          <a href="http://tributary.io">Tributary</a> is an environment for prototyping d3.
+        </p>
+        <p>
+          You can use things like d3.json on urls that have CORS support:<br>
+
+        </p>
+        <p>
+          You can also copy-paste data into a "file" in tributary:<br>
+
+
+        </p>
+      </div>
+      <div class="right">
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <script>
+    var matches = function(node, selector) {
+      var _ref;
+      if (node.matches) {
+        return node.matches(selector);
+      }
+      return ((_ref = node.parentNode) != null ? _ref.querySelector(selector) : void 0) === node;
+    };
+
+    var containingParent = function(node, selector) {
+      while (node) {
+        if (matches(node, selector)) {
+          return node;
+        }
+        node = node.parentNode;
+      }
+    };
+
+    d3.select(document.body).on("click", function() {
+      var target = d3.select(d3.event.target);
+      var contains = containingParent(target.node(), ".editor");
+      if(!target.classed("range") && !contains) {
+        d3.selectAll(".inlet_slider").style("visibility", "hidden");
+        d3.selectAll(".ColorPicker").style("display", "none");
+      }
+    })
+    d3.selectAll("svg").attr("title", "Right click and Inspect me");
+  </script>
+  
+  <a href="#">Top</a>
+  </div>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-39326674-5', 'enjalot.github.io');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>

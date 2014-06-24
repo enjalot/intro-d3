@@ -1,0 +1,118 @@
+.CodeMirror-scroll {
+  font-size: 24px;
+  line-height: 24px;
+}
+body {
+  font-family: Lato;
+}
+snippet {
+  display: none;
+}
+.content {
+  position:absolute;
+  width: 100%;
+  top: 70px;
+}
+.header {
+  display: inline-block;
+  position: fixed;
+  top:0;
+  margin-top:0;
+  padding-bottom: 5px;
+  height: 70px;
+  width: 100%;
+  z-index:1000;
+  background-color: white;
+}
+.header a{
+  float:left;
+  margin: 2px;
+  margin-left: 10px;
+}
+.header ul {
+  margin-top: 30px;
+  width: 100%;
+}
+.header li {
+  font-family: Ubuntu;
+  font-size: 16px;
+  list-style: none;
+  display: inline;
+  list-style-type: none;
+}
+li {
+  list-style: none;
+  list-style-type: none;
+}
+h1 {
+  font-family: Ubuntu;
+  font-size: 72px;
+  padding: 0;
+  margin:0;
+  float:left;
+}
+h2 {
+  font-family: Ubuntu;
+  font-size: 24px;
+  width: 100%;
+  padding: 5px;
+  background-color: #dfefef;
+}
+
+h3 {
+  font-family: Ubuntu;
+}
+p {
+  font-family: Lato;
+  font-size: 14px;
+}
+.editor {
+  width: 100%;
+}
+.editor .CodeMirror {
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+}
+aside {
+  font-size: small;
+  position: relative;
+  margin: 10px;
+  padding: 5px;
+  background-color: #fffeee;
+  width: 180px;
+  font-family: Lato;
+}
+
+.cm-s-default .cm-number { color: #25B0B0; }
+
+.sidebyside {
+  display: block;
+}
+.sidebyside .left {
+}
+.sidebyside .right {
+}
+
+.sidebyside svg {
+  border: 1px solid #cfcfcf;
+}
+@media only screen and (min-width: 1155px) {
+    .sidebyside {
+        width: 100%;
+    }
+    .sidebyside .left, .sidebyside .right {
+        vertical-align: top;
+        margin: 0;
+        display: inline-block;
+        width: 45%;
+    }
+    .sidebyside .left {
+        margin-right: 5px;
+    }
+    aside {
+      position: relative;
+      right: 10px;
+      bottom: 0;
+    }
+}

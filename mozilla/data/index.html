@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Ubuntu' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../lib/codemirror.css">
+  <link rel="stylesheet" href="../lib/inlet.css">
+  <link rel="stylesheet" href="../style.css">
+  <script src="../lib/html5slider.js"></script>
+  <script src="../lib/codemirror.js"></script>
+  <script src="../lib/xml.js"></script>
+  <script src="../lib/htmlembedded.js"></script>
+  <script src="../lib/d3.min.js"></script>
+  <script src="../lib/sticker.js"></script>
+  <script src="../lib/inlet.min.js"></script>
+  <title>The Data</title>
+  <style>
+  .sidebyside .left {
+    width: 100%;
+  }
+  </style>
+</head>
+<body>
+  <div class="header">
+  <a style="float:right;margin-right:20px" href="../">Main Menu</a>
+  <h1>Data</h1>
+  <ul>
+    <li>
+      <a href="#repos">Repos</a>
+    </li>
+    <li>
+      <a href="#commits">Commits</a>
+    </li>
+    <li>
+      <a href="#usage">Usage Changes</a>
+    </li>
+    <li>
+      <a href="#reddit">Reddit</a>
+    </li>
+
+  </ul>
+  </div>
+  <div class="content">
+
+  <div name="repos" id="repos">
+    <h2>Repos</h2>
+    <div class="sidebyside">
+      <div class="left">
+<snippet>
+var url = "mozilla.json";
+d3.json(url, function(err, data){
+  console.log(url, "error", err);
+  console.log(url, "data", data)
+})
+</snippet>
+        <div class="editor"></div>
+        <p>
+          We can load data from a <a href="mozilla.json">file</a>.
+          <br>
+        </p>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#repos").select(".editor");
+      var svg = d3.select("#repos svg");
+      var snippet  = d3.select("#repos").select("snippet");
+      var text = snippet.text()
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = snippet.text()
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+  <div name="commits" id="commits">
+    <h2>Commits</h2>
+    <div class="sidebyside">
+<snippet>
+var url = "https://api.github.com/repos/mozilla/pdf.js/commits";
+d3.json(url, function(err, data){
+  console.log(url, "error", err);
+  console.log(url, "data", data)
+})
+</snippet>
+      <div class="left">
+        <div class="editor"></div>
+        <p>
+          We can load data from a remote URL if it supports CORS.
+          <br>
+          In <a href="">Tributary</a>
+        </p>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#commits").select(".editor");
+      var svg = d3.select("#commits svg");
+      var snippet  = d3.select("#commits").select("snippet");
+      var text = snippet.text()
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = snippet.text()
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+  <div name="usage" id="usage">
+    <h2>Usage Changes</h2>
+    <div class="sidebyside">
+      <div class="left">
+<snippet>
+var url = "usage_change.csv";
+d3.csv(url, function(err, data){
+  console.log(url, "error", err);
+  console.log(url, "data", data)
+})
+</snippet>
+        <div class="editor"></div>
+        <p>
+        We can load data from a <a href="usage_change.csv">csv</a> as well.
+        </p>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#usage").select(".editor");
+      var svg = d3.select("#usage svg");
+      var snippet  = d3.select("#usage").select("snippet");
+      var text = snippet.text()
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = snippet.text()
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+  <div name="reddit" id="reddit">
+    <h2>Reddit</h2>
+    <div class="sidebyside">
+      <div class="left">
+<snippet>
+var url = "http://reddit.com/r/pics.json";
+d3.json(url, function(err, data){
+  console.log(url, "error", err);
+  console.log(url, "data", data)
+})
+</snippet> 
+        <div class="editor"></div>
+        <p>
+          Reddit has one of the coolest APIs.
+          <p><a href="http://reddit.com/r/pics">http://reddit.com/r/pics</a></p>
+          vs.
+          <p><a href="http://reddit.com/r/pics.json">http://reddit.com/r/pics.json</a></p>
+        </p>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#reddit").select(".editor");
+      var svg = d3.select("#reddit svg");
+      var snippet  = d3.select("#reddit").select("snippet");
+      var text = snippet.text()
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = snippet.text()
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+
+  </div>
+
+  <script>
+    var matches = function(node, selector) {
+      var _ref;
+      if (node.matches) {
+        return node.matches(selector);
+      }
+      return ((_ref = node.parentNode) != null ? _ref.querySelector(selector) : void 0) === node;
+    };
+
+    var containingParent = function(node, selector) {
+      while (node) {
+        if (matches(node, selector)) {
+          return node;
+        }
+        node = node.parentNode;
+      }
+    };
+
+    d3.select(document.body).on("click", function() {
+      var target = d3.select(d3.event.target);
+      var contains = containingParent(target.node(), ".editor");
+      if(!target.classed("range") && !contains) {
+        d3.selectAll(".inlet_slider").style("visibility", "hidden");
+        d3.selectAll(".ColorPicker").style("display", "none");
+      }
+    })
+    d3.selectAll("svg").attr("title", "Right click and Inspect me");
+  </script>
+  <a href="#">Top</a>
+  </div>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-39326674-5', 'enjalot.github.io');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>
+
