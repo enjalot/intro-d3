@@ -37,14 +37,17 @@ In the morning we'll cover basic topics on creating visualizations
 * [Chris Viau's Examples Gallery](http://christopheviau.com/d3list/gallery.html)
 * [Big List of D3.js Examples](http://christopheviau.com/d3list/index.html)
 
-## SVG
+### SVG
 
-## D3.js Basics: Selections, Data Binding and Transitions
+* [MDN SVG Introduction](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Introduction)
+* [MDN SVG Documentation](https://developer.mozilla.org/en-US/docs/Web/SVG)
+
+### D3.js Basics: Selections, Data Binding and Transitions
 
 * [Three Little Circles](http://bost.ocks.org/mike/circles/)
 * [Working with Transitions](http://bost.ocks.org/mike/transition/)
 
-## Tree Layouts
+### Tree Layouts
 
 For creating a hierarchical data structure, d3.nest and underscore nest can be quite handy.
 
@@ -60,7 +63,7 @@ Examples of tree layouts.
 * [Radial Reingold-Tilford](http://bl.ocks.org/mbostock/4063550)
 * [D3.js src Transitions](http://bl.ocks.org/syntagmatic/4092944)
 
-## Reusable Components
+### Reusable Components
 
 * [Towards Reusable Charts](http://bost.ocks.org/mike/chart/)
 * [On D3 Components](http://ag.svbtle.com/on-d3-components)
