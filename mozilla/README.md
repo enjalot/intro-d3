@@ -58,6 +58,7 @@ For creating a hierarchical data structure, d3.nest and underscore nest can be q
 Examples of tree layouts.
 
 * [Treemap](http://bl.ocks.org/mbostock/4063582)
+* [d3.treemap Documentation](https://github.com/mbostock/d3/wiki/Treemap-Layout)
 * [Reddit Treemap](http://bl.ocks.org/syntagmatic/b6821801c222d4d3bfe0)
 * [Reingold-Tilford Tree](http://bl.ocks.org/mbostock/4339184)
 * [Radial Reingold-Tilford](http://bl.ocks.org/mbostock/4063550)
