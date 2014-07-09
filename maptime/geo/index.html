@@ -10,9 +10,36 @@
   <script src="../../lib/codemirror.js"></script>
   <script src="../../lib/javascript.js"></script>
   <script src="../../lib/d3.min.js"></script>
+  <script src="../../lib/topojson.v1.min.js"></script>
   <script src="../../lib/sticker.js"></script>
   <script src="../../lib/inlet.min.js"></script>
   <title>d3.geo API</title>
+  <style>
+  .sidebyside .left {
+    width: 60%;
+  }
+  .sidebyside .right {
+    width: 35%;
+  }
+
+  .land {
+    fill: #6FC480;
+    stroke: #000000;
+  }
+
+  circle {
+    fill: #ffffff;
+    stroke: #CC0A48;
+    fill-opacity: 0.2
+  }
+
+  .graticule {
+    fill: none;
+    stroke: #777;
+    stroke-opacity: .5;
+    stroke-width: .5px;
+  }
+  </style>
 </head>
 <body>
   <div class="header">
@@ -20,16 +47,19 @@
   <h1>d3.geo API</h1>
   <ul>
     <li>
-      <a href="#scales">scales</a>
+      <a href="#data">data</a>
     </li>
     <li>
-      <a href="#generators">generators</a>
+      <a href="#projections">projections</a>
     </li>
     <li>
-      <a href="#layouts">layouts</a>
+      <a href="#paths">paths</a>
     </li>
     <li>
-      <a href="#ajax">ajax</a>
+      <a href="#graticule">graticule</a>
+    </li>
+    <li>
+      <a href="#points">points</a>
     </li>
     <li>
       <a href="#resources">Resources</a>
@@ -40,85 +70,24 @@
   <div class="container">
   <div class="content">
 
-  <div name="scales" id="scales" class="section">
-    <h2>scales</h2>
-    <h3>quantitative scales</h3>
-    <div class="qscales sidebyside">
+  <div name="data" id="data" class="section">
+    <h2>data</h2>
+    <div class="data sidebyside">
       <div class="left">
 <snippet>
-var quant = [0, 5, 10, 15, 20];
-var qual = ["big", "small", "medium"];
-
-var qScale = d3.scale.linear()
-  .domain(d3.extent(quant))
-  .range([10, 100])
-
-quantValue = qScale(7);
-</snippet>
-        <div class="editor"></div>
-        <p>
-        </p>
-      </div>
-      <div class="right">
-        <svg width="100%" height=200>
-          <text x=50 y=50>Quantity: <tspan class="quant"></tspan></text>
-          <rect x=50 y=80 width=10 height=20></rect>
-        </svg>
-      </div>
-    </div>
-    <script>
-    (function() {
-      var options = {
-        mode: 'javascript',
-        lineNumbers: true,
-        viewportMargin: Infinity,
-      }
-      var editor = d3.select(".qscales").select(".editor");
-      var svg = d3.select(".qscales svg");
-      var snippet  = d3.select(".qscales").select("snippet");
-      var cm = CodeMirror(editor.node(), options);
-      Inlet(cm)
-      var text = snippet.text()
-      cm.on("change", function() {
-        var value = cm.getValue();
-        try {
-          eval(value);
-          svg.select(".quant").text(quantValue)
-          svg.select("rect").attr("width", quantValue)
-        } catch(e) {
-         console.log(e)
-        }
-      })
-      cm.setValue(text);
-    }())
-    </script>
-
-    <h3>categorical scales</h3>
-    <div class="cscales sidebyside">
-      <div class="left">
-<snippet>
-var qual = ["big", "small", "medium"];
-var ord = d3.range(qual.length);
-
-var oScale = d3.scale.ordinal()
-  .domain(ord)
-  .rangeBands([50, 150], 0.1)
-
-svg.selectAll("text").data(qual)
-.enter().append("text")
-.text(function(d) { return d })
-.attr({
-  x: 20,
-  y: function(d,i) { return oScale(i) }
+d3.json("../data/world110.json", function(err, world) {
+  console.log("data", world)
+  var countries = topojson.feature(world, world.objects.land);
+  console.log("countries", countries)
 })
 </snippet>
-
         <div class="editor"></div>
         <p>
         </p>
       </div>
       <div class="right">
-        <svg width="100%" height=200>
+        <svg width="100%" height=175>
+        <text x=50 y=93>Check your console</text>
         </svg>
       </div>
     </div>
@@ -129,15 +98,13 @@ svg.selectAll("text").data(qual)
         lineNumbers: true,
         viewportMargin: Infinity,
       }
-      var editor = d3.select(".cscales").select(".editor");
-      var svg = d3.select(".cscales svg");
-      var snippet  = d3.select(".cscales").select("snippet");
-      var text = snippet.text()
+      var editor = d3.select(".data").select(".editor");
+      var svg = d3.select(".data svg");
+      var snippet  = d3.select(".data").select("snippet");
       var cm = CodeMirror(editor.node(), options);
       Inlet(cm)
       var text = snippet.text()
       cm.on("change", function() {
-        svg.selectAll("*").remove()
         var value = cm.getValue();
         try {
           eval(value);
@@ -148,40 +115,29 @@ svg.selectAll("text").data(qual)
       cm.setValue(text);
     }())
     </script>
-  </div>
 
-  <div name="generators" id="generators" class="section">
-    <h2>generators</h2>
-    <h3>axis</h3>
-    <div class="axisgen sidebyside">
+
+  <div name="projections" id="projections" class="section">
+    <h2>projections</h2>
+    <div class="projections sidebyside">
       <div class="left">
 <snippet>
-var scale = d3.scale.linear()
-.domain([20, 30])
-.range([10, 200])
-
-var axis = d3.svg.axis()
-.scale(scale)
-.orient("bottom") //left, right, top
-.ticks(4) //best guess
-// specify exact values
-//.tickValues([20, 25, 30]) 
-
-var g = svg.append("g")
-axis(g)
-g.attr("transform", "translate(50, 50)")
-g.selectAll("path")
-  .style({ fill: "none", stroke: "#000"})
-g.selectAll("line")
-  .style({ stroke: "#000"})
+var width = 420
+var height = 400
+var projection = d3.geo.orthographic()
+//var projection = d3.geo.albers()
+//var projection = d3.geo.mercator()
+  .scale(170)
+  .rotate([100,0,0])
+  .translate([width/2, height/2])
+  .clipAngle(90);
 </snippet>
         <div class="editor"></div>
         <p>
-          
         </p>
       </div>
       <div class="right">
-        <svg width="100%" height=200>
+        <svg width="100%" height=400>
         </svg>
       </div>
     </div>
@@ -192,55 +148,57 @@ g.selectAll("line")
         lineNumbers: true,
         viewportMargin: Infinity,
       }
-      var editor = d3.select(".axisgen").select(".editor");
-      var svg = d3.select(".axisgen svg");
+      var editor = d3.select(".projections").select(".editor");
+      var svg = d3.select(".projections svg");
       var cm = CodeMirror(editor.node(), options);
       Inlet(cm)
-      var snippet  = d3.select(".axisgen").select("snippet");
+      var snippet  = d3.select(".projections").select("snippet");
       var text = snippet.text()
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
+      d3.json("../data/world110.json", function(err, world) {
+        cm.on("change", function() {
+          svg.selectAll("*").remove()
+          var value = cm.getValue();
+          try {
+              var countries = topojson.feature(world, world.objects.land);
+              eval(value);
+              var path = d3.geo.path()
+                .projection(projection);
+              var graticule = d3.geo.graticule()
+              svg.append("path")
+                  .datum(graticule)
+                  .attr("class", "graticule")
+                  .attr("d", path);
+              svg.append("path")
+              .attr("d", path(countries))
+              .classed("land", true);
+          } catch(e) {
+           console.log(e)
+          }
+        })
+        cm.setValue(text);
       })
-      cm.setValue(text);
     }())
     </script>
 
-    <h3>line</h3>
-    <div class="linegen sidebyside">
+  
+  <div name="paths" id="paths" class="section">
+    <h2>paths</h2>
+    <div class="paths sidebyside">
       <div class="left">
 <snippet>
-var data = [0, 30, 20, 10, 50]
-var x = d3.scale.ordinal()
-  .domain(d3.range(data.length))
-  .rangeBands([10, 400])
-var y = d3.scale.linear()
-  .domain(d3.extent(data))
-  .range([150, 10])
-
-var line = d3.svg.line()
-.x(function(d,i) { return x(i) })
-.y(function(d,i) { return y(d) })
+var path = d3.geo.path()
+  .projection(projection);
 
 svg.append("path")
-.attr("d", line(data))
-.style({
-  fill: "none",
-  stroke: "#000"
-})
+  .attr("d", path(countries))
+  .classed("land", true);
 </snippet>
         <div class="editor"></div>
         <p>
-          
         </p>
       </div>
       <div class="right">
-        <svg width="100%" height=200>
+        <svg width="100%" height=400>
         </svg>
       </div>
     </div>
@@ -251,113 +209,123 @@ svg.append("path")
         lineNumbers: true,
         viewportMargin: Infinity,
       }
-      var editor = d3.select(".linegen").select(".editor");
-      var svg = d3.select(".linegen svg");
+      var editor = d3.select(".paths").select(".editor");
+      var svg = d3.select(".paths svg");
       var cm = CodeMirror(editor.node(), options);
       Inlet(cm)
-      var snippet  = d3.select(".linegen").select("snippet");
+      var snippet  = d3.select(".paths").select("snippet");
       var text = snippet.text()
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
+
+      // todo make this live bound
+      var projection = d3.select(".projections").select("snippet").text()
+
+      d3.json("../data/world110.json", function(err, world) {
+        cm.on("change", function() {
+          svg.selectAll("*").remove()
+          var value = cm.getValue();
+          try {
+              var countries = topojson.feature(world, world.objects.land);
+              eval(projection)
+
+              var path = d3.geo.path()
+                .projection(projection);
+              eval(value);
+          } catch(e) {
+           console.log(e)
+          }
+        })
+        cm.setValue(text);
       })
-      cm.setValue(text);
-    }())
-    </script>
-
-    <h3>brush</h3>
-    <div class="brushgen sidebyside">
-      <div class="left">
-        <div class="editor"></div>
-<snippet>
-var scale = d3.scale.linear()
-  .domain([20, 30])
-  .range([10, 250])
-
-var brush = d3.svg.brush()
-brush.x(scale)
-brush.extent([22, 28])
-
-var g = svg.append("g")
-brush(g)
-g.attr("transform", "translate(50, 100)")
-g.selectAll("rect").attr("height", 30)
-g.selectAll(".background")
-  .style({fill: "#4B9E9E", visibility: "visible"})
-g.selectAll(".extent")
-  .style({fill: "#78C5C5", visibility: "visible"})
-g.selectAll(".resize rect")
-  .style({fill: "#276C86", visibility: "visible"})
-
-</snippet>
-        <p>
-          
-        </p>
-      </div>
-      <div class="right">
-        <svg width="100%" height=200>
-        </svg>
-      </div>
-    </div>
-    <script>
-    (function() {
-      var options = {
-        mode: 'javascript',
-        lineNumbers: true,
-        viewportMargin: Infinity,
-      }
-      var editor = d3.select(".brushgen").select(".editor");
-      var svg = d3.select(".brushgen svg");
-      var cm = CodeMirror(editor.node(), options);
-      Inlet(cm)
-      var snippet  = d3.select(".brushgen").select("snippet");
-      var text = snippet.text()
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
-      })
-      cm.setValue(text);
     }())
     </script>
   </div>
 
-  <div name="layouts" id="layouts" class="section">
-    <h2>layouts</h2>
-    <h3>histogram</h3>
-    <div class="histogram sidebyside">
+
+  <div name="graticule" id="graticule" class="section">
+    <h2>graticule</h2>
+    <div class="graticule sidebyside">
       <div class="left">
 <snippet>
-var data = [0, 1, 1, 2, 3, 2, 5, 5, 6, 1, 2, 3, 4]
-var hist = d3.layout.histogram()
-.value(function(d) { return d })
-.range([0, d3.max(data) ])
-.bins(5);
+var path = d3.geo.path()
+  .projection(projection);
 
-var layout = hist(data);
-console.log("histogram:", layout)
+var graticule = d3.geo.graticule()
+svg.append("path")
+  .datum(graticule)
+  .attr("class", "graticule")
+  .attr("d", path);
+</snippet>
+        <div class="editor"></div>
+        <p>
+        </p>
+      </div>
+      <div class="right">
+        <svg width="100%" height=400>
+        </svg>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select(".graticule").select(".editor");
+      var svg = d3.select(".graticule svg");
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var snippet  = d3.select(".graticule").select("snippet");
+      var text = snippet.text()
 
-svg.selectAll("rect")
-.data(layout)
-.enter().append("rect")
+      // todo make this live bound
+      var projection = d3.select(".projections").select("snippet").text()
+
+      d3.json("../data/world110.json", function(err, world) {
+        cm.on("change", function() {
+          svg.selectAll("*").remove()
+          var value = cm.getValue();
+          try {
+              var countries = topojson.feature(world, world.objects.land);
+              eval(projection)
+              eval(value);
+          } catch(e) {
+           console.log(e)
+          }
+        })
+        cm.setValue(text);
+      })
+    }())
+    </script>
+  </div>
+
+
+  <div name="points" id="points" class="section">
+    <h2>points</h2>
+    <div class="points sidebyside">
+      <div class="left">
+<snippet>
+
+var lonlat = [-100, 37.7833];
+
+var xy = projection(lonlat)
+svg.append("circle")
 .attr({
-  x: function(d,i) {
-    return 100 + i * 30
-  },
-  y: 50,
-  width: 20,
-  height: function(d,i) {
-    return 20 * d.length
-  }
+  cx: xy[0],
+  cy: xy[1],
+  r: 10
+})
+
+navigator.geolocation.getCurrentPosition(function(pos){
+  console.log(pos);
+  var coords = [pos.coords.longitude, pos.coords.latitude]
+  var xy = projection(coords)
+  svg.append("circle")
+  .attr({
+    cx: xy[0],
+    cy: xy[1],
+    r: 15,
+  }).style("stroke", "blue");
 })
 
 </snippet>
@@ -366,7 +334,7 @@ svg.selectAll("rect")
         </p>
       </div>
       <div class="right">
-        <svg width="100%" height=200>
+        <svg width="100%" height=400>
         </svg>
       </div>
     </div>
@@ -377,71 +345,45 @@ svg.selectAll("rect")
         lineNumbers: true,
         viewportMargin: Infinity,
       }
-      var editor = d3.select(".histogram").select(".editor");
-      var svg = d3.select(".histogram svg");
+      var editor = d3.select(".points").select(".editor");
+      var svg = d3.select(".points svg");
       var cm = CodeMirror(editor.node(), options);
       Inlet(cm)
-      var snippet  = d3.select(".histogram").select("snippet");
+      var snippet  = d3.select(".points").select("snippet");
       var text = snippet.text()
-      cm.on("change", function() {
-        svg.selectAll("*").remove()
-        var value = cm.getValue();
-        try {
-          eval(value);
-        } catch(e) {
-         console.log(e)
-        }
+
+      // todo make this live bound
+      var projection = d3.select(".projections").select("snippet").text()
+      var graticule = d3.select(".graticule").select("snippet").text()
+      var paths = d3.select(".paths").select("snippet").text()
+
+      d3.json("../data/world110.json", function(err, world) {
+        cm.on("change", function() {
+          svg.selectAll("*").remove()
+          var value = cm.getValue();
+          try {
+              var countries = topojson.feature(world, world.objects.land);
+              eval(projection)
+              eval(graticule)
+              eval(paths)
+              eval(value);
+          } catch(e) {
+           console.log(e)
+          }
+        })
+        cm.setValue(text);
       })
-      cm.setValue(text);
     }())
     </script>
   </div>
-
-  <div name="ajax" id="ajax" class="section">
-    <h2>ajax</h2>
-    <div class="jsonajax sidebyside">
-      <div class="left">
-<snippet>
-d3.json(url, function(err, data) {...})
-d3.csv(url, function(err, data) {...})
-d3.tsv(url, function(err, data) {...})
-d3.text(url, function(err, data) {...})
-</snippet>
-        <div class="editor"></div>
-      </div>
-      <div class="right">
-        <p>
-          These functions are for convenience, and behave similar to jQuery's .ajax()
-        </p>
-      </div>
-    </div>
-    <script>
-    (function() {
-      var options = {
-        mode: 'javascript',
-        lineNumbers: true,
-        viewportMargin: Infinity,
-      }
-      var editor = d3.select(".jsonajax").select(".editor");
-      var snippet  = d3.select(".jsonajax").select("snippet");
-      var text = snippet.text()//"d3.select('.qscales')";
-      var cm = CodeMirror(editor.node(), options);
-      Inlet(cm)
-      var text = snippet.text()
-      cm.setValue(text);
-    }())
-    </script>
 
   <div name="resources" id="resources" class="section">
     <h2>Resources</h2>
     <p>
       <ul>
-        <li><a target=_blank href="http://edenhalperin.com/d3-scale-generator/">d3 scale generator</a>
-        <li><a target=_blank href="https://github.com/mbostock/d3/wiki/API-Reference">d3 API docs</a>
-        <li><a target=_blank href="https://github.com/mbostock/d3/wiki/SVG-Axes#wiki-axis">Axis API docs</a>
-        <li><a target=_blank href="https://github.com/mbostock/d3/wiki/Histogram-Layout#wiki-histogram">Histogram API docs</a>
-        <li><a target=_blank href="https://github.com/mbostock/d3/wiki/SVG-Controls#wiki-brush">Brush API docs</a>
-        <li><a target=_blank href="https://github.com/mbostock/d3/wiki/Time-Scales#wiki-scale">Time API docs</a>
+        <li><a target=_blank href="https://github.com/mbostock/d3/wiki/Geo-Paths">d3.geo paths API docs</a>
+        <li><a target=_blank href="https://github.com/mbostock/d3/wiki/Geo-Projections">d3.geo projections API docs</a>
+        <li><a target=_blank href="http://diveintohtml5.info/geolocation.html">Geolocation API</a>
       </ul>
     </p>
   </div>

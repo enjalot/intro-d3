@@ -153,7 +153,7 @@ d3.json(url, function(err, data){
       <div class="left">
 <snippet>
 var url = "airports.json";
-d3.csv(url, function(err, data){
+d3.json(url, function(err, data){
   console.log(url, "error", err);
   console.log(url, "data", data)
 })
@@ -164,6 +164,7 @@ d3.csv(url, function(err, data){
         <br>
         <p><a href="airports.json">Download</a> (from <a href="https://github.com/enjalot/earthquake">earthquake hackathon</a>).</p>
         </p>
+        <p>Example in <a href="http://enjalot.github.io/earthquake/examples/AirportFlty/">Leaflet</a></p>
       </div>
       <div class="right">
         <img src="../images/airports.png">
@@ -179,6 +180,58 @@ d3.csv(url, function(err, data){
       var editor = d3.select("#airports").select(".editor");
       var svg = d3.select("#airports svg");
       var snippet  = d3.select("#airports").select("snippet");
+      var text = snippet.text()
+      var cm = CodeMirror(editor.node(), options);
+      Inlet(cm)
+      var text = snippet.text()
+      cm.on("change", function() {
+        svg.selectAll("*").remove()
+        var value = cm.getValue();
+        try {
+          eval(value);
+        } catch(e) {
+         console.log(e)
+        }
+      })
+      cm.setValue(text);
+    }())
+    </script>
+  </div>
+
+
+  <div name="debris" id="debris">
+    <h2>Debris (by county)</h2>
+    <div class="sidebyside">
+      <div class="left">
+<snippet>
+var url = "debris.json";
+d3.json(url, function(err, data){
+  console.log(url, "error", err);
+  console.log(url, "data", data)
+})
+</snippet>
+        <div class="editor"></div>
+        <p>
+        We can load polygon geometry that has data associated with it.
+        <br>
+        <p><a href="debris.json">Download</a> (from <a href="https://github.com/enjalot/earthquake">earthquake hackathon</a>).</p>
+        </p>
+        <p>Example in <a href="http://enjalot.github.io/earthquake/examples/Debris_Tract/">Leaflet</a></p>
+      </div>
+      <div class="right">
+        <img src="../images/debris.png">
+      </div>
+    </div>
+    <script>
+    (function() {
+      var options = {
+        mode: 'javascript',
+        lineNumbers: true,
+        viewportMargin: Infinity,
+      }
+      var editor = d3.select("#debris").select(".editor");
+      var svg = d3.select("#debris svg");
+      var snippet  = d3.select("#debris").select("snippet");
       var text = snippet.text()
       var cm = CodeMirror(editor.node(), options);
       Inlet(cm)
